@@ -13,4 +13,17 @@
       // 에러 코드 확인 -> https://flake8.pycqa.org/en/latest/user/error-codes.html
       "--ignore=F401,E402"
     ],
+
+      // black formatter 사용
+  "python.formatting.provider": "none",
+  "[python]": {
+    // 코드를 저장할 떄 마다 실행
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      // isort 사용 설정
+      "source.organizeImports": true,
+      "python.sortImports": true
+    },
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  }
   }
