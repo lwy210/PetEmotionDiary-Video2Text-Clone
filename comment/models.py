@@ -1,10 +1,11 @@
 from django.db import models
 
+from post.models import Post
+
 
 # Create your models here.
-class Post(models.Model):
-    post_id = models.BigIntegerField()
-    user_id = models.BigIntegerField()
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
     content = models.CharField(max_length=255)
     registered_time = models.DateTimeField()
     updated_time = models.DateTimeField()
