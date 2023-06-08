@@ -3,8 +3,6 @@ from django.db import models
 
 # Create your models here.
 class Post(models.Model):
-    post_id = models.BigIntegerField()
-    user_id = models.BigIntegerField()
     kind = models.CharField(max_length=10)
     category = models.CharField(max_length=10)
     title = models.CharField(max_length=45)
