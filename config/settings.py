@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "post.apps.PostConfig",
     "comment.apps.CommentConfig",
     "pet.apps.PetConfig",
+    "diary.apps.DiaryConfig",
 ]
 
 MIDDLEWARE = [
