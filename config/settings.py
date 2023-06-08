@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "post.apps.PostConfig",
     "comment.apps.CommentConfig",
+    "pet.apps.PetConfig",
 ]
 
 MIDDLEWARE = [
