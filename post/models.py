@@ -9,6 +9,6 @@ class Post(models.Model):
     content = models.CharField(max_length=255)
     registered_time = models.DateTimeField()
     updated_time = models.DateTimeField()
-    image = models.CharField(max_length=45)
-    video = models.CharField(max_length=45)
+    image = models.CharField(max_length=45, null=True, blank=True)
+    video = models.CharField(max_length=45, null=True, blank=True)
     recommendation = models.IntegerField()
