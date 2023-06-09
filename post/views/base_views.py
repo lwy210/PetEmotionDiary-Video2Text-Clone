@@ -4,7 +4,17 @@ from ..models import Post
 
 
 def index(request):
+    category = request.GET.get("category")
+    kind = request.GET.get("kind")
+
     post_list = Post.objects.order_by("-registered_time")
+
+    if category:
+        post_list = post_list.filter(category=category)
+
+    if kind:
+        post_list = post_list.filter(kind=kind)
+
     context = {"post_list": post_list}
     return render(request, "post/post_list.html", context)
 
