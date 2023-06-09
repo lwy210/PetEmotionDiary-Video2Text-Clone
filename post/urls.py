@@ -1,9 +1,11 @@
 from django.urls import path
 
-from . import views
+from .views import base_views
 
 app_name = "post"
 
 urlpatterns = [
-    path("", views.index, name="index"),
+    # base_views.py
+    path("", base_views.index, name="index"),
+    path("<int:post_id>/", base_views.detail, name="detail"),
 ]
