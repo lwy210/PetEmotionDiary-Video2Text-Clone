@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "comment.apps.CommentConfig",
     "pet.apps.PetConfig",
     "diary.apps.DiaryConfig",
+    "account",
 ]
 
 MIDDLEWARE = [
