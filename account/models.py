@@ -10,7 +10,6 @@ class UserManager(BaseUserManager):
         birth_day,
         user_name,
         nick_name,
-        update_time,
         password=None,
     ):
         if not email:
@@ -22,7 +21,7 @@ class UserManager(BaseUserManager):
             user_name=user_name,
             nick_name=nick_name,
             create_time=timezone.now(),
-            update_time=update_time,
+            update_time=timezone.now(),
         )
 
         user.set_password(password)
@@ -36,7 +35,6 @@ class UserManager(BaseUserManager):
             birth_day=timezone.now(),
             nick_name="super",
             user_name="super",
-            update_time=timezone.now(),
         )
         user.is_admin = True
         user.save(using=self._db)
@@ -54,6 +52,7 @@ class User(AbstractBaseUser):
     nick_name = models.CharField(max_length=15)
 
     birth_day = models.DateField()
+
     create_time = models.DateTimeField()
     update_time = models.DateTimeField()
 
@@ -63,7 +62,7 @@ class User(AbstractBaseUser):
     objects = UserManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = ["birth_day"]
 
     def __str__(self):
         return self.email
