@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "comment.apps.CommentConfig",
     "pet.apps.PetConfig",
     "diary.apps.DiaryConfig",
+    "account",
 ]
 
 MIDDLEWARE = [
@@ -84,6 +85,7 @@ DATABASES = {
     }
 }
 
+AUTH_USER_MODEL = "account.User"
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
