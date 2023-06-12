@@ -1,3 +1,19 @@
+    <!-- message 표시 -->
+    {% if messages %}
+    <div class="alert alert-danger my-3" role="alert">
+    {% for message in messages %}
+        <strong>{{ message.tags }}</strong>
+        <ul><li>{{ message.message }}</li></ul>
+    {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if post.updated_time != post.registered_time %}
+        <div class="mb-2">updated at</div>
+        <div>{{ post.updated_time }}</div>
+    {% endif %}
+    <div class="mb-2">registered at</div>
+    <div>{{ post.registered_time }}</div>
 <div class='post_header'>
     {% if post.category == "free_type" %}
     <div>자유게시판</div>
@@ -6,8 +22,12 @@
     {% elif post.category == "worry_type" %}
     <div>고민게시판</div>
     {% endif %}
-    <button>수정</button>
-    <button>삭제</button>
+    {% if request.user == post.user %}
+    <a href="{% url 'post:post_modify' post.id  %}" 
+       class="btn btn-sm btn-outline-secondary">수정</a>
+    <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
+    data-uri="{% url 'post:post_delete' post.id  %}">삭제</a>
+    {% endif %}
 </div>
 
 <div class='post_content'>
@@ -29,3 +49,15 @@
         {{ post.content }}
     </div>
 </div>
+{% block script %}
+<script type='text/javascript'>
+const delete_elements = document.getElementsByClassName("delete");
+Array.from(delete_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+</script>
+{% endblock %}
