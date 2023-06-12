@@ -1,5 +1,5 @@
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 from django.utils import timezone
 
 
@@ -62,7 +62,7 @@ class User(AbstractBaseUser):
     objects = UserManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["birth_day"]
+    REQUIRED_FIELDS = []
 
     def __str__(self):
         return self.email
