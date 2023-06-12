@@ -37,9 +37,9 @@
 
   <div class="container my-3">
     <div class="row my-3">
-      {% comment %} <div class="col-6">
-          <a href="{% url 'pybo:question_create' %}" class="btn btn-primary">질문 등록하기</a>
-      </div> {% endcomment %}
+      <div class="col-6">
+          <a href="{% url 'post:post_create' %}" class="btn btn-primary">질문 등록하기</a>
+      </div>
       <div class="col-6">
           <div class="input-group">
               <input type="text" id="search_kw" class="form-control" value="{{ kw|default_if_none:'' }}">
