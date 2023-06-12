@@ -39,3 +39,12 @@ def post_modify(request, post_id):
         form = PostForm(instance=post)
     context = {"form": form}
     return render(request, "post/post_form.html", context)
+
+
+def post_delete(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    if request.user != post.user:
+        messages.error(request, "삭제권한이 없습니다")
+        return redirect("post:detail", post_id=post.id)
+    post.delete()
+    return redirect("post:index")
