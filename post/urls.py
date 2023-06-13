@@ -16,4 +16,14 @@ urlpatterns = [
         comment_views.comment_create,
         name="comment_create",
     ),
+    path(
+        "comment/modify/<int:comment_id>/",
+        comment_views.comment_modify,
+        name="comment_modify",
+    ),
+    path(
+        "comment/delete/<int:comment_id>/",
+        comment_views.comment_delete,
+        name="comment_delete",
+    ),
 ]

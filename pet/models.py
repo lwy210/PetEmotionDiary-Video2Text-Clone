@@ -1,5 +1,7 @@
 from django.db import models
 
+from account.models import User
+
 
 # Create your models here.
 class Personality(models.Model):
@@ -10,6 +12,7 @@ class Personality(models.Model):
 
 
 class Pet(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_pet")
     gender = models.CharField(max_length=1)  # W: 여자, M: 남자
     owner_name = models.CharField(max_length=15)
     birth_day = models.DateField()
