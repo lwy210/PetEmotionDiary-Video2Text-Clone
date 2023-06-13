@@ -20,3 +20,15 @@ def update(request):
     }
 
     return render(request, "account/update.html", context)
+
+
+@login_required(login_url="account:login")
+def check_password(request):
+    if request.method == "POST":
+        password1 = request.POST.get("password")
+        if not request.user.check_password(password1):
+            return redirect("account:check_password")
+        else:
+            return render(request, "account/update.html")
+    else:
+        return render(request, "account/password_check.html")
