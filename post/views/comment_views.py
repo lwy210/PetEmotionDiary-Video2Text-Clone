@@ -44,3 +44,12 @@ def comment_modify(request, comment_id):
         form = CommentForm(instance=comment)
     context = {"answer": comment, "form": form}
     return render(request, "post/comment_form.html", context)
+
+
+def comment_delete(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    if request.user != comment.user:
+        messages.error(request, "삭제권한이 없습니다")
+    else:
+        comment.delete()
+    return redirect("post:detail", post_id=comment.post.id)
