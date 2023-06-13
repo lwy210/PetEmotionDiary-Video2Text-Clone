@@ -49,6 +49,19 @@
         {{ post.content }}
     </div>
 </div>
+<h5>{{ post.comment_set.count }}개의 답변이 있습니다.</h5>
+<div>
+    <ul>
+    {% for comment in post.comment_set.all %}
+        <li>{{ comment.content }}</li>
+    {% endfor %}
+    </ul>
+</div>
+<form action="{% url 'post:comment_create' post.id %}" method="post">
+    {% csrf_token %}
+    <textarea name="content" id="content" rows="15"></textarea>
+    <input type="submit" value="댓글등록">
+    </form>
 {% block script %}
 <script type='text/javascript'>
 const delete_elements = document.getElementsByClassName("delete");
