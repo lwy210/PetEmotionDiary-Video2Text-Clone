@@ -1,11 +1,15 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
+from .forms import UserChangeForm, UserCreationForm
 from .models import User
 
 
 class UserAdmin(BaseUserAdmin):
+    form = UserChangeForm
+    add_form = UserCreationForm
+
     list_display = (
         "email",
         "birth_day",
@@ -38,7 +42,14 @@ class UserAdmin(BaseUserAdmin):
             None,
             {
                 "classes": ("wide",),
-                "fields": ("email", "birth_day", "password1", "password2"),
+                "fields": (
+                    "email",
+                    "birth_day",
+                    "password1",
+                    "password2",
+                    "nick_name",
+                    "user_name",
+                ),
             },
         ),
     )
