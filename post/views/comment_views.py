@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseNotAllowed
 from django.shortcuts import get_object_or_404, redirect, render, resolve_url
 from django.utils import timezone
@@ -9,6 +10,7 @@ from comment.models import Comment
 from ..models import Post
 
 
+@login_required(login_url="account:login")
 def comment_create(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     if request.method == "POST":
@@ -27,11 +29,12 @@ def comment_create(request, post_id):
                 )
             )
     else:
-        return HttpResponseNotAllowed("Only POST is possible.")
+        form = CommentForm()
     context = {"post": post, "form": form}
     return render(request, "post/post_detail.html", context)
 
 
+@login_required(login_url="account:login")
 def comment_modify(request, comment_id):
     comment = get_object_or_404(Comment, pk=comment_id)
     if request.user != comment.user:
@@ -54,6 +57,7 @@ def comment_modify(request, comment_id):
     return render(request, "post/comment_form.html", context)
 
 
+@login_required(login_url="account:login")
 def comment_delete(request, comment_id):
     comment = get_object_or_404(Comment, pk=comment_id)
     if request.user != comment.user:
