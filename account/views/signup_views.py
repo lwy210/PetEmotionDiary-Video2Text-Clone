@@ -19,5 +19,5 @@ def signup(request):
     return render(request, "account/signup.html", {"form": form})
 
 
-def login1(request):
-    return render(request, "account/login.html")
+def logout_test(request):
+    return render(request, "account/logout.html")
