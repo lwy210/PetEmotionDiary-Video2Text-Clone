@@ -14,9 +14,10 @@ def comment_create(request, post_id):
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
+            comment.user = request.user
             comment.registered_time = timezone.now()
             comment.updated_time = timezone.now()
-            comment.recommendation = timezone.now()
+            comment.recommendation = 0
             comment.post = post
             comment.save()
             return redirect("post:detail", post_id=post.id)

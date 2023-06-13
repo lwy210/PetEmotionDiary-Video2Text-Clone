@@ -53,7 +53,7 @@
 <div>
     <ul>
     {% for comment in post.comment_set.all %}
-        <li>{{ comment.content }}</li>
+        <li>{{comment.user.nick_name}} : {{ comment.content }}</li>
     {% endfor %}
     </ul>
 </div>
