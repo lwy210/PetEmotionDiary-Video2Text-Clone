@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.http import HttpResponseNotAllowed
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
@@ -25,3 +26,21 @@ def comment_create(request, post_id):
         return HttpResponseNotAllowed("Only POST is possible.")
     context = {"post": post, "form": form}
     return render(request, "post/post_detail.html", context)
+
+
+def comment_modify(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    if request.user != comment.user:
+        messages.error(request, "수정권한이 없습니다")
+        return redirect("post:detail", post_id=comment.post.id)
+    if request.method == "POST":
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.updated_time = timezone.now()
+            comment.save()
+            return redirect("post:detail", post_id=comment.post.id)
+    else:
+        form = CommentForm(instance=comment)
+    context = {"answer": comment, "form": form}
+    return render(request, "post/comment_form.html", context)
