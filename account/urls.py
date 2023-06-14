@@ -17,4 +17,5 @@ urlpatterns = [
     path("update/", update_views.update, name="update"),
     path("check/", update_views.check_password, name="check_password"),
     path("update/password", update_views.update_password, name="update_password"),
+    path("update/delete", update_views.delete, name="delete"),
 ]

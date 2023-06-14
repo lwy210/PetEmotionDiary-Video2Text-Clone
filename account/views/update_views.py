@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.contrib import messages
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 
 
 @login_required(login_url="account:login")
@@ -55,3 +55,13 @@ def update_password(request):
             messages.error(request, "현재 비밀번호가 틀렸습니다.")
 
     return render(request, "account/password_update.html")
+
+
+@login_required(login_url="account:login")
+def delete(request):
+    if request.method == "POST":
+        request.user.delete()
+        logout(request)
+        return render(request, "account/login.html")
+
+    return render(request, "account/delete.html")
