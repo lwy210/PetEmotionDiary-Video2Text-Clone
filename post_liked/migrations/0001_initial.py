@@ -9,13 +9,13 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ("post", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ("post", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name="Comment",
+            name="PostLiked",
             fields=[
                 (
                     "id",
@@ -26,21 +26,18 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("content", models.CharField(max_length=255)),
-                ("registered_time", models.DateTimeField()),
-                ("updated_time", models.DateTimeField()),
-                ("recommendation", models.IntegerField()),
                 (
                     "post",
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE, to="post.post"
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="post_likes",
+                        to="post.post",
                     ),
                 ),
                 (
                     "user",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
-                        related_name="user_comment",
                         to=settings.AUTH_USER_MODEL,
                     ),
                 ),
