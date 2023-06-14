@@ -2,6 +2,8 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, render
 
+from post_liked.models import PostLiked
+
 from ..models import Post
 
 
@@ -31,5 +33,7 @@ def index(request):
 
 def detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
-    context = {"post": post}
+    likes = PostLiked.objects.filter(post=post).count()
+    print(likes)
+    context = {"post": post, "likes": likes}
     return render(request, "post/post_detail.html", context)
