@@ -1,11 +1,15 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
+
+from post_liked.models import PostLiked
 
 from ..forms import PostForm
 from ..models import Post
 
 
+@login_required(login_url="account:login")
 def post_create(request):
     if request.method == "POST":
         form = PostForm(request.POST)
@@ -23,6 +27,7 @@ def post_create(request):
     return render(request, "post/post_form.html", context)
 
 
+@login_required(login_url="account:login")
 def post_modify(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     if request.user != post.user:
@@ -41,6 +46,7 @@ def post_modify(request, post_id):
     return render(request, "post/post_form.html", context)
 
 
+@login_required(login_url="account:login")
 def post_delete(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     if request.user != post.user:
@@ -48,3 +54,12 @@ def post_delete(request, post_id):
         return redirect("post:detail", post_id=post.id)
     post.delete()
     return redirect("post:index")
+
+
+@login_required(login_url="account:login")
+def post_like(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    like, created = PostLiked.objects.get_or_create(user=request.user, post=post)
+    if not created:
+        like.delete()
+    return redirect("post:detail", post_id=post.id)

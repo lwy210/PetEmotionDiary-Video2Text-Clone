@@ -5,14 +5,14 @@ from post.models import Post
 
 class PostForm(forms.ModelForm):
     CATEGORY_CHOICES = [
-        ("자유게시판", "free_type"),
-        ("사진자랑", "brag_type"),
-        ("고민공유", "worry_type"),
+        ("free_type", "자유게시판"),
+        ("brag_type", "자랑게시판"),
+        ("worry_type", "고민게시판"),
     ]
 
     KIND_CHOICES = [
-        ("강아지", "Dog"),
-        ("고양이", "Cat"),
+        ("Dog", "강아지"),
+        ("Cat", "고양이"),
     ]
 
     category = forms.ChoiceField(choices=CATEGORY_CHOICES)

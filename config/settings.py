@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     "comment.apps.CommentConfig",
     "pet.apps.PetConfig",
     "diary.apps.DiaryConfig",
+    "post_liked.apps.PostLikedConfig",
+    "comment_liked.apps.CommentLikedConfig",
     "account",
 ]
 
