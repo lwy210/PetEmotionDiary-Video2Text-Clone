@@ -20,8 +20,6 @@ class UserManager(BaseUserManager):
             birth_day=birth_day,
             user_name=user_name,
             nick_name=nick_name,
-            create_time=timezone.now(),
-            update_time=timezone.now(),
         )
 
         user.set_password(password)
@@ -53,8 +51,8 @@ class User(AbstractBaseUser):
 
     birth_day = models.DateField()
 
-    create_time = models.DateTimeField()
-    update_time = models.DateTimeField()
+    create_time = models.DateTimeField(auto_now_add=True)
+    update_time = models.DateTimeField(auto_now_add=True)
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "comment.apps.CommentConfig",
     "pet.apps.PetConfig",
     "diary.apps.DiaryConfig",
+    "post_liked.apps.PostLikedConfig",
     "account",
 ]
 
@@ -127,3 +128,7 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+LOGIN_REDIRECT_URL = "/"
+
+LOGOUT_REDIRECT_URL = "/"
