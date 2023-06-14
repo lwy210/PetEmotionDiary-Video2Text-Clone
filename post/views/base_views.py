@@ -2,6 +2,8 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, render
 
+from comment.models import Comment
+from comment_liked.models import CommentLiked
 from post_liked.models import PostLiked
 
 from ..models import Post
@@ -33,7 +35,12 @@ def index(request):
 
 def detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
-    likes = PostLiked.objects.filter(post=post).count()
-    print(likes)
-    context = {"post": post, "likes": likes}
+    post_likes = PostLiked.objects.filter(post=post).count()
+    comments = Comment.objects.filter(post=post)
+
+    comment_likes = {}
+    for comment in comments:
+        comment_likes[comment.id] = CommentLiked.objects.filter(comment=comment).count()
+
+    context = {"post": post, "post_likes": post_likes, "comment_likes": comment_likes}
     return render(request, "post/post_detail.html", context)
