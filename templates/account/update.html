@@ -8,9 +8,10 @@
 </div>
 {% endif %}
 <form action="{% url 'account:update' %}" method="POST">
- {% csrf_token %}
- {{ form }}
- <button>회원정보수정</button>
- <a class="nav-link" href="{% url 'account:update_password' %}"> (비밀번호 변경)</a>
+    {% csrf_token %}
+    {{ form }}
+    <button>회원정보수정</button>
+    <a class="nav-link" href="{% url 'account:update_password' %}"> (비밀번호 변경)</a>
+    <a class="nav-link" href="{% url 'account:delete' %}"> (회원 탈퇴)</a>
 </form>
 {% endblock  %}
