@@ -5,6 +5,8 @@
     <strong>{{ message.tags }}</strong>
     <ul><li>{{ message.message }}</li></ul>
 {% endfor %}
+</div>
+{% endif %}
 <form action="{% url 'account:update' %}" method="POST">
  {% csrf_token %}
  {{ form }}
