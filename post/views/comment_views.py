@@ -6,6 +6,7 @@ from django.utils import timezone
 
 from comment.forms import CommentForm
 from comment.models import Comment
+from comment_liked.models import CommentLiked
 
 from ..models import Post
 
@@ -64,4 +65,15 @@ def comment_delete(request, comment_id):
         messages.error(request, "삭제권한이 없습니다")
     else:
         comment.delete()
+    return redirect("post:detail", post_id=comment.post.id)
+
+
+@login_required(login_url="account:login")
+def comment_like(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    like, created = CommentLiked.objects.get_or_create(
+        user=request.user, comment=comment
+    )
+    if not created:
+        like.delete()
     return redirect("post:detail", post_id=comment.post.id)
