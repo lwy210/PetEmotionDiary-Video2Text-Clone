@@ -1,0 +1,4 @@
+<form action="{% url 'account:delete' %}" method="POST">
+    {% csrf_token %}
+    <button class="btn btn-secondary">회원 탈퇴</button>
+</form>
