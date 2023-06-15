@@ -1,0 +1,6 @@
+.nav-link li a.current { 
+    background-color: #FF6347; color: white; 
+}
+
+.nav-link li a:hover:not(.current) { 
+    background-color: #CD853F; color: white; }
