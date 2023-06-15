@@ -10,9 +10,27 @@
         <h2>반려동물 이름 : {{ pet.name }}</h2>
         <div>주인 닉네임 : {{pet.user.nick_name}}</div>
         </a>
+        <div class="my-3">
+            <a href="{% url 'pet:pet_modify' pet.id 'list'  %}" 
+               class="btn btn-sm btn-outline-secondary">수정하기</a>
+            <a href="#" class="delete btn btn-sm btn-outline-secondary "
+               data-uri="{% url 'pet:pet_delete' pet.id  %}">삭제하기</a>
+        </div>
     </li>
 {% endfor %}
 </ul>
 {% else %}
 <p>반려동물이 없습니다.</p>
 {% endif %}
+{% block script %}
+<script type='text/javascript'>
+const delete_elements = document.getElementsByClassName("delete");
+Array.from(delete_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+</script>
+{% endblock %}
