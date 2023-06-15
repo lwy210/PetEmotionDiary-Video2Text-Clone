@@ -4,6 +4,8 @@ from account.forms import UserCreationForm
 
 
 def signup(request):
+    if request.user.is_authenticated:
+        raise Exception("이미 로그인이 되어 있습니다.")
     if request.method == "POST":
         form = UserCreationForm(request.POST)
         if form.is_valid():
