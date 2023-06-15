@@ -1,0 +1,12 @@
+<div class="pet_content">
+    <h2>반려동물 이름 : {{ pet.name }}</h2>
+    <div>주인 닉네임 : {{pet.user.nick_name}}</div>
+    <div>주인 부르는 이름 : {{pet.owner_name}}</div>
+    <div>반려동물 성별 : {{pet.gender}}</div>
+    <div>반려동물 분류 : {{pet.kind}}</div>
+    <div>반려동물 생일 : {{pet.birth_day}}</div>
+    <div>반려동물 만난날 : {{pet.meet_day}}</div>
+    {% for personality in pet.personality_set.all %}
+    <div>반려동물 dbti : {{personality.activity}}{{personality.relationship}}{{personality.proto_dog}}{{personality.dependence}}</div>
+    {% endfor %}
+</div>

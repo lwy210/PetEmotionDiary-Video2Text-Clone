@@ -30,13 +30,19 @@ class UserManager(BaseUserManager):
         user = self.create_user(
             email,
             password=password,
-            birth_day=timezone.now(),
+            birth_day="0119",
             nick_name="super",
             user_name="super",
         )
         user.is_admin = True
         user.save(using=self._db)
         return user
+
+    def get_or_none(self, **kwargs):
+        try:
+            return self.get(**kwargs)
+        except self.model.DoesNotExist:
+            return None
 
 
 class User(AbstractBaseUser):
@@ -49,7 +55,7 @@ class User(AbstractBaseUser):
     user_name = models.CharField(max_length=15)
     nick_name = models.CharField(max_length=15)
 
-    birth_day = models.DateField()
+    birth_day = models.CharField(max_length=5)
 
     create_time = models.DateTimeField(auto_now_add=True)
     update_time = models.DateTimeField(auto_now_add=True)
