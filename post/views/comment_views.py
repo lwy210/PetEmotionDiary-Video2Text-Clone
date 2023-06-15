@@ -76,4 +76,8 @@ def comment_like(request, comment_id):
     )
     if not created:
         like.delete()
-    return redirect("post:detail", post_id=comment.post.id)
+    return redirect(
+        "{}#comment_{}".format(
+            resolve_url("post:detail", post_id=comment.post.id), comment.id
+        )
+    )
