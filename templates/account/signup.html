@@ -19,9 +19,8 @@
             var check=document.register.checkAgreement.checked;
             if(!check){
                 Agreement();
-                return false;
+                return false;}
             }
-        }
     </script>
     <!--===============================================================================================-->
 	<link rel="icon" href="{% static 'img/paw.png' %}"/>
@@ -35,12 +34,12 @@
 
 <body class="signup-card">
     {% include "navbar.html" %}
-    <div class="container my-3">
+    <div class="container my-3"  style="margin-bottom: 100px;">
         <form name="register" method="post" action="{% url 'account:signup' %}" onSubmit="return CheckForm(this)">
             {% csrf_token %}
             {% include "form_errors.html" %}
             
-            <article class="card-body mx-auto" style="max-width: 500px; clear:both;">
+            <article class="card-body mx-auto" style="max-width: 500px;">
                 <div>
                     <h2 class="card-title mt-3 text-center">회원가입하개 <img src="{% static 'img/black_paw.png' %}" height="30px"></h2>
                     <p class="text-center">아래 항목들을 모두 입력해주시개</p>
@@ -95,20 +94,20 @@
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-block">계정생성하기</button>
                 </div>
-
-                <p class="text-center">이미 회원이신가요?
-                    <a href="/account/login/" class="register-in" style="color:#4169E1">로그인</a>
-                </p>
-            
-                <p class="divider-text">
-                    <span>OR</span>
-                </p>
-
-                <div class="form-group">
-                    <button type="submit" class="btn btn-block btn-kakao">카카오 계정으로 로그인하기</button>
-                </div>
- 
             </article>
+        </form>
+        <form style="margin-bottom:100px;" action="{% url 'account:kakao' %}">
+            <p class="text-center">이미 회원이신가요?
+                <a href="/account/login/" class="register-in" style="color:#4169E1">로그인</a>
+            </p>
+
+            <p class="divider-text">
+                <span>OR</span>
+            </p>
+
+            <div class="form-group">
+                <button type="submit" id="kakao-login" class="btn btn-block btn-kakao"><img src="{% static 'img/kakao.png' %}" height="30px" margin-right:"10px"> 카카오 계정으로 로그인하기</button>
+            </div>
         </form>
     </div>
     {% endblock %}
