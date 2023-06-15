@@ -9,6 +9,7 @@ class UserCreationForm(forms.ModelForm):
     password2 = forms.CharField(
         label="Password confirmation", widget=forms.PasswordInput
     )
+    birth_day = forms.DateField(widget=forms.DateInput(format="%m%d"))
 
     class Meta:
         model = User
@@ -26,6 +27,12 @@ class UserCreationForm(forms.ModelForm):
             raise forms.ValidationError("Passwords don't match")
         return password2
 
+    def clean_birth_day(self):
+        birth_day = self.cleaned_data.get("birth_day")
+        if birth_day:
+            birth_day = birth_day.strftime("%m%d")
+        return birth_day
+
     def save(self, commit=True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password1"])
@@ -35,6 +42,8 @@ class UserCreationForm(forms.ModelForm):
 
 
 class UserChangeForm(forms.ModelForm):
+    birth_day = forms.DateField(widget=forms.DateInput(format="%m%d"))
+
     class Meta:
         model = User
         fields = (
@@ -43,3 +52,9 @@ class UserChangeForm(forms.ModelForm):
             "user_name",
             "nick_name",
         )
+
+    def clean_birth_day(self):
+        birth_day = self.cleaned_data.get("birth_day")
+        if birth_day:
+            birth_day = birth_day.strftime("%m%d")
+        return birth_day

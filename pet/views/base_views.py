@@ -10,3 +10,10 @@ def index(request):
     print(pet_list, request.user.id)
     context = {"pet_list": pet_list}
     return render(request, "pet/pet_list.html", context)
+
+
+def detail(request, pet_id):
+    pet = get_object_or_404(Pet, pk=pet_id)
+
+    context = {"pet": pet}
+    return render(request, "pet/pet_detail.html", context)

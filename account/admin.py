@@ -1,15 +1,9 @@
 from django.contrib import admin
-from django.contrib.auth.models import Group
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from .forms import UserChangeForm, UserCreationForm
 from .models import User
 
 
-class UserAdmin(BaseUserAdmin):
-    form = UserChangeForm
-    add_form = UserCreationForm
-
+class UserAdmin(admin.ModelAdmin):
     list_display = (
         "email",
         "birth_day",
@@ -20,43 +14,9 @@ class UserAdmin(BaseUserAdmin):
         "update_time",
     )
     list_filter = ("is_admin",)
-    fieldsets = (
-        (None, {"fields": ("email", "password")}),
-        (
-            "Personal info",
-            {
-                "fields": (
-                    "birth_day",
-                    "user_name",
-                    "nick_name",
-                    "create_time",
-                    "update_time",
-                )
-            },
-        ),
-        ("Permissions", {"fields": ("is_admin",)}),
-    )
-
-    add_fieldsets = (
-        (
-            None,
-            {
-                "classes": ("wide",),
-                "fields": (
-                    "email",
-                    "birth_day",
-                    "password1",
-                    "password2",
-                    "nick_name",
-                    "user_name",
-                ),
-            },
-        ),
-    )
+    ordering = ("create_time",)
     search_fields = ("email",)
-    ordering = ("email",)
-    filter_horizontal = ()
 
 
+# Register your models here.
 admin.site.register(User, UserAdmin)
-admin.site.unregister(Group)
