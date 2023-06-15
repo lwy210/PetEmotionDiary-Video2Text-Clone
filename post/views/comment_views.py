@@ -6,6 +6,7 @@ from django.utils import timezone
 
 from comment.forms import CommentForm
 from comment.models import Comment
+from comment_liked.models import CommentLiked
 
 from ..models import Post
 
@@ -65,3 +66,18 @@ def comment_delete(request, comment_id):
     else:
         comment.delete()
     return redirect("post:detail", post_id=comment.post.id)
+
+
+@login_required(login_url="account:login")
+def comment_like(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    like, created = CommentLiked.objects.get_or_create(
+        user=request.user, comment=comment
+    )
+    if not created:
+        like.delete()
+    return redirect(
+        "{}#comment_{}".format(
+            resolve_url("post:detail", post_id=comment.post.id), comment.id
+        )
+    )

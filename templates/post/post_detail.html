@@ -49,12 +49,12 @@
         {{ post.content }}
     </div>
 </div>
-<p>Likes: {{ likes }}</p>
+<p>Likes: {{ post_likes }}</p>
 <form action="{% url 'post:post_like' post.id %}" method="POST">
     {% csrf_token %}
     <input type="submit" value="Like">
 </form>
-<h5 class="border-bottom my-3 py-2">{{post.comment_set.count}}개의 답변이 있습니다.</h5>
+<h5 class="border-bottom my-3 py-2">{{post.comment_set.count}}개의 댓글이 있습니다.</h5>
 {% for comment in post.comment_set.all %}
 <a id="comment_{{ comment.id }}"></a>
 <div class="card my-3">
@@ -62,6 +62,14 @@
         <div class="card-text" style="white-space: pre-line;">{{ comment.content }}</div>
         <div class="d-flex justify-content-end">
             <div class="badge bg-light text-dark p-2 text-start">
+                {% with comment.id as comment_id %}
+                {% load post_filters %}
+                <div class="mb-2">Likes : {{ comment_likes|get_item:comment.id }}</div>
+                {% endwith %}
+                <form action="{% url 'post:comment_like' comment.id %}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="Like">
+                </form>
                 <div class="mb-2">nickname : {{ comment.user.nick_name }}</div>
                 {% if comment.updated_time != comment.registered_time %}
                 <div class="mb-2">updated at</div>
