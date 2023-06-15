@@ -38,6 +38,12 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+    def get_or_none(self, **kwargs):
+        try:
+            return self.get(**kwargs)
+        except self.model.DoesNotExist:
+            return None
+
 
 class User(AbstractBaseUser):
     email = models.EmailField(
