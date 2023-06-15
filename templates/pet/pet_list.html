@@ -1,4 +1,7 @@
 <h1>반려동물 목록</h1>
+<div class="col-6">
+    <a href="{% url 'pet:pet_create' %}" class="btn btn-primary">반려동물 추가</a>
+</div>
 {% if pet_list %}
 <ul>
 {% for pet in pet_list %}

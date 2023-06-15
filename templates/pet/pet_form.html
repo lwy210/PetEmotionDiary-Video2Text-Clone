@@ -1,0 +1,71 @@
+{% block content %}
+<div class="container">
+    <h5 class="my-3 border-bottom pb-2">반려동물 추가</h5>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!-- 오류표시 Start -->
+        {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            {% for field in form %}
+            {% if field.errors %}
+            <div>
+                <strong>{{ field.label }}</strong>
+                {{ field.errors }}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        <!-- 오류표시 End -->
+        <div class="mb-3">
+            <label for="name" class="form-label">이름</label>
+            <input type="text" class="form-control" name="name" id="name"
+                    value="{{ form.name.value|default_if_none:'' }}">
+        </div>
+        <div class="mb-3">
+            <label for="kind" class="form-label">강아지/고양이</label>
+            {{ form.kind }}
+        </div>
+        <div class="mb-3">
+            <label for="gender" class="form-label">성별+중성화여부</label>
+            {{ form.gender }}
+            {{ form.is_neutered }} 중성화 완료
+        </div>
+        <div class="mb-3">
+            <label for="meet_day" class="form-label">만난 날</label>
+            {{ form.meet_day }}
+        </div>
+        <div class="mb-3">
+            <label for="birth_day" class="form-label">생년월일</label>
+            {{ form.birth_day }}
+        </div>
+        <div class="mb-3">
+            <label for="owner_name" class="form-label">반려인 부르는 애칭</label>
+            <input type="text" class="form-control" name="owner_name" id="owner_name"
+                    value="{{ form.owner_name.value|default_if_none:'' }}">
+        </div>
+        {% comment %} 하기 내용은 필수 입력 아님 {% endcomment %}
+        <div class="mb-3">
+            <label for="image" class="form-label">이미지</label>
+            <input type="file" class="form-control" name="image" id="image">
+        </div>
+        <div class="mb-3">
+            <label for="dbti-activity" class="form-label">dbti-activity</label>
+            {{ form.activity }}
+        </div>
+        <div class="mb-3">
+            <label for="dbti-relationship" class="form-label">dbti-relationship</label>
+            {{ form.relationship }}
+        </div>
+        <div class="mb-3">
+            <label for="dbti-proto_dog" class="form-label">dbti-proto_dog</label>
+            {{ form.proto_dog }}
+        </div>
+        <div class="mb-3">
+            <label for="dbti-dependence" class="form-label">dbti-dependence</label>
+            {{ form.dependence }}
+        </div>
+        <button type="submit" class="btn btn-primary">추가하기</button>
+    </form>
+</div>
+{% endblock %}
