@@ -13,4 +13,5 @@ urlpatterns = [
         pet_views.pet_modify,
         name="pet_modify",
     ),
+    path("delete/<int:pet_id>/", pet_views.pet_delete, name="pet_delete"),
 ]

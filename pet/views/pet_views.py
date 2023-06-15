@@ -56,5 +56,15 @@ def pet_modify(request, pet_id, request_url):
                 return redirect("pet:detail", pet_id=pet.id)
     else:
         form = PetForm(instance=pet)
-    context = {"form": form, "operation": "modify"}
+    context = {"form": form, "operation": "modify", "pet": pet}
     return render(request, "pet/pet_form.html", context)
+
+
+@login_required(login_url="account:login")
+def pet_delete(request, pet_id):
+    pet = get_object_or_404(Pet, pk=pet_id)
+    if request.user != pet.user:
+        messages.error(request, "삭제권한이 없습니다")
+        return redirect("pet:detail", pet_id=pet.id)
+    pet.delete()
+    return redirect("pet:index")
