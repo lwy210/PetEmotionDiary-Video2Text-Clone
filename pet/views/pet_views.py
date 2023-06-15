@@ -42,20 +42,40 @@ def pet_modify(request, pet_id, request_url):
             pet = form.save(commit=False)
             pet.save()
 
-            personality = Personality(
+            personality, created = Personality.objects.get_or_create(
                 pet=pet,
-                activity=form.cleaned_data["activity"],
-                relationship=form.cleaned_data["relationship"],
-                proto_dog=form.cleaned_data["proto_dog"],
-                dependence=form.cleaned_data["dependence"],
+                defaults={
+                    "activity": form.cleaned_data["activity"],
+                    "relationship": form.cleaned_data["relationship"],
+                    "proto_dog": form.cleaned_data["proto_dog"],
+                    "dependence": form.cleaned_data["dependence"],
+                },
             )
-            personality.save()
+            if not created:
+                personality.activity = form.cleaned_data["activity"]
+                personality.relationship = form.cleaned_data["relationship"]
+                personality.proto_dog = form.cleaned_data["proto_dog"]
+                personality.dependence = form.cleaned_data["dependence"]
+                personality.save()
+
             if request_url == "list":
                 return redirect("pet:index")
             else:
                 return redirect("pet:detail", pet_id=pet.id)
     else:
-        form = PetForm(instance=pet)
+        personality = Personality.objects.filter(pet=pet).first()
+        if personality:
+            form = PetForm(
+                instance=pet,
+                initial={
+                    "activity": personality.activity,
+                    "relationship": personality.relationship,
+                    "proto_dog": personality.proto_dog,
+                    "dependence": personality.dependence,
+                },
+            )
+        else:
+            form = PetForm(instance=pet)
     context = {"form": form, "operation": "modify", "pet": pet}
     return render(request, "pet/pet_form.html", context)
 
