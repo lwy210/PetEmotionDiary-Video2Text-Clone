@@ -1,8 +1,9 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from ..forms import PetForm
-from ..models import Personality
+from ..models import Personality, Pet
 
 
 @login_required(login_url="account:login")
@@ -25,5 +26,35 @@ def pet_create(request):
             return redirect("pet:index")
     else:
         form = PetForm()
-    context = {"form": form}
+    context = {"form": form, "operation": "create"}
+    return render(request, "pet/pet_form.html", context)
+
+
+@login_required(login_url="account:login")
+def pet_modify(request, pet_id, request_url):
+    pet = get_object_or_404(Pet, pk=pet_id)
+    if request.user != pet.user:
+        messages.error(request, "수정권한이 없습니다")
+        return redirect("pet:detail", pet_id=pet.id)
+    if request.method == "POST":
+        form = PetForm(request.POST, instance=pet)
+        if form.is_valid():
+            pet = form.save(commit=False)
+            pet.save()
+
+            personality = Personality(
+                pet=pet,
+                activity=form.cleaned_data["activity"],
+                relationship=form.cleaned_data["relationship"],
+                proto_dog=form.cleaned_data["proto_dog"],
+                dependence=form.cleaned_data["dependence"],
+            )
+            personality.save()
+            if request_url == "list":
+                return redirect("pet:index")
+            else:
+                return redirect("pet:detail", pet_id=pet.id)
+    else:
+        form = PetForm(instance=pet)
+    context = {"form": form, "operation": "modify"}
     return render(request, "pet/pet_form.html", context)
