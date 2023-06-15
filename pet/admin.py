@@ -1,6 +1,16 @@
 from django.contrib import admin
 
-from .models import Pet
+from .models import Personality, Pet
 
-# Register your models here.
-admin.site.register(Pet)
+
+class PersonalityInline(admin.StackedInline):
+    model = Personality
+    max_num = 1
+
+
+class PetAdmin(admin.ModelAdmin):
+    inlines = [PersonalityInline]
+
+
+admin.site.register(Pet, PetAdmin)
+admin.site.register(Personality)
