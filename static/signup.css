@@ -187,7 +187,7 @@
     position: absolute;
     display: block;
     width: calc(100% + 2px);
-    height: calc(100% + 2px);
+    height: calc(100% + 10px);
     top: -1px;
     left: -1px;
     pointer-events: none;
@@ -253,7 +253,7 @@
   /*------------------------------------------------------------------
   [ Responsive ]*/
   
-  @media (max-width: 992px) {
+  @media (max-width: 1000px) {
     .login100-form {
       width: 50%;
       padding-left: 30px;
@@ -265,7 +265,7 @@
     }
   }
   
-  @media (max-width: 768px) {
+  @media (max-width: 760px) {
     .login100-form {
       width: 100%;
     }
@@ -321,12 +321,12 @@
 
 
 /* 계정 생성 / 카카오 로그인 버튼 */
-
 .btn-block {
   background-color: #AACB73;
   color: black;
-  font-weight:bold;
+  font-weight:900;
   border-color: transparent;
+  padding: 10px 30px;
 }
 
 .btn-block:hover {
@@ -334,20 +334,20 @@
   color: #AACB73;
 }
 
-
 .btn-kakao {
-  background-color: #ece342;
+  background-color: #ffeb3b;
   color: black;
-  font-weight:bold;
+  font-weight: 900;
   border-color: transparent;
 }
 
 .btn-kakao:hover {
   background-color: black;
-  color: #ece342;
+  color: #ffeb3b;
 }
 
+/* 회원가입 페이지 배경 설정 */
 .signup-card{
-  background-image: url("img/back.jpg");
+  background-image: url("img/background.jpg");
   background-size: cover;
 }

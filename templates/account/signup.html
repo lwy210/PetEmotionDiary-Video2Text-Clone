@@ -34,7 +34,7 @@
 
 <body class="signup-card">
     {% include "navbar.html" %}
-    <div class="container my-3"  style="margin-bottom: 100px;">
+    <div class="container my-3" style="padding-bottom:5px">
         <form name="register" method="post" action="{% url 'account:signup' %}" onSubmit="return CheckForm(this)">
             {% csrf_token %}
             {% include "form_errors.html" %}
@@ -96,7 +96,7 @@
                 </div>
             </article>
         </form>
-        <form style="margin-bottom:100px;" action="{% url 'account:kakao' %}">
+        <form class="mb-3" action="{% url 'account:kakao' %}">
             <p class="text-center">이미 회원이신가요?
                 <a href="/account/login/" class="register-in" style="color:#4169E1">로그인</a>
             </p>
@@ -105,7 +105,7 @@
                 <span>OR</span>
             </p>
 
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <button type="submit" id="kakao-login" class="btn btn-block btn-kakao"><img src="{% static 'img/kakao.png' %}" height="30px" margin-right:"10px"> 카카오 계정으로 로그인하기</button>
             </div>
         </form>
