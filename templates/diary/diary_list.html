@@ -1,0 +1,99 @@
+<!-- 카테고리 ver. 드롭다운 -->
+{% comment %} <form method="GET" action="{% url 'diary:index' %}">
+    <label for="pet_id">Category:</label>
+    <select name="pet_id" id="pet_id">
+        <option value="" {% if request.GET.pet_id == "" %}selected{% endif %}>전체보기</option>
+        {% for pet in pet_list %}
+        <option value={{ pet.id }} {% if request.GET.pet_id == pet.id %}selected{% endif %}>{{ pet.name }}의 일기</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit">Filter</button>
+</form> {% endcomment %}
+
+<!-- 카테고리 ver. 버튼 -->
+<label for="pet_id">Category:</label>
+<form method="GET" action="{% url 'diary:index' %}">
+    <input type="submit" value="전체보기">
+</form>
+{% for pet in pet_list %}
+<form method="GET" action="{% url 'diary:index' %}">
+    <input type="hidden" name="pet_id" value="{{ pet.id }}">
+    <input type="submit" value="{{ pet.name }}의 일기">
+</form>
+{% endfor %}
+
+<!-- 일기 리스트 -->
+{% if diary_list %}
+<ul>
+{% for diary in diary_list %}
+    <li>
+        <a href="{% url 'diary:detail' diary.id %}"><h1>{{ diary.title }}</h1></a>
+        <div>{{ diary.day }}</div>
+        {% if diary.thumbnail %}
+        <img src="{{ diary.thumbnail }}" alt="Diary Thumbnail" style="max-height: 200px; width: auto;">
+        {% endif %}
+        {% for keyword in diary.keywords.all %}
+            <div>#{{ keyword }}</div>
+        {% endfor %}
+    </li>
+
+{% endfor %}
+</ul>
+{% else %}
+<p>게시글이 없습니다.</p>
+{% endif %}
+
+ <!-- 페이징처리 시작 -->
+ <ul class="pagination justify-content-center">
+    <!-- 이전페이지 -->
+    {% if diary_list.has_previous %}
+        <li class="page-item">
+          <a class="page-link" data-page="{{ diary_list.previous_page_number }}"
+          href="?page={{ diary_list.previous_page_number }}&pet_id={{ request.GET.pet_id }}-"
+          onclick="handleClick(event, {{ diary_list.previous_page_number }})">이전</a>
+        </li>
+    {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+        </li>
+    {% endif %}
+    <!-- 페이지리스트 -->
+    {% for page_number in diary_list.paginator.page_range %}
+        {% if page_number == diary_list.number %}
+            <li class="page-item active" aria-current="page">
+              <a class="page-link" data-page="{{ page_number }}"
+              href="?page={{ page_number }}&pet_id={{ request.GET.pet_id }}"
+              onclick="handleClick(event, {{ page_number }})">{{ page_number }}</a>
+            </li>
+        {% else %}
+            <li class="page-item">
+              <a class="page-link" data-page="{{ page_number }}"
+              href="?page={{ page_number }}&pet_id={{ request.GET.pet_id }}"
+              onclick="handleClick(event, {{ page_number }})">{{ page_number }}</a>
+            </li>
+        {% endif %}
+    {% endfor %}
+    <!-- 다음페이지 -->
+    {% if diary_list.has_next %}
+        <li class="page-item">
+          <a class="page-link" data-page="{{ diary_list.next_page_number }}"
+          href="?page={{ diary_list.next_page_number }}&pet_id={{ request.GET.pet_id }}"
+          onclick="handleClick(event, {{ diary_list.next_page_number }})">다음</a>
+        </li>
+    {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+        </li>
+    {% endif %}
+  </ul>
+  <!-- 페이징처리 끝 -->
+</div>
+{% comment %} <form id="searchForm" method="get" action="{% url 'post:index' %}">
+  <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
+  <input type="hidden" id="page" name="page" value="{{ page }}">
+</form> {% endcomment %}
+<form id="searchForm" method="get" action="{% url 'diary:index' %}">
+  <input type="hidden" id="page" name="page" value="{{ page }}">
+  <input type="hidden" id="filter_diary_list" name="diary_list" value="{{ request.GET.diary_list }}">
+</form>
