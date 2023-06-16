@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% load static %}
 {% comment %} <form method="GET" action="{% url 'post:index' %}">
     <label for="category">Category:</label>
     <select name="category" id="category">
@@ -16,95 +18,220 @@
   
     <button type="submit">Filter</button>
   </form> {% endcomment %}
-  <form method="GET" action="{% url 'post:index' %}">
-    <label for="category">Category:</label>
-    <select name="category" id="category">
-        <option value="" {% if request.GET.category == "" %}selected{% endif %}>All</option>
-        <option value="free_type" {% if request.GET.category == "free_type" %}selected{% endif %}>Free</option>
-        <option value="worry_type" {% if request.GET.category == "worry_type" %}selected{% endif %}>Worry</option>
-        <option value="brag_type" {% if request.GET.category == "brag_type" %}selected{% endif %}>Brag</option>
-    </select>
 
-    <label for="kind">Kind:</label>
-    <select name="kind" id="kind">
-        <option value="" {% if request.GET.kind == "" %}selected{% endif %}>All</option>
-        <option value="Dog" {% if request.GET.kind == "Dog" %}selected{% endif %}>Dog</option>
-        <option value="Cat" {% if request.GET.kind == "Cat" %}selected{% endif %}>Cat</option>
-    </select>
+{% block content %}
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs">
+  <div class="container">
 
-    <button type="submit">Filter</button>
-</form>
+    <div class="d-flex justify-content-between align-items-center">
+      <h2>게시판</h2>
+      <ol>
+        <li><a href="">Home</a></li>
+        <li>게시판</li>
+      </ol>
+    </div>
 
-  <div class="container my-3">
-    <div class="row my-3">
-      <div class="col-6">
-          <a href="{% url 'post:post_create' %}" class="btn btn-primary">질문 등록하기</a>
-      </div>
-      <div class="col-6">
-          <div class="input-group">
-              <input type="text" id="search_kw" class="form-control" value="{{ kw|default_if_none:'' }}">
-              <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
-              </div>
-          </div>
-      </div>
   </div>
-    {% if post_list %}
-      <ul>
-      {% for post in post_list %}
-          <li><a href="{% url 'post:detail' post.id %}">{{ post.title }} : {{post.user.nick_name}}</a></li>
-      {% endfor %}
-      </ul>
-  {% else %}
-      <p>게시글이 없습니다.</p>
-  {% endif %}
-    
+</div><!-- End Breadcrumbs -->
 
-  <!-- 페이징처리 시작 -->
-  <ul class="pagination justify-content-center">
-    <!-- 이전페이지 -->
-    {% if post_list.has_previous %}
-        <li class="page-item">
-          <a class="page-link" data-page="{{ post_list.previous_page_number }}"
-          href="?page={{ post_list.previous_page_number }}&category={{ request.GET.category }}&kind={{ request.GET.kind }}"
-          onclick="handleClick(event, {{ post_list.previous_page_number }})">이전</a>
+<!-- ======= Blog Section ======= -->
+<section id='blog' class='blog'>
+  <div class="container my-3" data-aos="fade-up">
+    {% comment %} <div class="d-flex justify-content-between align-items-center">
+      <form method="GET" action="{% url 'post:index' %}">
+        <div class="sidebar-item mt-3">
+          <select type="submit" name="category" id="category" class="form-select">
+            <option value="" {% if request.GET.category == "" %}selected{% endif %}>전체 게시판</option>
+            <option value="free_type" {% if request.GET.category == "free_type" %}selected{% endif %}>자유 게시판</option>
+            <option value="worry_type" {% if request.GET.category == "worry_type" %}selected{% endif %}>고민 게시판</option>
+            <option value="brag_type" {% if request.GET.category == "brag_type" %}selected{% endif %}>자랑 게시판</option>
+          </select>
+        </div>
+      </form>
+      <ul>
+        <li style="list-style: none;"><a href="{% url 'post:post_create' %}" class="btn-register">글쓰기</a>
         </li>
-    {% else %}
-        <li class="page-item disabled">
-            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
-        </li>
-    {% endif %}
-    <!-- 페이지리스트 -->
-    {% for page_number in post_list.paginator.page_range %}
-        {% if page_number == post_list.number %}
-            <li class="page-item active" aria-current="page">
-              <a class="page-link" data-page="{{ page_number }}"
-              href="?page={{ page_number }}&category={{ request.GET.category }}&kind={{ request.GET.kind }}"
-              onclick="handleClick(event, {{ page_number }})">{{ page_number }}</a>
-            </li>
-        {% else %}
-            <li class="page-item">
-              <a class="page-link" data-page="{{ page_number }}"
-              href="?page={{ page_number }}&category={{ request.GET.category }}&kind={{ request.GET.kind }}"
-              onclick="handleClick(event, {{ page_number }})">{{ page_number }}</a>
-            </li>
-        {% endif %}
-    {% endfor %}
-    <!-- 다음페이지 -->
-    {% if post_list.has_next %}
-        <li class="page-item">
-          <a class="page-link" data-page="{{ post_list.next_page_number }}"
-          href="?page={{ post_list.next_page_number }}&category={{ request.GET.category }}&kind={{ request.GET.kind }}"
-          onclick="handleClick(event, {{ post_list.next_page_number }})">다음</a>
-        </li>
-    {% else %}
-        <li class="page-item disabled">
-            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
-        </li>
-    {% endif %}
-  </ul>
-  <!-- 페이징처리 끝 -->
-</div>
+      </ul>
+    </div>
+    <hr> {% endcomment %}
+    <div class="d-flex justify-content-between my-4">
+      <label class="mx-2">
+        전체 글 &nbsp <span class="text-danger">{{ post_list.paginator.count }}</span>
+      </label>
+      <div>
+        <a href="{% url 'post:post_create' %}" class="btn-register">글쓰기</a>
+      </div>
+    </div>
+    <hr>
+
+    <div class="row g-5 mb-3">
+      <div class="col-lg-4">
+        <div class="sidebar card shadow mb-5 bg-body rounded">
+          
+          <h3 class="sidebar-title">Search</h3>
+          <div class="input-group my-3">
+            <input type="text" id="search_kw" class="form-control" value="{{ kw|default_if_none:'' }}">
+            <div class="input-group-append">
+                <button class="btn btn-outline-success" type="button" id="btn_search">찾기 <i class="bi bi-search"></i></button>
+            </div>
+          </div>
+          
+          <hr>
+          <h3 class="sidebar-title">Category</h3>
+          <form method="GET" action="{% url 'post:index' %}">
+            <div class="sidebar-item mt-3">
+              <div class="mb-3">
+                <label for="category" class="mb-2 text-muted">게시판 종류:</label>
+                  <select name="category" id="category" class="form-select">
+                    <option value="" {% if request.GET.category == "" %}selected{% endif %}>전체 게시판</option>
+                    <option value="free_type" {% if request.GET.category == "free_type" %}selected{% endif %}>자유 게시판</option>
+                    <option value="worry_type" {% if request.GET.category == "worry_type" %}selected{% endif %}>고민 게시판</option>
+                    <option value="brag_type" {% if request.GET.category == "brag_type" %}selected{% endif %}>자랑 게시판</option>
+                  </select>
+              </div>
+
+              <div class="sidebar-item my-3">
+                <label for="kind" class="mb-2 text-muted">강아지/고양이:</label>
+                  <select name="kind" id="kind" class="form-select">
+                    <option value="" {% if request.GET.kind == "" %}selected{% endif %}>전체보기</option>
+                    <option value="Dog" {% if request.GET.kind == "Dog" %}selected{% endif %}>강아지</option>
+                    <option value="Cat" {% if request.GET.kind == "Cat" %}selected{% endif %}>고양이</option>
+                  </select>
+              </div>
+
+              <div class="d-grid gap-3">
+                <button type="submit" class="btn btn-outline-success">필터링 하기</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class='posts-list col-lg-8'>
+        
+        <div class="card shadow p-3 mb-5 bg-body rounded ">
+          
+          {% if post_list %}
+            {% for post in post_list %}
+
+              <div class="mx-4">
+                <h2 class='title'>
+                  <a href="{% url 'post:detail' post.id %}">{{ post.title }} </a>
+                  {% comment %} [{{ post_list.paginator.count|sub:post_list.start_index|sub:forloop.counter0|add:1 }}] {% endcomment %}
+                </h2>
+                
+                <div class="meta-top my-2">
+                  <ul>
+                    <li class="d-flex align-items-center"><i class="bi bi-person"></i> {{post.user.nick_name}}</li>
+                    <li class="d-flex align-items-center"><i class="bi bi-clock"></i> {{ post.registered_time }}</li>
+                    <li class="d-flex align-items-center"><i class="bi bi-card-list"></i> 
+                      {% if post.category == 'brag_type' %} 자랑 게시판
+                      {% elif post.category == 'free_type' %} 자유 게시판
+                      {% elif post.category == 'worry_type' %} 고민 게시판
+                      {% else %}
+                        {{post.category}}
+                      {% endif %}
+                    </li>
+                    <li class="d-flex align-items-center"><i class="bi bi-tags"></i> 
+                      {% if post.kind == 'Cat' %} 고양이
+                      {% elif post.kind == 'Dog' %} 강아지
+                      {% else %}
+                        {{post.kind}}
+                      {% endif %}
+                    </li>
+                    </ul>
+                </div>
+
+                  <label class="my-2 text-muted">
+                    <pre class="content-preview">{{ post.content }}</pre>
+                  </label>
+                
+                <div class="row mt-2">
+                  <div class="col-lg-10">
+                    <p><a href="{% url 'post:detail' post.id %}" class="btn-detail">자세히 보기</a></p>
+                  </div>
+
+                  <div class="col-lg-2">
+                    <div class="meta-top">
+                      <ul>
+                        <li class="d-flex align-items-center"><i class="bi bi-chat-dots"></i>
+                        <span class="small">
+                            {{ post.comment_set.count}}
+                        </span>
+                        </li>
+                        <li class="d-flex align-items-center">
+                          <i class="bi bi-suit-heart"></i>
+                          <span class="small">
+                              {{ post.post_likes.count}}
+                          </span>
+                          </li>
+                      </ul>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            {% if forloop.counter < 5%}
+              <hr>
+            {% else %}
+            {% endif %}
+            {% endfor %}
+          {% else %}
+            <div class="text-center mt-3">
+              <img src={% static "img/no posts.jpg"%} class="img-fluid">
+              <h1 class="mt-4">No Posts!</h1>
+            </div>
+          {% endif %}
+          </div>
+        </div>
+    </div>
+
+    <!-- 페이징처리 시작 -->
+    <ul class="pagination my justify-content-center">
+      <!-- 이전페이지 -->
+      {% if post_list.has_previous %}
+          <li class="page-item">
+            <a class="page-link" data-page="{{ post_list.previous_page_number }}"
+            href="?page={{ post_list.previous_page_number }}&category={{ request.GET.category }}&kind={{ request.GET.kind }}"
+            onclick="handleClick(event, {{ post_list.previous_page_number }})"><i class="bi bi-arrow-left">&nbsp;</i></a>
+          </li>
+      {% else %}
+          <li class="page-item disabled">
+              <a class="page-link" tabindex="-1" aria-disabled="true" href="#"><i class="bi bi-arrow-left">&nbsp;</i></a>
+          </li>
+      {% endif %}
+      <!-- 페이지리스트 -->
+      {% for page_number in post_list.paginator.page_range %}
+          {% if page_number == post_list.number %}
+              <li class="page-item active" aria-current="page">
+                <a class="page-link" data-page="{{ page_number }}"
+                href="?page={{ page_number }}&category={{ request.GET.category }}&kind={{ request.GET.kind }}"
+                onclick="handleClick(event, {{ page_number }})">{{ page_number }}</a>
+              </li>
+          {% else %}
+              <li class="page-item">
+                <a class="page-link" data-page="{{ page_number }}"
+                href="?page={{ page_number }}&category={{ request.GET.category }}&kind={{ request.GET.kind }}"
+                onclick="handleClick(event, {{ page_number }})">{{ page_number }}</a>
+              </li>
+          {% endif %}
+      {% endfor %}
+      <!-- 다음페이지 -->
+      {% if post_list.has_next %}
+          <li class="page-item">
+            <a class="page-link" data-page="{{ post_list.next_page_number }}" aria-label="Previous"
+            href="?page={{ post_list.next_page_number }}&category={{ request.GET.category }}&kind={{ request.GET.kind }}"
+            onclick="handleClick(event, {{ post_list.next_page_number }})"><i class="bi bi-arrow-right">&nbsp;</i></a>
+          </li>
+      {% else %}
+          <li class="page-item disabled">
+              <a class="page-link" tabindex="-1" aria-disabled="true" href="#">&nbsp;<i class="bi bi-arrow-right"> </i></a>
+          </li>
+      {% endif %}
+    </ul>
+    <!-- 페이징처리 끝 -->
+  </div>
+</section> <!-- End Blog -->
 {% comment %} <form id="searchForm" method="get" action="{% url 'post:index' %}">
   <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
   <input type="hidden" id="page" name="page" value="{{ page }}">
@@ -115,7 +242,7 @@
   <input type="hidden" id="filter_category" name="category" value="{{ request.GET.category }}">
   <input type="hidden" id="filter_kind" name="kind" value="{{ request.GET.kind }}">
 </form>
-
+{% endblock %}
 
 
 {% block script %}
@@ -134,6 +261,7 @@ btn_search.addEventListener('click', function() {
     document.getElementById('page').value = 1;  // 검색버튼을 클릭할 경우 1페이지부터 조회한다.
     document.getElementById('searchForm').submit();
 }); {% endcomment %}
+
 function handleClick(event, pageNumber) {
   // 기본 동작 방지
   event.preventDefault();
