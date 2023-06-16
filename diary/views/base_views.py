@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, render
 
@@ -7,6 +8,7 @@ from ..models import Diary
 
 
 def index(request):
+    page = request.GET.get("page", "1")  # 페이지
     q = Q()
     pet_id = request.GET.get("pet_id")
     if pet_id:
@@ -15,7 +17,9 @@ def index(request):
     diary_list = Diary.objects.filter(q).order_by("-day")
     print(diary_list)
     pet_list = Pet.objects.order_by("birth_day")
-    context = {"diary_list": diary_list, "pet_list": pet_list}
+    paginator = Paginator(diary_list, 5)  # 페이지당 5개씩 보여주기
+    page_obj = paginator.get_page(page)
+    context = {"diary_list": page_obj, "pet_list": pet_list}
     return render(request, "diary/diary_list.html", context)
 
 
