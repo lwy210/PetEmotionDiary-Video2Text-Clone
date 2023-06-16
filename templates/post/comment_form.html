@@ -1,15 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs">
+    <div class="container">
+  
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>댓글 수정</h2>
+        <ol>
+          <li><a href="">Home</a></li>
+          <li><a href={% url 'post:index' %}>게시판</a></li>
+          <li>댓글 수정</li>
+        </ol>
+      </div>
+    </div>
+</div><!-- End Breadcrumbs -->
+
 <!-- 댓글 수정-->
-<div class="container my-3">
+<div class="container card register-form py-4 px-4 shadow my-5">
     <form method="post">
         {% csrf_token %}
         {% include "form_errors.html" %}
-        <div class="mb-3">
-            <label for="content" class="form-label">댓글내용</label>
-            <textarea class="form-control" name="content" id="content"
-                      rows="10">{{ form.content.value|default_if_none:'' }}</textarea>
+        <h5 for="content" class="form-label mb-4">댓글내용</h5>
+        <div class="d-flex justify-content-start">
+          <div class="flex-fill">
+              
+              <textarea class="form-control" name="content" id="content"
+                        rows="2">{{ form.content.value|default_if_none:'' }}</textarea>
+          </div>
+
+          <button type="submit" class="btn-register">저장하기</button>
         </div>
-        <button type="submit" class="btn btn-primary">저장하기</button>
     </form>
 </div>
 {% endblock %}
