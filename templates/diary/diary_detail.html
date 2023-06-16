@@ -1,0 +1,18 @@
+<!-- 카테고리 및 버튼 -->
+<h1>{{ pet.name }}의 일기</h1>
+<a href="{% url 'diary:index' %}">목록으로</a>
+
+<!-- 일기 내용 -->
+<div>제목 : {{ diary.title }}</div>
+<div>날짜 : {{ diary.day }}</div>
+<div>작성 날짜 : {{ diary.registered_time }}</div>
+{% if diary.registered_time != diary.updated_time %}
+    <div>수정 날짜 : {{ diary.updated_time }}</div>
+{% endif %}
+{% for keyword in diary.keywords.all %}
+<div>#{{ keyword }}</div>
+{% endfor %}
+{% if diary.thumbnail %}
+<img src="{{ diary.thumbnail }}" alt="Diary Thumbnail" style="max-height: 200px; width: auto;">
+{% endif %}
+<div>{{ diary.content }}</div>
