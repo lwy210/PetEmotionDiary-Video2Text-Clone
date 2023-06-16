@@ -27,7 +27,7 @@ def index(request):
         post_list = post_list.filter(
             Q(title__icontains=kw) | Q(content__icontains=kw)  # 제목 검색
         ).distinct()
-    paginator = Paginator(post_list, 10)  # 페이지당 10개씩 보여주기
+    paginator = Paginator(post_list, 5)  # 페이지당 5개씩 보여주기
     page_obj = paginator.get_page(page)
     context = {"post_list": page_obj, "page": page, "kw": kw}
     return render(request, "post/post_list.html", context)
