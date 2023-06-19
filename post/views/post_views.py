@@ -12,7 +12,7 @@ from ..models import Post
 @login_required(login_url="account:login")
 def post_create(request):
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
             post.user = request.user
@@ -34,7 +34,7 @@ def post_modify(request, post_id):
         messages.error(request, "수정권한이 없습니다")
         return redirect("post:detail", post_id=post.id)
     if request.method == "POST":
-        form = PostForm(request.POST, instance=post)
+        form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
             post.updated_time = timezone.now()  # 수정일시 저장

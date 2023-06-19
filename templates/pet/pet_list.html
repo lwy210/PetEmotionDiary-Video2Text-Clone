@@ -8,6 +8,9 @@
     <li>
         <a href="{% url 'pet:detail' pet.id %}">
         <h2>반려동물 이름 : {{ pet.name }}</h2>
+        {% if pet.image %}
+        <img src="{{ pet.image.url }}" alt="Post Image" style="max-height: 400px; width: auto;">
+        {% endif %}
         <div>주인 닉네임 : {{pet.user.nick_name}}</div>
         </a>
         <div class="my-3">
