@@ -4,16 +4,22 @@ from django.shortcuts import get_object_or_404, render
 
 from pet.models import Pet
 
-from ..models import Diary, Keyword
+from ..models import Diary
 
 
 def index(request):
     page = request.GET.get("page", "1")  # 페이지
     keyword = request.GET.get("keyword", "")  # 검색어
+    bookmark = request.GET.get("bookmark")
+
     q = Q()
+
     pet_id = request.GET.get("pet_id")
     if pet_id:
         q &= Q(pet_id=pet_id)
+
+    if bookmark:
+        q &= Q(bookmark=True)
 
     diary_list = Diary.objects.filter(q).order_by("-day")
     if keyword:
