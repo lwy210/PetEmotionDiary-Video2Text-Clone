@@ -1,9 +1,6 @@
-from django.shortcuts import render, redirect
-from django.views import View
+from django.shortcuts import redirect
 from django.conf import settings
-from django.http import JsonResponse
-from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login
 import requests
 from account.models import User
 
@@ -12,7 +9,7 @@ def KakaoSignInView(request):
     if request.user.is_authenticated:
         raise Exception("이미 로그인이 되어 있습니다.")
     app_key = settings.KAKAO_KEY
-    redirect_uri = "http://localhost:8000/account/login/kakao/callback/"
+    redirect_uri = "http://3.35.206.130/account/login/kakao/callback/"
     kakao_auth_api = "https://kauth.kakao.com/oauth/authorize?response_type=code"
     return redirect(f"{kakao_auth_api}&client_id={app_key}&redirect_uri={redirect_uri}")
 
@@ -23,7 +20,7 @@ def KaKaoSignInCallBackView(request):
     data = {
         "grant_type": "authorization_code",
         "client_id": settings.KAKAO_KEY,
-        "redirection_uri": "http://localhost:8000/accounts/signin/kakao/callback/",
+        "redirection_uri": "http://3.35.206.130/accounts/signin/kakao/callback/",
         "code": auth_code,
     }
 
