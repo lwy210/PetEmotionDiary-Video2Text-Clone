@@ -1,11 +1,15 @@
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-
+from .validators import CustomPasswordValidator
 from .models import User
 
 
 class UserCreationForm(forms.ModelForm):
-    password1 = forms.CharField(label="비밀번호", widget=forms.PasswordInput)
+    password1 = forms.CharField(
+        label="비밀번호",
+        widget=forms.PasswordInput,
+        validators=[CustomPasswordValidator()],
+    )
     password2 = forms.CharField(label="비밀번호 확인", widget=forms.PasswordInput)
     birth_day = forms.DateField(widget=forms.DateInput(format="%m%d"))
 
