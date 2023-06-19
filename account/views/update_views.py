@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.auth import login, logout
+from django.core.exceptions import ValidationError
+import re
 
 
 @login_required(login_url="account:login")
@@ -45,6 +47,20 @@ def update_password(request):
             new_password = request.POST.get("password1")
             password_confirm = request.POST.get("password2")
             if new_password == password_confirm:
+                if len(new_password) < 8:
+                    messages.error(request, "비밀번호는 8자리 이상이어야 합니다.")
+                    return redirect("account:update_password")
+                if not re.search(r"[a-zA-Z]", new_password):
+                    messages.error(request, "비밀번호는 하나 이상의 영문이 포함되어야 합니다.")
+                    return redirect("account:update_password")
+                if not re.search(r"\d", new_password):
+                    messages.error(request, "비밀번호는 하나 이상의 숫자가 포함되어야 합니다.")
+                    return redirect("account:update_password")
+                if not re.search(r"[!@#$%^&*()]", new_password):
+                    messages.error(
+                        request, "비밀번호는 적어도 하나 이상의 특수문자(!@#$%^&*())가 포함되어야 합니다."
+                    )
+                    return redirect("account:update_password")
                 request.user.set_password(new_password)
                 request.user.save()
                 login(request, request.user)

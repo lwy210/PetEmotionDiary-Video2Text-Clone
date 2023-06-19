@@ -6,6 +6,9 @@
     <div>반려동물 분류 : {{pet.kind}}</div>
     <div>반려동물 생일 : {{pet.birth_day}}</div>
     <div>반려동물 만난날 : {{pet.meet_day}}</div>
+    {% if pet.image %}
+    <img src="{{ pet.image.url }}" alt="Post Image" style="max-height: 400px; width: auto;">
+    {% endif %}
     {% for personality in pet.personality_set.all %}
     <div>반려동물 dbti : {{personality.activity}}{{personality.relationship}}{{personality.proto_dog}}{{personality.dependence}}</div>
     {% endfor %}
