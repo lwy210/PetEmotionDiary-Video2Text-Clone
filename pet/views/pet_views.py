@@ -9,7 +9,7 @@ from ..models import Personality, Pet
 @login_required(login_url="account:login")
 def pet_create(request):
     if request.method == "POST":
-        form = PetForm(request.POST)
+        form = PetForm(request.POST, request.FILES)
         if form.is_valid():
             pet = form.save(commit=False)
             pet.user = request.user
@@ -37,7 +37,7 @@ def pet_modify(request, pet_id, request_url):
         messages.error(request, "수정권한이 없습니다")
         return redirect("pet:detail", pet_id=pet.id)
     if request.method == "POST":
-        form = PetForm(request.POST, instance=pet)
+        form = PetForm(request.POST, request.FILES, instance=pet)
         if form.is_valid():
             pet = form.save(commit=False)
             pet.save()
