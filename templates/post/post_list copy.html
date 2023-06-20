@@ -38,6 +38,7 @@
 <!-- ======= Blog Section ======= -->
 <section id='blog' class='blog'>
   <div class="container my-3" data-aos="fade-up">
+
     <div class="d-flex justify-content-between my-4">
       <label class="mx-2">
         전체 글 &nbsp <span class="text-danger">{{ post_list.paginator.count }}</span>
@@ -49,7 +50,9 @@
     <hr>
 
     <div class="row g-5 mb-3">
-      <div class="col-lg-4">
+
+      <!-- ======= sidebar 시작 ======= -->
+      <div class="col-lg-4">     
         <div class="sidebar card shadow mb-5 bg-body rounded">
           
           <h3 class="sidebar-title">Search</h3>
@@ -61,36 +64,38 @@
           </div>
           
           <hr>
-          <h3 class="sidebar-title">Category</h3>
           <form method="GET" action="{% url 'post:index' %}">
-            <div class="sidebar-item mt-3">
-              <div class="mb-3">
-                <label for="category" class="mb-2 text-muted">게시판 종류:</label>
-                  <select name="category" id="category" class="form-select">
-                    <option value="" {% if request.GET.category == "" %}selected{% endif %}>전체 게시판</option>
-                    <option value="free_type" {% if request.GET.category == "free_type" %}selected{% endif %}>자유 게시판</option>
-                    <option value="worry_type" {% if request.GET.category == "worry_type" %}selected{% endif %}>고민 게시판</option>
-                    <option value="brag_type" {% if request.GET.category == "brag_type" %}selected{% endif %}>자랑 게시판</option>
-                  </select>
-              </div>
+            <div class="sidebar-item">
+              
+                <div class="filtering my-4 ">
+                  <form method="GET" action="{% url 'post:index' %}">
+                    <h3 for="category" class="sidebar-title mb-3">Category</h3>
+                    
+                      <button type="submit" name="category" value="">전체보기</button>
+                      <br>
+                      <button type="submit" name="category" value="free_type">자유 게시판</button>
+                      <button type="submit" name="category" value="worry_type">고민 게시판</button>
+                      <button type="submit" name="category" value="brag_type">자랑 게시판</button>
+                  </form>
+                </div>
 
-              <div class="sidebar-item my-3">
-                <label for="kind" class="mb-2 text-muted">강아지/고양이:</label>
-                  <select name="kind" id="kind" class="form-select">
-                    <option value="" {% if request.GET.kind == "" %}selected{% endif %}>전체보기</option>
-                    <option value="Dog" {% if request.GET.kind == "Dog" %}selected{% endif %}>강아지</option>
-                    <option value="Cat" {% if request.GET.kind == "Cat" %}selected{% endif %}>고양이</option>
-                  </select>
-              </div>
-
-              <div class="d-grid gap-3">
-                <button type="submit" class="btn btn-outline-success">필터링 하기</button>
-              </div>
+              
+                <div class="filtering mt-4 ">
+                  <form method="GET" action="{% url 'post:index' %}">
+                    <h3 for="kind" class="sidebar-title mb-3">Animal</h3>
+                      <button type="submit" name="kind" value="">전체보기</button>
+                      <br>
+                      <button type="submit" name="kind" value="Dog">강아지</button>
+                      <button type="submit" name="kind" value="Cat">고양이</button>
+                  </form>
+                </div>
             </div>
           </form>
         </div>
       </div>
+      <!-- ======= sidebar 종료 ======= -->
 
+      <!-- ======= post 목록 시작 ======= -->
       <div class='posts-list col-lg-8'>
         
         <div class="card shadow p-3 mb-5 bg-body rounded ">
@@ -168,6 +173,7 @@
           </div>
         </div>
     </div>
+    <!-- ======= post 목록 종료 ======= -->
 
     <!-- 페이징처리 시작 -->
     <ul class="pagination my justify-content-center">
@@ -215,6 +221,7 @@
     <!-- 페이징처리 끝 -->
   </div>
 </section> <!-- End Blog -->
+
 {% comment %} <form id="searchForm" method="get" action="{% url 'post:index' %}">
   <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
   <input type="hidden" id="page" name="page" value="{{ page }}">
