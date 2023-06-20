@@ -1,121 +1,197 @@
-    <!-- message 표시 -->
-    {% if messages %}
-    <div class="alert alert-danger my-3" role="alert">
-    {% for message in messages %}
-        <strong>{{ message.tags }}</strong>
-        <ul><li>{{ message.message }}</li></ul>
-    {% endfor %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs">
+    <div class="container">
+  
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>자세히 보기</h2>
+        <ol>
+          <li><a href=''>Home</a></li>
+          <li><a href={% url 'post:index' %}>게시판</a></li>
+          <li>자세히 보기</rli>
+        </ol>
+      </div>
     </div>
-    {% endif %}
+</div><!-- End Breadcrumbs -->
 
-    {% if post.updated_time != post.registered_time %}
-        <div class="mb-2">updated at</div>
-        <div>{{ post.updated_time }}</div>
-    {% endif %}
-    <div class="mb-2">registered at</div>
-    <div>{{ post.registered_time }}</div>
-<div class='post_header'>
-    {% if post.category == "free_type" %}
-    <div>자유게시판</div>
-    {% elif post.category == "brag_type" %}
-    <div>자랑게시판</div>
-    {% elif post.category == "worry_type" %}
-    <div>고민게시판</div>
-    {% endif %}
-    {% if request.user == post.user %}
-    <a href="{% url 'post:post_modify' post.id  %}" 
-       class="btn btn-sm btn-outline-secondary">수정</a>
-    <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
-    data-uri="{% url 'post:post_delete' post.id  %}">삭제</a>
-    {% endif %}
-</div>
-
-<div class='post_content'>
-    <h1>제목 : {{ post.title }}</h1>
-    {% if post.kind == "Dog" %}
-    <div>카테고리 : 강아지</div>
-    {% elif post.kind == "Cat" %}
-    <div>카테고리 : 고양이</div>
-    {% endif %}
-
-    {% if post.image %}
-    <img src="{{ post.image }}" alt="Post Image" style="max-height: 400px; width: auto;">
-    {% endif %}
-
-    {% if post.video %}
-    <video src="{{ post.video }}" controls></video>
-    {% endif %}
-    <div>
-        {{ post.content }}
-    </div>
-</div>
-<p>Likes: {{ post_likes }}</p>
-<form action="{% url 'post:post_like' post.id %}" method="POST">
-    {% csrf_token %}
-    <input type="submit" value="Like">
-</form>
-<h5 class="border-bottom my-3 py-2">{{post.comment_set.count}}개의 댓글이 있습니다.</h5>
-{% for comment in post.comment_set.all %}
-<a id="comment_{{ comment.id }}"></a>
-<div class="card my-3">
-    <div class="card-body">
-        <div class="card-text" style="white-space: pre-line;">{{ comment.content }}</div>
-        <div class="d-flex justify-content-end">
-            <div class="badge bg-light text-dark p-2 text-start">
-                {% with comment.id as comment_id %}
-                {% load post_filters %}
-                <div class="mb-2">Likes : {{ comment_likes|get_item:comment.id }}</div>
-                {% endwith %}
-                <form action="{% url 'post:comment_like' comment.id %}" method="POST">
-                    {% csrf_token %}
-                    <input type="submit" value="Like">
-                </form>
-                <div class="mb-2">nickname : {{ comment.user.nick_name }}</div>
-                {% if comment.updated_time != comment.registered_time %}
-                <div class="mb-2">updated at</div>
-                <div>{{ comment.updated_time }}</div>
+<!-- ======= Content Section ======= -->
+<section class='content'>
+    <div class="container my-3" data-aos="fade-up">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="card board-title">
+                    {% if post.category == "free_type" %}
+                    <h5>자유게시판</h5>
+                    {% elif post.category == "brag_type" %}
+                    <h5>자랑게시판</h5>
+                    {% elif post.category == "worry_type" %}
+                    <h5>고민게시판</h5>
+                    {% endif %}
+                </div>
+              <ul>
+                {% if request.user == post.user %}
+                    <li><a href="{% url 'post:post_modify' post.id  %}" 
+                    class="btn-register">수정</a></li>
+                    <li><a href="javascript:void(0)" class="delete btn-register"
+                    data-uri="{% url 'post:post_delete' post.id  %}">삭제</a></li>
                 {% endif %}
-                <div class="mb-2">registered at</div>
-                <div>{{ comment.registered_time }}</div>
+              </ul>
             </div>
-        </div>
-        <div class="my-3">
-            {% if request.user == comment.user %}
-            <a href="{% url 'post:comment_modify' comment.id  %}" 
-               class="btn btn-sm btn-outline-secondary">수정</a>
-               <a href="#" class="delete btn btn-sm btn-outline-secondary "
-               data-uri="{% url 'post:comment_delete' comment.id  %}">삭제</a>
-            {% endif %}
-        </div>
-    </div>
-</div>
-{% endfor %}
+        </div>    
+        <hr>
 
-
-
-<form action="{% url 'post:comment_create' post.id %}" method="post" class="my-3">
-    {% csrf_token %}
-    <!-- 오류표시 Start -->
-    {% if form.errors %}
-    <div class="alert alert-danger" role="alert">
-        {% for field in form %}
-        {% if field.errors %}
-        <div>
-            <strong>{{ field.label }}</strong>
-            {{ field.errors }}
+        <!-- message 표시 -->
+        {% if messages %}
+        <div class="alert alert-danger my-3" role="alert">
+        {% for message in messages %}
+            <strong>{{ message.tags }}</strong>
+            <ul><li>{{ message.message }}</li></ul>
+        {% endfor %}
         </div>
         {% endif %}
+
+        
+        <div class='post-content card shadow'>
+            <div class="card-header p-5">
+                <h2>{{ post.title }}</h2>
+                <div class="meta-top my-2">
+                    <ul>
+                    <li class="d-flex align-items-center"><i class="bi bi-person"></i> {{post.user.nick_name}}</li>
+                    <li class="d-flex align-items-center"><i class="bi bi-clock"></i> {{ post.registered_time }}</li>
+                    <li class="d-flex align-items-center"><i class="bi bi-tags"></i> 
+                        {% if post.kind == 'Cat' %} 고양이
+                        {% elif post.kind == 'Dog' %} 강아지
+                        {% else %}
+                        {{post.kind}}
+                        {% endif %}
+                    </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-body p-5">
+                {% if post.image %}
+                <img src="{{ post.image.url }}" alt="Post Image" style="max-height: 400px; width: auto;">
+
+                {% endif %}
+
+                {% if post.video %}
+                <video src="{{ post.video.url }}" controls></video>
+                {% endif %}
+                <pre>{{ post.content }}</pre>
+            </div>
+
+            <div class="card-footer d-flex justify-content-between mx-4">
+                {% if post.updated_time != post.registered_time %}
+                    <p class="mt-2 text-muted">마지막 업데이트: {{ post.updated_time }}</p>
+                {% else %}
+                    <label></label>
+                {% endif %}
+                <ul>
+                    <li class="d-flex align-items-center mb-3"><i class="bi bi-suit-heart"></i> {{ post_likes }}</li>
+                    <li>
+                        <form action="{% url 'post:post_like' post.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" value="Like" class="btn btn-sm btn-outline-danger">
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ======= Comment Section ======= -->
+<section class="comment">
+    <div class="container p-5" data-aos="fade-up">
+        <h5 class="border-bottom mb-3 pb-2"><span class="text-danger">{{post.comment_set.count}}</span> 개의 댓글이 있습니다.</h5>
+        {% for comment in post.comment_set.all %}
+        <a id="comment_{{ comment.id }}"></a>
+
+        <div class="card comment-list my-5">
+            <div class="row g-0 px-2">
+                <div class="col-lg-1">
+                    <img src="{% static "img/pp.jpg"%}" class="img-fluid rounded-start">
+                </div>
+                <div class="col-lg-9">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ comment.user.nick_name }}</h5>
+                        <h6 class="card-subtitle text-muted">
+                            {{ comment.registered_time }}
+                            {% if comment.updated_time != comment.registered_time %}
+                                <label class="mx-3 text-muted mt-2">&bull; 업데이트: {{ comment.updated_time }}</label>
+                            {% endif %}
+                        </h6>
+                        <p class="card-text mt-1">{{ comment.content }}</p>
+
+                        
+
+                    </div>
+                </div>
+                <div class="col-lg-2 d-flex align-items-end flex-column">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            {% if request.user == comment.user %}
+                            <a href="{% url 'post:comment_modify' comment.id  %}" 
+                            class="btn-register btn-sm">수정</a>
+                            <a href="#" class="delete btn-register btn-sm"
+                            data-uri="{% url 'post:comment_delete' comment.id  %}">삭제</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <ul class="mt-auto">
+                        <li class="d-flex align-items-center mb-3"><i class="bi bi-suit-heart"></i> 
+                            {% with comment.id as comment_id %}
+                            {% load post_filters %}
+                                <div>{{ comment_likes|get_item:comment.id }}</div>
+                            {% endwith %}
+                        </li>
+                        <li>
+                            <form action="{% url 'post:comment_like' comment.id %}" method="POST">
+                                {% csrf_token %}
+                                <input type="submit" value="Like" class="btn btn-sm btn-outline-danger">
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
         {% endfor %}
+
+
+        <form action="{% url 'post:comment_create' post.id %}" method="post" class="my-3">
+            {% csrf_token %}
+            <!-- 오류표시 Start -->
+            {% if form.errors %}
+            <div class="alert alert-danger" role="alert">
+                {% for field in form %}
+                {% if field.errors %}
+                <div>
+                    <strong>{{ field.label }}</strong>
+                    {{ field.errors }}
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+            <!-- 오류표시 End -->
+            
+            <div class="container card register-form shadow p-4 ">
+                <h5 for="content" class="form-label">댓글 작성</h5>
+                <div class="d-flex align-items-first my-3">
+                    <textarea {% if not user.is_authenticated %}disabled{% endif %} placeholder="댓글을 작성해주세요."
+                        name="content" id="content" class="form-control" rows="2"></textarea>
+                    <input type="submit" value="댓글등록" class="btn-register">
+                </div>
+            </div>
+        </form>
     </div>
-    {% endif %}
-    <!-- 오류표시 End -->
-    <div class="mb-3">
-        <label for="content" class="form-label">답변내용</label>
-        <textarea {% if not user.is_authenticated %}disabled{% endif %}
-                  name="content" id="content" class="form-control" rows="10"></textarea>
-    </div>
-    <input type="submit" value="답변등록" class="btn btn-primary">
-</form>
+</section>
+{% endblock %}
+
 {% block script %}
 <script type='text/javascript'>
 const delete_elements = document.getElementsByClassName("delete");

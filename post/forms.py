@@ -16,8 +16,11 @@ class PostForm(forms.ModelForm):
     ]
 
     category = forms.ChoiceField(choices=CATEGORY_CHOICES)
-    kind = forms.ChoiceField(choices=KIND_CHOICES, widget=forms.RadioSelect)
-    image = forms.ImageField(required=False)
+    kind = forms.ChoiceField(
+        choices=KIND_CHOICES,
+        widget=forms.RadioSelect(attrs={"class": "radio-container"}),
+    )
+    # image = forms.ImageField(required=False)
     video = forms.FileField(required=False)
 
     class Meta:
