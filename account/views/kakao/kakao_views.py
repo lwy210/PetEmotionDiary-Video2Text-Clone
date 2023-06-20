@@ -9,7 +9,7 @@ def KakaoSignInView(request):
     if request.user.is_authenticated:
         raise Exception("이미 로그인이 되어 있습니다.")
     app_key = settings.KAKAO_KEY
-    redirect_uri = "http://3.35.206.130/account/login/kakao/callback/"
+    redirect_uri = "http://15.165.115.243/account/login/kakao/callback/"
     kakao_auth_api = "https://kauth.kakao.com/oauth/authorize?response_type=code"
     return redirect(f"{kakao_auth_api}&client_id={app_key}&redirect_uri={redirect_uri}")
 
@@ -20,7 +20,7 @@ def KaKaoSignInCallBackView(request):
     data = {
         "grant_type": "authorization_code",
         "client_id": settings.KAKAO_KEY,
-        "redirection_uri": "http://3.35.206.130/accounts/signin/kakao/callback/",
+        "redirection_uri": "http://15.165.115.243/accounts/signin/kakao/callback/",
         "code": auth_code,
     }
 
