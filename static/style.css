@@ -8,57 +8,6 @@
   font-style: normal;
 }
 
-
-
-/* ============== Main Start ============== */
-
-            
-/* ============== Main End ============== */
-
-
-
-
-
-
-/* ============== Team Start ============== */
-/* ============== Team End ============== */
-
-
-/* ============== Contact US Start ============== */
-.section-heading {
-  position: relative;
-  padding-bottom: 30px;
-  margin-bottom: 30px;
-  font-size: 2.5rem;
-  color: white; }
-  @media (max-width: 991.98px) {
-    .section-heading {
-      font-size: 2rem; } }
-
-
-.section-subheading{
-  color:white
-}
-/* ============== Contact US End ==============*/
-
-
-
-/* ============== Footer Start ============== */
-
-
-
-
-
-
-
-/* ============== Footer End ============== */
-
-
-
-
-
-/* ============== End ============== */
-
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -11276,3 +11225,172 @@ h1, h2, h3, h4, h5,
 
 .bg-teal {
   background: #16c3b0; }
+=======
+/* font-family: KCC-Ganpan; */
+
+@font-face {
+    font-family: KCC-Ganpan;
+    src: url('font/KCC-Ganpan.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+h1, h2, h3, h4, h5, h6,
+label, a, li, p, div, pre, .form-select, .btn {
+    font-family: KCC-Ganpan;
+}
+  
+/*--------------------------------------------------------------
+# Breadcrumbs
+--------------------------------------------------------------*/
+.breadcrumbs {
+    padding: 15px 0;
+    background: #D7E9B9;
+    min-height: 40px;
+    margin-top: 10px;
+}
+
+.breadcrumbs h2 {
+    font-size: 30px;
+    font-weight: 300;
+    margin: 0;
+}
+
+.breadcrumbs ol {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+}
+
+.breadcrumbs ol li+li {
+    padding-left: 10px;
+}
+
+.breadcrumbs ol li a {
+    text-decoration: none;
+    color: #198754;
+}
+
+.breadcrumbs ol li a:hover {
+    color: #fcf3c9;
+}
+
+.breadcrumbs ol li+li::before {
+    display: inline-block;
+    padding-right: 10px;
+    color: var(--color-secondary-light);
+    content: "/";
+    text-decoration: none;
+}
+
+@media (max-width: 992px) {
+    .breadcrumbs .d-flex {
+        display: block !important;
+    }
+
+    .breadcrumbs h2 {
+        margin-bottom: 10px;
+        font-size: 24px;
+    }
+
+    .breadcrumbs ol {
+        display: block;
+    }
+
+    .breadcrumbs ol li {
+        display: inline-block;
+    }
+
+}
+  
+  /*--------------------------------------------------------------
+  # Blog Sidebar
+  --------------------------------------------------------------*/
+.blog .sidebar {
+    padding: 30px;
+    box-shadow: 0 4px 16px rgba(var(--color-black-rgb), 0.1);
+}
+
+.blog .sidebar .sidebar-title {
+    font-size: 20px;
+    font-weight: 700;
+    padding: 0;
+    margin: 0;
+    color: var(--color-secondary);
+}
+
+.sidebar-item .filtering button {
+    border: none;
+    background: white;
+}
+
+/*--------------------------------------------------------------
+# 버튼
+--------------------------------------------------------------*/
+.btn-right {
+    display: inline-block;
+    text-align: right;
+}
+
+.btn-register {
+    border: 1px solid #198754;
+    background-color: #198754;
+    border-radius: 4px;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+}
+
+.btn-register:hover  {
+    border-color: #198754;
+    background-color: white;
+    color: #198754;
+}
+
+.comment .btn-register.btn-sm {
+    border: 3px solid #fcf3c9;
+    background-color: #fcf3c9;
+    border-radius: 4px;
+    padding: 5px 10px;
+    color: black;
+    text-decoration: none;
+}
+
+.comment .btn-register.btn-sm:hover  {
+    border-color: #fcf3c9;
+    background-color: white;
+    color: #f8e591;
+}
+
+.btn-detail {
+    border: 2px solid #AACB73;
+    background-color: #AACB73;
+    border-radius: 4px;
+    padding: 5px 10px;
+    color: white;
+    text-decoration: none;
+}
+
+.btn-detail:hover  {
+    border-color: #AACB73;
+    background-color: white;
+    color: #AACB73;
+}
+
+ul.ul-btn {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  /* align-items: center; */
+  vertical-align: middle;
+  padding: 0;
+  margin: 0;
+}
+
+.ul-btn ul li+li {
+  padding-left: 20px;
+}
+
