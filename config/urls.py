@@ -19,7 +19,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
+from . import views
+
 urlpatterns = [
+    path("", views.index, name="main"),
     path("admin/", admin.site.urls),
     path("post/", include("post.urls")),
     path("account/", include("account.urls")),
