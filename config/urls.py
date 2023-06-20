@@ -24,3 +24,5 @@ urlpatterns = [
     path("pet/", include("pet.urls")),
     path("diary/", include("diary.urls")),
 ]
+
+handler404 = "config.views.page_not_found"
