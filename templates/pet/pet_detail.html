@@ -56,7 +56,9 @@
                 <!-- 프로필 사진 Start -->
                 <div class="col-lg-6  px-5 mb-5 pb-4">
                     {% if pet.image %}
-                    <img src="{{ pet.image.url }}" class="card shadow img-fluid profile-img" alt="Post Image" style="width: auto;">
+                        <img src="{{ pet.image.url }}" class="card shadow img-fluid profile-img" alt="Post Image" style="width: auto;">
+                    {% else %}
+                        <img src="{% static "img/pp.jpg" %}" class="card shadow img-fluid profile-img" alt="Post Image" style="width: auto;">
                     {% endif %}
                 </div><!-- 프로필 사진 End -->
 
