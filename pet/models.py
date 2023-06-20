@@ -24,7 +24,7 @@ class Pet(models.Model):
     is_neutered = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.name + " (주인: " + self.user.nick_name + ")"
+        return self.name
 
 
 class Personality(models.Model):
