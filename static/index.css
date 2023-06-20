@@ -1,0 +1,492 @@
+.ftco-section {
+  overflow-x: hidden;
+  position: relative;
+  padding: 30px;
+  background: #AACB73;
+ }
+  @media (max-width: 767.98px) {
+    .ftco-section {
+      padding: 30px;
+    color:#17a2b8 } }
+
+.ftco-no-pt {
+  padding-top: 0 !important; }
+
+.ftco-intro .services {
+  padding: 30px;
+  background: #fff;
+  border-radius: 4px; }
+  @media (min-width: 992px) {
+    .ftco-intro .services {
+      margin-top: -50px; } }
+
+#service-section {
+  position: relative;
+  z-index: 0; }
+
+
+.package {
+  margin: 5px 15px;
+  text-align: center;
+  background-color: #f2f2f2;
+  border: groove 1px solid;
+  color: #777;
+  padding: 40px;
+  border-radius: 7px; 
+}
+  .package h3 {
+    font-size: 30px;
+    color: #4682B4;
+    margin-bottom: 20px; }
+  .package p {
+    font-size: 15px;
+    margin-bottom: 20px; }
+  .package .img-wrap {
+    display: block;
+    margin: 0 auto 30px auto;
+    width: 80px; }
+    .package .img-wrap img {
+      width: 80px; }
+
+
+
+
+
+
+
+/* ============== Service Start ============== */
+.bg-white {
+  background-color: #fff !important; }
+
+.img-fluid {
+    max-width: 100%;
+    height: auto; }
+
+
+.btn.btn-primary {
+  background: #FF5733;
+  border: 2px solid #FF5733;
+  color: #fff; 
+  }
+  .btn.btn-primary:hover {
+    border: 2px solid #FF5733;
+    background: transparent;
+    color: #FF5733; }
+
+    .btn.btn-warning {
+  color: #212529;
+  background-color: #ffc107;
+  border: 2px solid #ffc107; }
+  .btn.btn-warning:hover {
+    border: 2px solid #e0a800;
+    background: transparent;
+    color: #e0a800; }
+
+    .btn.btn-success {
+      font-family: KCC-Ganpan;
+      color: #fff;
+      background-color: #28a745;
+      border: 2px solid #28a745; }
+      .btn.btn-success:hover {
+        border: 2px solid #218838;
+        background: transparent;
+        color: #218838; }
+
+    .btn-custom-1 {
+      border-radius: 30px;
+      border-top-right-radius: 0;
+      border-bottom-left-radius: 0; }
+
+/* ============== Service End ============== */
+
+
+.btn.btn-ask {
+  font-family: KCC-Ganpan;
+  color: #fff;
+  background-color: #28a745;
+  border: 2px solid #28a745; }
+  .btn.btn-ask:hover {
+    border: 2px solid #218838;
+    background: #f2f2f2;
+    color: #218838; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*//////////////////////////////////////////////////////////////////
+[ FONT ]*/
+@font-face {
+  font-family: KCC-Ganpan;
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/KCC-Ganpan.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+  
+  
+  /*//////////////////////////////////////////////////////////////////
+  [ RESTYLE TAG ]*/
+  
+* {
+    margin: 0px; 
+    padding: 0px; 
+    box-sizing: border-box;
+  }
+  
+body, html {
+    height: 100%;
+    font-family: KCC-Ganpan, sans-serif;
+  }
+  
+  /*---------------------------------------------*/
+  a {
+      font-family: KCC-Ganpan;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #666677;
+      margin: 0px;
+      transition: all 0.4s;
+      -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+  }
+  
+  /*---------------------------------------------*/
+  h1,h2,h3,h4,h5,h6 {
+    font-family: KCC-Ganpan;
+    margin: 0px;
+  }
+  
+  p {
+      font-family: KCC-Ganpan;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #666666;
+      margin: 0px;
+  }
+  
+  ul, li {
+      margin: 0px;
+      list-style-type: none;
+  }
+  
+
+  
+  textarea {
+    outline: none;
+    border: none;
+  }
+  
+  textarea:focus, input:focus {
+    border-color: transparent !important;
+  }
+  
+  input:focus::-webkit-input-placeholder { color:transparent; }
+  input:focus:-moz-placeholder { color:transparent; }
+  input:focus::-moz-placeholder { color:transparent; }
+  input:focus:-ms-input-placeholder { color:transparent; }
+  
+  textarea:focus::-webkit-input-placeholder { color:transparent; }
+  textarea:focus:-moz-placeholder { color:transparent; }
+  textarea:focus::-moz-placeholder { color:transparent; }
+  textarea:focus:-ms-input-placeholder { color:transparent; }
+  
+  input::-webkit-input-placeholder { color: #999999;}
+  input:-moz-placeholder { color: #999999;}
+  input::-moz-placeholder { color: #999999;}
+  input:-ms-input-placeholder { color: #999999;}
+  
+  textarea::-webkit-input-placeholder { color: #999999;}
+  textarea:-moz-placeholder { color: #999999;}
+  textarea::-moz-placeholder { color: #999999;}
+  textarea:-ms-input-placeholder { color: #999999;}
+  
+  
+  label {
+    display: block;
+    margin: 0;
+  }
+  
+  /*---------------------------------------------*/
+  button {
+      outline: none !important;
+      border: none;
+      background: transparent;
+  }
+  
+  button:hover {
+      cursor: pointer;
+  }
+  
+  iframe {
+      border: none !important;
+  }
+  
+  /*//////////////////////////////////////////////////////////////////
+  [ utility ]*/
+  
+  /*==================================================================
+  [ Text ]*/
+  .txt1 {
+    font-family: KCC-Ganpan;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #555555;
+  }
+  
+  .txt2 {
+    font-family: KCC-Ganpan;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #999999;
+  }
+  
+  
+  /*==================================================================
+  [ Size ]*/
+  .size1 {
+    width: 355px;
+    max-width: 100%;
+  }
+  
+  .size2 {
+    width: calc(100% - 43px);
+  }
+  
+  /*==================================================================
+  [ Background ]*/
+  .bg1 {background: #3b5998;}
+  .bg2 {background: #1da1f2;}
+  .bg3 {background: #cd201f;}
+  
+
+  
+
+  /*------------------------------------------------------------------
+  [ Alert validate ]*/
+  
+  .validate-input {
+    position: relative;
+  }
+  
+  .alert-validate::before {
+    content: attr(data-validate);
+    position: absolute;
+    z-index: 100;
+    max-width: 70%;
+    background-color: #fff;
+    border: 1px solid #c80000;
+    border-radius: 2px;
+    padding: 4px 25px 4px 10px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    right: 12px;
+    pointer-events: none;
+  
+    font-family: KCC-Ganpan;
+    color: #c80000;
+    font-size: 13px;
+    line-height: 1.4;
+    text-align: left;
+  
+    visibility: hidden;
+    opacity: 0;
+  
+    -webkit-transition: opacity 0.4s;
+    -o-transition: opacity 0.4s;
+    -moz-transition: opacity 0.4s;
+    transition: opacity 0.4s;
+  }
+  
+  .alert-validate::after {
+    content: "\f12a";
+    font-family: KCC-Ganpan;
+    display: block;
+    position: absolute;
+    z-index: 110;
+    color: #c80000;
+    font-size: 16px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    right: 18px;
+  }
+  
+  .alert-validate:hover:before {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  @media (max-width: 992px) {
+    .alert-validate::before {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+  
+  
+  
+  /*==================================================================
+  [ Social ]*/
+  
+  .divider-text {
+      position: relative;
+      text-align: center;
+      margin-top: 15px;
+      margin-bottom: 15px;
+  }
+
+
+  .text-center {
+    font-family: KCC-Ganpan;
+    position: relative;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    z-index: 9999;
+}
+
+.register-in {
+    font-family: KCC-Ganpan;
+    color: #3b5998;
+    position: relative;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+
+.row {
+  font-family: KCC-Ganpan;
+}
+
+
+.page-section {
+  background-color: #555555;
+  padding: 20px;
+}
+
+
+
+.hero-wrap{
+  position:relative;
+  text-align:center;
+  display: flex;
+  justify-content: center;
+}
+
+#mainVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: top center;
+  position: relative;
+  z-index:0;
+
+
+}
+
+  .overlay{
+    position:absolute;
+    top: 70%;
+    height: 100%;
+  }
+
+.overlay h1, .overlay h3 {
+  font-family: KCC-Ganpan;
+  margin-top: 10px;
+  text-align: center;
+  color:white;
+  text-shadow: -1px 0 #000, 0 2px #000, 1px 0 #000, 0 -1px #000;
+}
+
+
+
+.github-link {
+  border: 1px solid #333333;
+}
+
+.github-link:hover {
+  border: 1px solid #333333;
+}
+
+
+
+/* About Us */
+.form-contact {
+  width: 90%; margin: auto;
+}
+
+.thankyou_message {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 999;
+  display: none;
+}
+
+.thankyou_message > section > h1 {
+  color: #59c3c3;
+  font-size: 25px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.thankyou_message > section {
+  width: 550px;
+  margin: 10% auto;
+  padding: 20px;
+  border-radius: 5px;
+  background: url(../images/contact_pop.jpg) no-repeat #fff right bottom;
+  background-size: 240px;
+  color: #3c4147;
+}
+
+#comment {
+  font-family: KCC-Ganpan;
+  font-size:20px;
+}
