@@ -12,6 +12,11 @@
     <button type="submit">Filter</button>
 </form> {% endcomment %}
 
+<!-- 일기 작성 버튼-->
+<div>
+    <a href="{% url 'diary:diary_create_before' %}" class="btn-register">일기쓰기</a>
+</div>
+
 <!-- 검색 기능 -->
 <h3 class="sidebar-title">Search</h3>
 <div class="input-group my-3">

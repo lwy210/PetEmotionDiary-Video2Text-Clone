@@ -1,0 +1,74 @@
+{% block content %}
+<div class="container">
+    <h3 class="my-3 border-bottom pb-2">일기 작성하기</h3>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!-- 오류표시 Start -->
+        {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            {% for field in form %}
+            {% if field.errors %}
+            <div>
+                <strong>{{ field.label }}</strong>
+                {{ field.errors }}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        <!-- 오류표시 End -->
+
+        <!-- 사용자 입력 -->
+        <div class="mb-3">
+            <label for="day" class="form-label">일기 날짜</label>
+            {{ form.day }}
+            <button type="button" id="set-today-button" class="btn btn-primary">오늘 날짜 설정</button>
+        </div>
+        <h5>일기 내용 추가하기</h5>
+        <div class="mb-3" id="content-fields">
+            <!-- Content fields will be dynamically added here -->
+        </div>
+        <button type="button" id="add-content-button" class="btn btn-secondary">일기 내용 추가하기</button>
+        
+        <div class="mb-3">
+            <label for="pet" class="form-label">반려동물 선택</label>
+            {{ form.pet }}
+        </div>
+        <div class="mb-3">
+            <label for="imgfile">비디오 업로드 </label>
+            <input type="file" class="form-control" name="video" id="video">
+        </div>
+        <button type="submit" class="btn btn-primary">일기 생성</button>
+        
+
+{% endblock %}
+{% block script %}
+<script type='text/javascript'>
+// 오늘 날짜 설정
+document.getElementById("set-today-button").addEventListener("click", function() {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var yyyy = today.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd;
+
+    document.getElementById("id_day").value = today;
+});
+
+
+var addButton = document.getElementById("add-content-button");
+var contentFields = document.getElementById("content-fields");
+
+addButton.addEventListener("click", function() {
+    var newField = document.createElement("div");
+    newField.className = "mb-3";
+    var input = document.createElement("input");
+    input.type = "text";
+    input.name = "content[]"; // Name it in a way that makes it easy to collect as a list on the server
+    input.className = "form-control";
+    newField.appendChild(input);
+    contentFields.appendChild(newField);
+});
+</script>
+{% endblock %}
