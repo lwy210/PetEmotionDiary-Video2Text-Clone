@@ -29,4 +29,7 @@ urlpatterns = [
     path("pet/", include("pet.urls")),
     path("diary/", include("diary.urls")),
 ]
+
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = "config.views.page_not_found"
