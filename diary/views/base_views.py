@@ -21,7 +21,7 @@ def index(request):
     if bookmark:
         q &= Q(bookmark=True)
 
-    diary_list = Diary.objects.filter(q).order_by("-day")
+    diary_list = Diary.objects.filter(q).order_by("-registered_time")
     if keyword:
         diary_list = diary_list.filter(Q(keywords__word=keyword)).distinct()
 
