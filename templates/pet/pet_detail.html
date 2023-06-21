@@ -15,7 +15,7 @@
             {% endif %}
         </h2>
         <ol>
-          <li><a href="">Home</a></li>
+          <li><a href="{% url 'main' %}">Home</a></li>
           <li><a href={% url 'pet:index' %}>반려동물 목록</a></li>
           <li>
             {% if operation == 'create' %}
@@ -47,7 +47,7 @@
         </div>
         <hr>
         
-        <div class="container mb-5 py-4">
+        <div class="container mb-5 pb-4">
 
             
 
@@ -56,7 +56,9 @@
                 <!-- 프로필 사진 Start -->
                 <div class="col-lg-6  px-5 mb-5 pb-4">
                     {% if pet.image %}
-                    <img src="{{ pet.image.url }}" class="card shadow img-fluid profile-img" alt="Post Image" style="width: auto;">
+                        <img src="{{ pet.image.url }}" class="card shadow img-fluid profile-img" alt="Post Image" style="width: auto;">
+                    {% else %}
+                        <img src="{% static "img/pp.jpg" %}" class="card shadow img-fluid profile-img" alt="Post Image" style="width: auto;">
                     {% endif %}
                 </div><!-- 프로필 사진 End -->
 
