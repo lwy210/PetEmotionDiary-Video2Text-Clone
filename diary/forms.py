@@ -6,6 +6,7 @@ from pet.models import Pet
 
 class DiaryForm(forms.ModelForm):
     content = forms.CharField(widget=forms.Textarea, required=False)
+    title = forms.CharField(required=False)
 
     class Meta:
         model = Diary
