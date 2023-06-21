@@ -65,7 +65,7 @@
                                 <a href={% url 'pet:detail' pet.id %} title="More Details" class="my-2">
                                     <i class="bi bi-plus-lg"></i>
                                 </a>
-                                <a href="" title="Write Diary" class="my-2">
+                                <a href={% url 'diary:diary_create_before' %} title="Write Diary" class="my-2">
                                     <i class="bi bi-journal-plus"></i>
                                 </a>
                             </div>
