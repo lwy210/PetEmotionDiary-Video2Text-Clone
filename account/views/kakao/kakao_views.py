@@ -9,7 +9,7 @@ def KakaoSignInView(request):
     if request.user.is_authenticated:
         raise Exception("이미 로그인이 되어 있습니다.")
     app_key = settings.KAKAO_KEY
-    redirect_uri = "http://15.165.115.243/account/login/kakao/callback/"
+    redirect_uri = "http://petemotiondiary.site/account/login/kakao/callback/"
     kakao_auth_api = "https://kauth.kakao.com/oauth/authorize?response_type=code"
     return redirect(f"{kakao_auth_api}&client_id={app_key}&redirect_uri={redirect_uri}")
 
@@ -20,7 +20,7 @@ def KaKaoSignInCallBackView(request):
     data = {
         "grant_type": "authorization_code",
         "client_id": settings.KAKAO_KEY,
-        "redirection_uri": "http://15.165.115.243/accounts/signin/kakao/callback/",
+        "redirection_uri": "http://petemotiondiary.site/accounts/signin/kakao/callback/",
         "code": auth_code,
     }
 
@@ -36,7 +36,7 @@ def KaKaoSignInCallBackView(request):
     profile_json = user_info_response.json()
     kakao_account = profile_json.get("kakao_account")
 
-    profile = kakao_account.get("profile")
+    profile = kakao_account.get("profile", "")
     nickname = profile.get("nickname", "임시이름")
     email = kakao_account.get("email", "임시이메일@naver.com")
     birthday = kakao_account.get("birthday", "0101")
