@@ -5,6 +5,8 @@
     {% if request.user == diary.user %}
     <a href="{% url 'diary:diary_modify' diary.id  %}" 
        class="btn btn-sm btn-outline-secondary">수정</a>
+    <a href="#" class="delete btn btn-sm btn-outline-secondary "
+       data-uri="{% url 'diary:diary_delete' diary.id  %}">삭제</a>
     {% endif %}
 </div>
 
@@ -22,3 +24,16 @@
 <img src="{{ diary.thumbnail }}" alt="Diary Thumbnail" style="max-height: 200px; width: auto;">
 {% endif %}
 <div>{{ diary.content }}</div>
+
+{% block script %}
+<script type='text/javascript'>
+const delete_elements = document.getElementsByClassName("delete");
+Array.from(delete_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+</script>
+{% endblock %}

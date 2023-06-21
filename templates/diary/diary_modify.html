@@ -28,7 +28,9 @@
         </div>
         <!-- 숨겨진 필드(hidden field)로 선택된 키워드들의 값을 저장하는 용도 -->
         <input type="hidden" id="keyword-list" name="keyword_list">
-        <button type="submit" class="btn btn-primary" onclick="prepareKeywordList()">저장</button>
+        <button type="submit" class="btn btn-primary" onclick="prepareKeywordList()">일기 수정</button>
+        <a href="#" class="delete btn btn-sm btn-outline-secondary "
+        data-uri="{% url 'diary:diary_delete' diary.id  %}">일기 삭제</a>
     </form>
 </div>
 {% endblock %}
@@ -63,6 +65,14 @@ document.querySelector('form').addEventListener('submit', function(e) {
     prepareKeywordList();
 });
 
+const delete_elements = document.getElementsByClassName("delete");
+Array.from(delete_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
 
 </script>
 {% endblock %}
