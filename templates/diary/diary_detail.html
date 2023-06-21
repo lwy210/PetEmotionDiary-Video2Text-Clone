@@ -1,6 +1,12 @@
-<!-- 카테고리 및 버튼 -->
+<!-- 목록/수정/삭제 버튼 -->
 <h1>{{ pet.name }}의 일기</h1>
 <a href="{% url 'diary:index' %}">목록으로</a>
+<div class="my-3">
+    {% if request.user == diary.user %}
+    <a href="{% url 'diary:diary_modify' diary.id  %}" 
+       class="btn btn-sm btn-outline-secondary">수정</a>
+    {% endif %}
+</div>
 
 <!-- 일기 내용 -->
 <div>제목 : {{ diary.title }}</div>

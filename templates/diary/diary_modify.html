@@ -1,0 +1,68 @@
+{% block content %}
+<div class="container">
+    <h3 class="my-3 border-bottom pb-2">일기 결과</h3>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="title" class="form-label">일기 제목</label>
+            {{ form.title }}
+        </div>
+        <div class="mb-3">
+            <label for="day" class="form-label">작성 날짜</label>
+            {% comment %} <input type="text" class="form-control" id="day" name="day" value="{{ form.day.value }}" readonly> {% endcomment %}
+            {{ form.day }}
+        </div>
+        {% for keyword in diary.keywords.all %}
+            <div>#{{ keyword }}</div>   
+        {% endfor %}
+        <div class="mb-3" id="keyword-fields">
+        </div> 
+        <button type="button" id="add-keyword-button" class="btn btn-secondary">키워드 추가</button>
+        <div class="mb-3">
+            <label for="content" class="form-label">일기 내용</label>
+            {{ form.content }}
+        </div>
+        <div class="mb-3">
+            <label for="pet" class="form-label">반려동물 선택</label>
+            {{ form.pet }}
+        </div>
+        <!-- 숨겨진 필드(hidden field)로 선택된 키워드들의 값을 저장하는 용도 -->
+        <input type="hidden" id="keyword-list" name="keyword_list">
+        <button type="submit" class="btn btn-primary" onclick="prepareKeywordList()">저장</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type='text/javascript'>
+var addKeywordButton = document.getElementById("add-keyword-button");
+var keywordFields = document.getElementById("keyword-fields");
+
+addKeywordButton.addEventListener("click", function() {
+    var newField = document.createElement("div");
+    var keywordId = "new_keyword_" + Math.random().toString(36).substring(2, 8);
+    newField.innerHTML = `
+        <input type="checkbox" name="keywords" id="${keywordId}" checked>
+        <input type="text" name="custom_keywords" placeholder="새 키워드 입력" oninput="document.getElementById('${keywordId}').value = this.value">
+    `;
+    keywordFields.appendChild(newField);
+});
+
+function prepareKeywordList() {
+    var keywordCheckboxes = document.querySelectorAll('input[name="keywords"]:checked');
+    var selectedKeywords = [];
+
+    keywordCheckboxes.forEach(function(checkbox) {
+        selectedKeywords.push(checkbox.value);
+    });
+
+    document.getElementById('keyword-list').value = JSON.stringify(selectedKeywords);
+}
+
+document.querySelector('form').addEventListener('submit', function(e) {
+    prepareKeywordList();
+});
+
+
+</script>
+{% endblock %}
