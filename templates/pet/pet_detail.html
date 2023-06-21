@@ -15,7 +15,7 @@
             {% endif %}
         </h2>
         <ol>
-          <li><a href="">Home</a></li>
+          <li><a href="{% url 'main' %}">Home</a></li>
           <li><a href={% url 'pet:index' %}>반려동물 목록</a></li>
           <li>
             {% if operation == 'create' %}
@@ -47,7 +47,7 @@
         </div>
         <hr>
         
-        <div class="container mb-5 py-4">
+        <div class="container mb-5 pb-4">
 
             
 
