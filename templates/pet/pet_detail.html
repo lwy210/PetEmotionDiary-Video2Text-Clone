@@ -1,25 +1,128 @@
-<div class="pet_content">
-    <h2>반려동물 이름 : {{ pet.name }}</h2>
-    <div>주인 닉네임 : {{pet.user.nick_name}}</div>
-    <div>주인 부르는 이름 : {{pet.owner_name}}</div>
-    <div>반려동물 성별 : {{pet.gender}}</div>
-    <div>반려동물 분류 : {{pet.kind}}</div>
-    <div>반려동물 생일 : {{pet.birth_day}}</div>
-    <div>반려동물 만난날 : {{pet.meet_day}}</div>
-    {% for personality in pet.personality_set.all %}
-    <div>반려동물 dbti : {{personality.activity}}{{personality.relationship}}{{personality.proto_dog}}{{personality.dependence}}</div>
-    {% endfor %}
-</div>
-<div class="my-3">
-    <a href="{% url 'pet:pet_modify' pet.id 'detail' %}" 
-       class="btn btn-sm btn-outline-secondary">수정하기</a>
-    <a href="#" class="delete btn btn-sm btn-outline-secondary "
-       data-uri="{% url 'pet:pet_delete' pet.id  %}">삭제하기</a>
-</div>
-<div class="my-3">
-    <a href="{% url 'pet:index' %}" 
-       class="btn btn-sm btn-outline-secondary">목록으로</a>
-</div>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs">
+    <div class="container">
+  
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>
+            {% if operation == 'create' %}
+                반려동물 추가
+            {% else %}
+                반려동물 정보
+            {% endif %}
+        </h2>
+        <ol>
+          <li><a href="{% url 'main' %}">Home</a></li>
+          <li><a href={% url 'pet:index' %}>반려동물 목록</a></li>
+          <li>
+            {% if operation == 'create' %}
+                반려동물 추가
+            {% else %}
+                반려동물 정보
+            {% endif %}
+          </li>
+        </ol>
+      </div>
+  
+    </div>
+</div><!-- End Breadcrumbs -->
+
+<!-- ======= Content Section ======= -->
+<section class='content'>
+    <div class="container my-3" data-aos="fade-up">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="{% url 'pet:index' %}" 
+                class="btn btn-outline-success">목록으로</a>
+                <ul>
+                    <li><a href="{% url 'pet:pet_modify' pet.id 'detail' %}" 
+                        class="btn-register">수정하기</a></li>
+                    <li><a href="#" class="delete btn-register"
+                        data-uri="{% url 'pet:pet_delete' pet.id  %}">삭제하기</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        
+        <div class="container mb-5 pb-4">
+
+            
+
+            <div class="row">
+
+                <!-- 프로필 사진 Start -->
+                <div class="col-lg-6  px-5 mb-5 pb-4">
+                    {% if pet.image %}
+                        <img src="{{ pet.image.url }}" class="card shadow img-fluid profile-img" alt="Post Image" style="width: auto;">
+                    {% else %}
+                        <img src="{% static "img/pp.jpg" %}" class="card shadow img-fluid profile-img" alt="Post Image" style="width: auto;">
+                    {% endif %}
+                </div><!-- 프로필 사진 End -->
+
+                <!-- pet 정보 Start -->
+                <div class="col-lg-6 card register-form shadow">
+                    <div class="card-header p-5">
+                        <div class="d-flex justify-content-center ">
+                            <div class="card-pet-name">{{ pet.name }}</div>
+                        </div>
+                    </div>
+
+                    <div class="pet_content p-4">
+
+                        <div class="p-3">
+
+                            <div class="d-flex my-4">
+                                <h4 class="px-2">주인 닉네임 </h4> 
+                                <h5 class="mx-3">{{pet.user.nick_name}}</h5>
+                            </div>
+
+                            <div class="d-flex my-4">
+                                <h4 class="px-2">주인을 부르는 이름 </h4> 
+                                <h5 class="mx-3">{{pet.owner_name}}</h5>
+                            </div>
+
+                            <div class="d-flex my-4">
+                                <h4 class="px-2">성별 </h4> 
+                                <h5 class="mx-3">{% if pet.gender == 'W' %} 여자 {% else %} 남자 {% endif %}</h5>
+                            </div>
+
+                            <div class="d-flex my-4">
+                                <h4 class="px-2">분류 </h4> 
+                                <h5 class="mx-3">{% if pet.kind == 'Dog' %} 강아지 {% else %} 고양이 {% endif %}</h5>
+                            </div>
+
+                            <div class="d-flex my-4">
+                                <h4 class="px-2">생일 </h4> 
+                                <h5 class="mx-3">{{pet.birth_day}}</h5>
+                            </div>
+
+                            <div class="d-flex my-4">
+                                <h4 class="px-2">만난날 </h4> 
+                                <h5 class="mx-3">{{pet.meet_day}}</h5>
+                            </div>
+
+                            {% for personality in pet.personality_set.all %}
+                                <div class="d-flex my-4">
+                                    <h4 class="px-2">DBTI (Dog Behavior Type Indicator) </h4> 
+                                    <h5 class="mx-3">{{personality.activity}}{{personality.relationship}}{{personality.proto_dog}}{{personality.dependence}}</h5>
+                                </div>
+                                {% endfor %}
+                            
+                        </div>
+
+                    </div>
+                </div>  <!-- pet 정보 End -->
+
+            </div>
+        </div>
+        
+    </div>
+</section>
+{% endblock %}
+
 {% block script %}
 <script type='text/javascript'>
 const delete_elements = document.getElementsByClassName("delete");
@@ -32,3 +135,84 @@ Array.from(delete_elements).forEach(function(element) {
 });
 </script>
 {% endblock %}
+
+{% comment %} 
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs">
+    <div class="container">
+  
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>반려동물 정보 확인</h2>
+        <ol>
+          <li><a href="">Home</a></li>
+          <li>반려동물 정보 확인</li>
+        </ol>
+      </div>
+  
+    </div>
+</div><!-- End Breadcrumbs -->
+
+<div class="container">
+    <div class="container my-3" data-aos="fade-up">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="card board-title">
+                {% if post.category == "free_type" %}
+                <h5>자유게시판</h5>
+                {% elif post.category == "brag_type" %}
+                <h5>자랑게시판</h5>
+                {% elif post.category == "worry_type" %}
+                <h5>고민게시판</h5>
+                {% endif %}
+            </div>
+            <ul class="ul-btn">
+                <li>
+                    <a href="{% url 'pet:pet_modify' pet.id 'detail' %}" 
+                        class="btn-register">수정하기</a>
+                </li>
+                <li>
+                    <a href="#" class="btn-register "
+                        data-uri="{% url 'pet:pet_delete' pet.id  %}">삭제하기</a>
+                </li>
+            </ul>
+
+        </div>
+        <hr>
+
+        <div class="pet_content">
+            <h2>반려동물 이름 : {{ pet.name }}</h2>
+            <div>주인 닉네임 : {{pet.user.nick_name}}</div>
+            <div>주인 부르는 이름 : {{pet.owner_name}}</div>
+            <div>반려동물 성별 : {{pet.gender}}</div>
+            <div>반려동물 분류 : {{pet.kind}}</div>
+            <div>반려동물 생일 : {{pet.birth_day}}</div>
+            <div>반려동물 만난날 : {{pet.meet_day}}</div>
+            {% for personality in pet.personality_set.all %}
+            <div>반려동물 dbti : {{personality.activity}}{{personality.relationship}}{{personality.proto_dog}}{{personality.dependence}}</div>
+            {% endfor %}
+        </div>
+        
+        <div class="my-3">
+            <a href="{% url 'pet:index' %}" 
+            class="btn btn-sm btn-outline-secondary">목록으로</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type='text/javascript'>
+const delete_elements = document.getElementsByClassName("delete");
+Array.from(delete_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+</script>
+{% endblock %}
+{% endcomment %}

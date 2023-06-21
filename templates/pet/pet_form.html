@@ -1,7 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
-<div class="container">
-    <h5 class="my-3 border-bottom pb-2">반려동물 추가</h5>
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs">
+    <div class="container">
+  
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>
+            {% if operation == 'create' %}
+                반려동물 추가
+            {% else %}
+                반려동물 정보
+            {% endif %}
+        </h2>
+        <ol>
+          <li><a href="{% url 'main' %}">Home</a></li>
+          <li><a href={% url 'pet:index' %}>반려동물 목록</a></li>
+          <li>
+            {% if operation == 'create' %}
+                반려동물 추가
+            {% else %}
+                반려동물 정보
+            {% endif %}
+          </li>
+        </ol>
+      </div>
+  
+    </div>
+</div><!-- End Breadcrumbs -->
+
+<!-- ======= Contents ======= -->
+<div class="container d-flex justify-content-end mt-4 px-3 pb-2">
+    <label><label style="color: red;"> *</label> 필수 입력</label>
+</div>
+<div class="container card register-form shadow px-5 mb-5 py-4">
     <form method="post" enctype="multipart/form-data">
+
         {% csrf_token %}
         <!-- 오류표시 Start -->
         {% if form.errors %}
@@ -17,64 +52,104 @@
         </div>
         {% endif %}
         <!-- 오류표시 End -->
-        <div class="mb-3">
-            <label for="name" class="form-label">이름</label>
-            <input type="text" class="form-control" name="name" id="name"
-                    value="{{ form.name.value|default_if_none:'' }}">
+
+        <div class="row">
+            <!-- 프로필 Start -->
+            <div class="col-lg-3">
+                <div class="my-4">
+                    
+                    <h5 for="image" class="form-label">프로필 이미지</h5>
+                    <div class="my-4">
+                        {% if pet.image %}
+                            <img src="{{ pet.image.url }}" alt="Post Image" class="img-fluid">
+                        {% endif %}
+                    </div>
+                    
+                    <input type="file" class="form-control" name="image" id="image">
+                    
+                </div>
+            </div>   <!-- 프로필 End -->
+
+            <!-- pet 정보 Start -->
+            <div class="col-lg-9 px-5">
+                <div class="my-4 d-flex justify-content-start">
+                    <h5 for="name" class="form-label mt-1" style="width: 6rem;">&bull; <label style="color: red;"> *</label> 이름 : </h5>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="이름을 작성해주세요." 
+                            value="{{ form.name.value|default_if_none:'' }}">
+                </div>
+
+                <div class="my-4 d-flex justify-content-start">
+                    <h5 for="owner_name" class="form-label mt-1" style="width: 20rem;">&bull; <label style="color: red;"> *</label> 반려인을 부르는 애칭 : </h5>
+                    <input type="text" class="form-control" name="owner_name" id="owner_name" placeholder="반려인 애칭을 작성해주세요." 
+                            value="{{ form.owner_name.value|default_if_none:'' }}">
+                </div>
+
+                <div class="row my-4">
+                    <div class="col-lg-5 ">
+                        <div class="d-flex">
+                            <h5 for="kind" class="form-label">&bull; <label style="color: red;"> *</label> 종류 : </h5>
+                            <div class="mx-3">{{ form.kind }}</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 ">
+                        <div class="d-flex">
+                            <h5 for="gender" class="form-label">&bull; <label style="color: red;"> *</label> 성별+중성화여부 : </h5>
+                            <div class="mx-3">{{ form.gender }}</div>
+                            <div class="mx-3">{{ form.is_neutered }} 중성화 완료</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="my-4 d-flex">
+                    <h5 for="meet_day" class="form-label">&bull; 만난 날</h5>
+                    <div class="mx-3">{{ form.meet_day }}</div>
+                </div>
+            
+                <div class="my-4 d-flex">
+                    <h5 for="birth_day" class="form-label">&bull; 생년월일</h5>
+                    <div class="mx-3">{{ form.birth_day }}</div>
+                </div>
+
+                <h5>&bull; DBTI (Dog Behavior Type Indicator)</h5>
+                <div class="row px-4">
+                    <div class="col mb-3">
+                        <label for="dbti-activity" class="form-label">dbti-activity</label>
+                        <div class="mx-3">{{ form.activity }}</div>
+                    </div>
+                    <div class="col mb-3">
+                        <label for="dbti-relationship" class="form-label">dbti-relationship</label>
+                        <div class="mx-3">{{ form.relationship }}</div>
+                    </div>
+                    <div class="col mb-3">
+                        <label for="dbti-proto_dog" class="form-label">dbti-proto_dog</label>
+                        <div class="mx-3">{{ form.proto_dog }}</div>
+                    </div>
+                    <div class="col mb-3">
+                        <label for="dbti-dependence" class="form-label">dbti-dependence</label>
+                        <div class="mx-3">{{ form.dependence }}</div>
+                    </div>
+                </div>
+            </div>    <!-- pet 정보 End -->
         </div>
-        <div class="mb-3">
-            <label for="kind" class="form-label">강아지/고양이</label>
-            {{ form.kind }}
-        </div>
-        <div class="mb-3">
-            <label for="gender" class="form-label">성별+중성화여부</label>
-            {{ form.gender }}
-            {{ form.is_neutered }} 중성화 완료
-        </div>
-        <div class="mb-3">
-            <label for="meet_day" class="form-label">만난 날</label>
-            {{ form.meet_day }}
-        </div>
-        <div class="mb-3">
-            <label for="birth_day" class="form-label">생년월일</label>
-            {{ form.birth_day }}
-        </div>
-        <div class="mb-3">
-            <label for="owner_name" class="form-label">반려인 부르는 애칭</label>
-            <input type="text" class="form-control" name="owner_name" id="owner_name"
-                    value="{{ form.owner_name.value|default_if_none:'' }}">
-        </div>
-        {% comment %} 하기 내용은 필수 입력 아님 {% endcomment %}
-        <div class="mb-3">
-            <label for="image" class="form-label">이미지</label>
-            <input type="file" class="form-control" name="image" id="image">
-        </div>
-        <div class="mb-3">
-            <label for="dbti-activity" class="form-label">dbti-activity</label>
-            {{ form.activity }}
-        </div>
-        <div class="mb-3">
-            <label for="dbti-relationship" class="form-label">dbti-relationship</label>
-            {{ form.relationship }}
-        </div>
-        <div class="mb-3">
-            <label for="dbti-proto_dog" class="form-label">dbti-proto_dog</label>
-            {{ form.proto_dog }}
-        </div>
-        <div class="mb-3">
-            <label for="dbti-dependence" class="form-label">dbti-dependence</label>
-            {{ form.dependence }}
-        </div>
+
+        <!-- 버튼 Start -->
         {% if operation == 'create' %}
-        <button type="submit" class="btn btn-primary">추가하기</button>
+        <div class="d-flex mt-5">{% comment %} 오른쪽 정렬: text-lg-end {% endcomment %}
+            <button type="submit" class="btn-register flex-fill">추가하기</button>
+        </div>
         {% else %}
-        <button type="submit" class="btn btn-primary">수정하기</button>
-        <a href="#" class="delete btn btn-sm btn-outline-secondary "
-        data-uri="{% url 'pet:pet_delete' pet.id  %}">삭제하기</a>
+        <div class="d-flex mt-5 justify-content-end">{% comment %} 오른쪽 정렬: text-lg-end {% endcomment %}
+            <button type="submit" class="btn-register mx-2">수정완료</button>
+            <a href="#" class="delete btn-register mx-2"
+            data-uri="{% url 'pet:pet_delete' pet.id  %}">삭제하기</a>
+        </div>
         {% endif %}
+        <!-- 버튼 End -->
+
     </form>
-</div>
+</div><!-- End Contents -->
 {% endblock %}
+
 {% block script %}
 <script type='text/javascript'>
 const delete_elements = document.getElementsByClassName("delete");

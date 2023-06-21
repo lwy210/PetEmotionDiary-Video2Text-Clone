@@ -20,11 +20,11 @@ class Pet(models.Model):
     meet_day = models.DateField()
     name = models.CharField(max_length=15)
     kind = models.CharField(max_length=3, choices=KIND_CHOICES)
-    image = models.CharField(max_length=45, null=True, blank=True)
+    image = models.ImageField(upload_to="pet_images/", null=True, blank=True)
     is_neutered = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.name + " (주인: " + self.user.nick_name + ")"
+        return self.name
 
 
 class Personality(models.Model):

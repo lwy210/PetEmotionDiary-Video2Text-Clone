@@ -27,7 +27,7 @@
     <div class="d-flex justify-content-between align-items-center">
       <h2>게시판</h2>
       <ol>
-        <li><a href="">Home</a></li>
+        <li><a href={% url 'main' %}>Home</a></li>
         <li>게시판</li>
       </ol>
     </div>
@@ -38,23 +38,6 @@
 <!-- ======= Blog Section ======= -->
 <section id='blog' class='blog'>
   <div class="container my-3" data-aos="fade-up">
-    {% comment %} <div class="d-flex justify-content-between align-items-center">
-      <form method="GET" action="{% url 'post:index' %}">
-        <div class="sidebar-item mt-3">
-          <select type="submit" name="category" id="category" class="form-select">
-            <option value="" {% if request.GET.category == "" %}selected{% endif %}>전체 게시판</option>
-            <option value="free_type" {% if request.GET.category == "free_type" %}selected{% endif %}>자유 게시판</option>
-            <option value="worry_type" {% if request.GET.category == "worry_type" %}selected{% endif %}>고민 게시판</option>
-            <option value="brag_type" {% if request.GET.category == "brag_type" %}selected{% endif %}>자랑 게시판</option>
-          </select>
-        </div>
-      </form>
-      <ul>
-        <li style="list-style: none;"><a href="{% url 'post:post_create' %}" class="btn-register">글쓰기</a>
-        </li>
-      </ul>
-    </div>
-    <hr> {% endcomment %}
     <div class="d-flex justify-content-between my-4">
       <label class="mx-2">
         전체 글 &nbsp <span class="text-danger">{{ post_list.paginator.count }}</span>

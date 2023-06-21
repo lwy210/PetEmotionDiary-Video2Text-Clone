@@ -9,7 +9,7 @@
       <div class="d-flex justify-content-between align-items-center">
         <h2>자세히 보기</h2>
         <ol>
-          <li><a href=''>Home</a></li>
+          <li><a href="{% url 'main' %}">Home</a></li>
           <li><a href={% url 'post:index' %}>게시판</a></li>
           <li>자세히 보기</rli>
         </ol>
@@ -34,9 +34,9 @@
               <ul>
                 {% if request.user == post.user %}
                     <li><a href="{% url 'post:post_modify' post.id  %}" 
-                    class="btn-register">수정</a></li>
+                    class="btn-register">수정하기</a></li>
                     <li><a href="javascript:void(0)" class="delete btn-register"
-                    data-uri="{% url 'post:post_delete' post.id  %}">삭제</a></li>
+                    data-uri="{% url 'post:post_delete' post.id  %}">삭제하기</a></li>
                 {% endif %}
               </ul>
             </div>
@@ -73,14 +73,23 @@
             </div>
 
             <div class="card-body p-5">
-                {% if post.image %}
-                <img src="{{ post.image }}" alt="Post Image" style="max-height: 400px; width: auto;">
-                {% endif %}
 
-                {% if post.video %}
-                <video src="{{ post.video }}" controls></video>
-                {% endif %}
+                <div class="row">
+                    {% if post.image %}
+                        <div class="col mb-5">
+                            <img src="{{ post.image.url }}" alt="Post Image" style="height: 400px; width: auto;">
+                        </div>
+                    {% endif %}
+
+                    {% if post.video %}
+                        <div class="col mb-5 d-flex justify-continer-center">
+                            <video src="{{ post.video.url }}" controls style="height: 400px; width: auto;"></video>
+                        </div>
+                    {% endif %}
+                </div>
+
                 <pre>{{ post.content }}</pre>
+                
             </div>
 
             <div class="card-footer d-flex justify-content-between mx-4">
@@ -101,7 +110,7 @@
             </div>
         </div>
     </div>
-</section>
+</section>   <!-- End Content -->
 
 <!-- ======= Comment Section ======= -->
 <section class="comment">
@@ -180,15 +189,15 @@
             
             <div class="container card register-form shadow p-4 ">
                 <h5 for="content" class="form-label">댓글 작성</h5>
-                <div class="d-flex align-items-first my-3">
+                <div class="d-flex align-items-first my-3 px-2">
                     <textarea {% if not user.is_authenticated %}disabled{% endif %} placeholder="댓글을 작성해주세요."
                         name="content" id="content" class="form-control" rows="2"></textarea>
-                    <input type="submit" value="댓글등록" class="btn-register">
+                    <input type="submit" value="등록하기" class="btn-register">
                 </div>
             </div>
         </form>
     </div>
-</section>
+</section>   <!-- End Comment -->
 {% endblock %}
 
 {% block script %}
