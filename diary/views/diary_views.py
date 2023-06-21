@@ -95,6 +95,16 @@ def diary_modify(request, diary_id):
 
 
 @login_required(login_url="account:login")
+def diary_delete(request, diary_id):
+    diary = get_object_or_404(Diary, pk=diary_id)
+    if request.user != diary.user:
+        messages.error(request, "삭제권한이 없습니다")
+        return redirect("diary:detail", diary_id=diary.id)
+    diary.delete()
+    return redirect("diary:index")
+
+
+@login_required(login_url="account:login")
 def diary_bookmark(request, diary_id):
     diary = get_object_or_404(Diary, pk=diary_id)
     if request.user == diary.user:
