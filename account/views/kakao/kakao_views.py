@@ -52,4 +52,4 @@ def KaKaoSignInCallBackView(request):
         )
 
     login(request, user)
-    return redirect("account:logout_test")
+    return redirect("main")
