@@ -122,7 +122,7 @@ label, a, li, p, div, pre, .form-select, .btn {
     color: #198754;
 }
 
-.comment .btn-register.btn-sm {
+.btn-yellow-register.btn-sm {
     border: 3px solid #fcf3c9;
     background-color: #fcf3c9;
     border-radius: 4px;
@@ -131,7 +131,7 @@ label, a, li, p, div, pre, .form-select, .btn {
     text-decoration: none;
 }
 
-.comment .btn-register.btn-sm:hover  {
+.btn-yellow-register.btn-sm:hover  {
     border-color: #fcf3c9;
     background-color: white;
     color: #f8e591;
