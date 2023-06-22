@@ -144,8 +144,8 @@
                         <div>
                             {% if request.user == comment.user %}
                             <a href="{% url 'post:comment_modify' comment.id  %}" 
-                            class="btn-register btn-sm">수정</a>
-                            <a href="#" class="delete btn-register btn-sm"
+                            class="btn-yellow-register btn-sm">수정</a>
+                            <a href="#" class="delete btn-yellow-register btn-sm"
                             data-uri="{% url 'post:comment_delete' comment.id  %}">삭제</a>
                             {% endif %}
                         </div>
