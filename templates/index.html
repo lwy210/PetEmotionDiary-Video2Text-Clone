@@ -20,21 +20,25 @@
 <body>
 {% include 'navbar.html' %}
 <!-- Main Start -->
-<div class="hero-wrap">
-    <video autoplay muted loop id="mainVideo">
+<div class="hero-wrap py-5">
+    {% comment %} <video autoplay muted loop id="mainVideo">
         <source src={% static "img/kong.mp4" %} type="video/mp4">
-    </video>
+    </video> {% endcomment %}
 
-    <div class="overlay">
+    <div class="align-self-center">
         <h1 style="font-size:50px">AI로 작성하는 반려동물 일기</h1>
         <h3 style="font-size:30px">영상을 통해 강아지/고양이 시점의 일기를 자동 작성</h3>
+    </div>
+
+    <div class="ml-5">
+        <img src={% static "img/Cat and dog_yellow.gif" %}></img>
     </div>
 </div>
 <!-- Main End-->
 
 
 <!-- Services Start-->
-<section class="ftco-section ftco-no-pt ftco-intro py-5" id="service-section" style="background-color:#AACB73">
+<section class="ftco-section ftco-no-pt ftco-intro py-5" id="service-section" style="background-color:#D7E9B9">
     <div class="container">
         <div class="row mb-5">
             <div class="col-12 text-center my-3">
@@ -44,7 +48,7 @@
         
         <div class="row">
             <div class="col-lg-4 mb-10 mb-lg-0">
-                <div class="package">
+                <div class="package shadow">
                     <span class="img-wrap"><img src={% static "img/diary.png" %} alt="diary image" class="img-fluid"></span>
                     <h3 class="text-title">일기 작성</h3>
                     <p>반려동물의 일기를 작성해보세요</p>
@@ -53,7 +57,7 @@
             </div>
 
             <div class="col-lg-4 mb-4 mb-lg-0">
-                <div class="package">
+                <div class="package shadow">
                     <span class="img-wrap"><img src={% static "img/pets.png" %} alt="pets image" class="img-fluid"></span>
                     <h3 class="text-title">반려동물목록</h3>
                     <p>반려동물의 목록을 관리해보세요</p>
@@ -62,7 +66,7 @@
             </div>
 
             <div class="col-lg-4 mb-4 mb-lg-0">
-                <div class="package">
+                <div class="package shadow">
                     <span class="img-wrap"><img src={% static "img/board.png" %} alt="board image" class="img-fluid"></span>
                     <h3 class="text-title">게시판</h3>
                     <p>집사들과 이야기를 나눠보세요</p>
