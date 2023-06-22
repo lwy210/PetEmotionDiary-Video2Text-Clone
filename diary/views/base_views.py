@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, render
@@ -7,6 +8,7 @@ from pet.models import Pet
 from ..models import Diary
 
 
+@login_required(login_url="account:login")
 def index(request):
     page = request.GET.get("page", "1")  # 페이지
     keyword = request.GET.get("keyword", "")  # 검색어
@@ -32,6 +34,7 @@ def index(request):
     return render(request, "diary/diary_list.html", context)
 
 
+@login_required(login_url="account:login")
 def detail(request, diary_id):
     diary = get_object_or_404(Diary, pk=diary_id)
     pet = get_object_or_404(Pet, pk=diary.pet_id)

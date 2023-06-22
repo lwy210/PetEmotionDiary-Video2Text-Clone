@@ -11,6 +11,7 @@ def index(request):
     return render(request, "pet/pet_list.html", context)
 
 
+@login_required(login_url="account:login")
 def detail(request, pet_id):
     pet = get_object_or_404(Pet, pk=pet_id)
 
