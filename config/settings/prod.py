@@ -2,7 +2,7 @@ from .base import *
 
 import environ
 
-ALLOWED_HOSTS = ["15.165.115.243", "petemotiondiary.site"]
+ALLOWED_HOSTS = ["15.165.115.243", "petemotiondiary.site", "127.0.0.1"]
 STATIC_ROOT = BASE_DIR / "static/"
 STATICFILES_DIRS = []
 DEBUG = False
