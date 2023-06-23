@@ -9,3 +9,5 @@ black==23.3.0
 requests
 django-environ
 mysqlclient
+boto3
+django-storages
