@@ -10,19 +10,19 @@
   /*//////////////////////////////////////////////////////////////////
   [ RESTYLE TAG ]*/
   
-  * {
+  .signup-card  * {
       margin: 0px; 
       padding: 0px; 
       box-sizing: border-box;
   }
   
-  body, html {
+  .signup-card  body, html {
       height: 100%;
       font-family: KCC-Ganpan, sans-serif;
   }
   
   /*---------------------------------------------*/
-  a {
+  .signup-card  a {
       font-family: KCC-Ganpan;
       font-size: 14px;
       line-height: 1.7;
@@ -35,11 +35,11 @@
   }
   
   /*---------------------------------------------*/
-  h1,h2,h3,h4,h5,h6 {
+  .signup-card  h1,h2,h3,h4,h5,h6 {
       margin: 0px;
   }
   
-  p {
+  .signup-card  p {
       font-family: KCC-Ganpan;
       font-size: 14px;
       line-height: 1.7;
@@ -47,24 +47,24 @@
       margin: 0px;
   }
   
-  ul, li {
+  .signup-card  ul, li {
       margin: 0px;
       list-style-type: none;
   }
   
   
   /*---------------------------------------------*/
-  input {
+  .signup-card input {
       outline: none;
       border: none;
   }
   
-  textarea {
+  .signup-card textarea {
     outline: none;
     border: none;
   }
   
-  textarea:focus, input:focus {
+  .signup-card textarea:focus, input:focus {
     border-color: transparent !important;
   }
   
@@ -89,23 +89,23 @@
   textarea:-ms-input-placeholder { color: #999999;}
   
   
-  label {
+  .signup-card label {
     display: block;
     margin: 0;
   }
   
   /*---------------------------------------------*/
-  button {
+  .signup-card button {
       outline: none !important;
       border: none;
       background: transparent;
   }
   
-  button:hover {
+  .signup-card button:hover {
       cursor: pointer;
   }
   
-  iframe {
+  .signup-card iframe {
       border: none !important;
   }
   
@@ -154,7 +154,7 @@
     margin: 0 auto;
   }
   
-  .container{
+  .signup-card .container{
     max-width:480px;
     align-items: center;
     background-color: #f2f2f2;
