@@ -1,6 +1,26 @@
 /*--------------------------------------------------------------
 # 캘린더 부분
 --------------------------------------------------------------*/
+.btn-viewtype {
+    padding: 10px 10px;
+    text-decoration: none;
+    color: #616161;
+}
+
+.selected_type {
+    border-bottom: 3px solid #616161;
+    background-color: #e6e6e6;
+}
+
+.btn-viewtype:hover {
+    color: #DEDEDE;
+    background-color: #616161;
+}
+
+.diary-view-wrap {
+    display: flex;
+}
+
 .rounded-card {
     border-radius: 20px;
     box-shadow:  20px 20px 60px #cacbce,

@@ -19,9 +19,9 @@ function getDiarys(callback) {
     });
 }
 // 그 다음부터는 지정된 시간 간격으로 실행
-setInterval(function(){
-    getDiarys(); // 콜백 없이 호출
-}, 1000);
+// setInterval(function(){
+//     getDiarys(); // 콜백 없이 호출
+// }, 1000);
 
 
 (function($) {
@@ -149,11 +149,6 @@ function prev_year(event) {
 }
 
 
-function get_bookmark_state(diary_id) {
-
-}
-
-
 // Display all events of the selected date in card views
 function show_events(month, day, diarys) {
     // Clear the dates container //
@@ -232,7 +227,8 @@ function show_events(month, day, diarys) {
                                 bookmarkState.text(response["bookmark"]);
                             },
                             error: function(response) {
-                                alert('An error occurred while bookmarking');
+                                console.log("error bookmark", response);
+                                // alert('An error occurred while bookmarking');
                             }
                         });
                     });

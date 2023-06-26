@@ -6,6 +6,7 @@ app_name = "diary"
 
 urlpatterns = [
     path("", base_views.index, name="index"),
+    path("list/", base_views.index_list, name="index_list"),
     path("<int:diary_id>/", base_views.detail, name="detail"),
     path("get_diarys/", ajax_views.get_diarys, name="get_diarys"),
     path(
