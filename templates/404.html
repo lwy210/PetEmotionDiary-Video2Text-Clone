@@ -1,12 +1,22 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-12 text-center">
-            <span class="display-1 d-block">404</span>
-            <div class="mb-4 lead">페이지를 찾을 수 없습니다.</div>
-            <a href="/" class="btn btn-link">홈으로 돌아가기</a>
-        </div>
+<div class="container py-2">
+    <div class="text-center d-flex align-items-center justify-content-center">
+
+            <img src={% static "img/404tmp.gif" %} class="img-404">
+        
+            <div class="mx-4">
+                <h3 class="mb-3" style="color:rgb(13, 110, 253)">Sorry!</h3>
+                <span class="display-1 d-block">404</span>
+                <div class="mb-5 lead">페이지를 찾을 수 없습니다.</div>
+                <a href={% url "main" %} class="btn btn-primary">홈으로 돌아가기</a>
+            </div>
+
     </div>
 </div>
+{% endblock %}
+
+{% block script %}
 {% endblock %}
