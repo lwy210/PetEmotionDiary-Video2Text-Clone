@@ -2,20 +2,22 @@
 
 <head>
     <!-- Favicons -->
-    {% comment %} <link href={% static 'img/tmp_logo.jpg' %} rel="icon"> {% endcomment %}
+    <link rel="icon" href={% static 'img/paw.png' %}>
     <!-- 부트스트랩 아이콘 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href={% static 'bootstrap.min.css' %}>
     <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'board_style.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'pet_style.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'diary_style.css' %}">
+    <link rel="stylesheet" type="text/css" href={% static 'board_style.css' %}>
+    <link rel="stylesheet" type="text/css" href={% static 'diary_style.css' %}>
+    <link rel="stylesheet" type="text/css" href={% static 'footer.css' %}>
+    <link rel="stylesheet" type="text/css" href={% static 'index.css' %}>
+    <link rel="stylesheet" type="text/css" href={% static 'login.css' %}>
+    <link rel="stylesheet" type="text/css" href={% static 'pet_style.css' %}>
+    <link rel="stylesheet" type="text/css" href={% static 'signup.css' %}>
+    <link rel="stylesheet" type="text/css" href={% static 'style.css' %}>
     <!-- Title -->
     <title>오늘뭐했개? 일기쓸고양!</title>
-    <!-- Favicon 설정 -->
-    <link rel="icon" href={% static 'img/paw.png' %}>
 </head>
 
 <header>
@@ -51,6 +53,4 @@
     <!-- 기본 템플릿 안에 삽입될 Javascript End -->
 </body>
 
-<footer>
-    
-</footer>
+{% include "footer.html" %}
