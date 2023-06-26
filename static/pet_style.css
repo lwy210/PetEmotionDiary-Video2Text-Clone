@@ -19,7 +19,6 @@
 
 .portfolio .portfolio-item {
     margin-bottom: 30px;
-    background-color: #fff;
 }
 
 #portfolio .portfolio-item .portfolio-caption a {
@@ -27,7 +26,7 @@
     padding-left: 1.5rem;
     text-align: center;
     color: black;
-    /* background-color: #fff; */
+    background-color: #fff;
     text-decoration: none;
 }
 
@@ -67,7 +66,6 @@
 }
 
 .portfolio .portfolio-wrap {
-    top: 10px;
     height: 400px;
     transition: 0.3s;
     position: relative;

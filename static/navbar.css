@@ -4,18 +4,3 @@
 
 .nav-link li a:hover:not(.current) { 
     background-color: #CD853F; color: white; }
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    /* 나머지 스타일 속성들 */
-}
-    
-.navbar .left-items {
-/* 왼쪽에 정렬할 아이템들에 대한 스타일 속성들 */
-}
-
-.navbar .right-items {
-/* 오른쪽에 정렬할 아이템들에 대한 스타일 속성들 */
-}
-    
