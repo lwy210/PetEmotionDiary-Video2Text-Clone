@@ -66,6 +66,12 @@ body.navbar-expanded {
 #top-link-block a {
     text-decoration: none;
     font-size: 20px;
+    background-color: rgb(246, 245, 245);
+}
+
+#top-link-block a:hover {
+    background-color: #198754;
+    border-color: #198754;
 }
 
 /*--------------------------------------------------------------
