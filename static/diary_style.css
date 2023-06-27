@@ -98,11 +98,12 @@
     color: #fff;
     border-top-left-radius: 3px;
     margin-top: 20px; 
+    margin-bottom: 5px;
 }
 
 .year-header span {
     display: inline-block;
-    font-size: 35px;
+    font-size: 40px;
     line-height: 40px;
     color: #000; 
 }
@@ -126,7 +127,7 @@
 }
 
 .left-button:hover, .right-button:hover {
-    color: #fcf3c9 !important; 
+    color: #000 !important; 
 }
   
 .left-button {
@@ -139,31 +140,37 @@
 }
 
 /* Days/months tables */
+.months-table {
+    margin-bottom: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
 .days-table, .dates-table, .months-table {
     border-collapse: separate;
     text-align: center; 
 }
   
 .day {
-    height: 26px;
-    width: 26px;
-    padding: 0 10px;
-    line-height: 26px;
+    height: 30px;
+    width: 30px;
+    padding: 0 8px;
+    line-height: 30px;
     border: 2px solid transparent;
     text-transform: uppercase;
-    font-size: 10px;
+    font-size: 15px;
     color: #000; 
 }
   
 .month {
     cursor: default;
-    height: 26px;
-    width: 26px;
+    height: 30px;
+    width: 30px;
     padding: 0 2px;
     padding-top: 10px;
-    line-height: 26px;
+    line-height: 30px;
     text-transform: uppercase;
-    font-size: 11px;
+    font-size: 12px;
     color: #cccccc;
     -webkit-transition: all 250ms;
     -o-transition: all 250ms;
@@ -186,20 +193,20 @@
 }
 
 .month:hover {
-    color: #fcf3c9; 
+    color: #000; 
 }
 
 /*  Dates table */
 .table-date {
     cursor: default;
     color: #2b2b2b;
-    height: 26px;
-    width: 26px;
+    height: 30px;
+    width: 30px;
     font-size: 15px;
     padding: 10px;
-    line-height: 26px;
+    line-height: 30px;
     text-align: center;
-    border-radius: 50%;
+    border-radius: 10%;
     border: 2px solid transparent;
     -webkit-transition: all 250ms;
     -o-transition: all 250ms;
@@ -211,43 +218,27 @@
     border-color: #fcf3c9; 
 }
 
-.event-date {
-    border-color: #D7E9B9;
-    background: #D7E9B9;
-    color: #fff; 
-}
-
 .diary-date {
-    border-color: #D7E9B9;
-    background: #D7E9B9;
-    color: #fff; 
-}
-
-.event-date:after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    content: '';
-    background: #28a745; 
+    /* border-color: #D7E9B9;
+    background: #D7E9B9; */
+    /* color: #fff;  */
 }
 
 .diary-date:after {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 10px;
-    height: 10px;
+    bottom: 10%;
+    left: 45%;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     content: '';
     background: #28a745; 
 }
 
 .active-date {
-background: #fcf3c9;
-color: black; 
+    background: #fcf3c9;
+    background-size: 60%;
+    color: black; 
 }
   
 .event-date.active-date {
@@ -256,6 +247,7 @@ color: black;
 
 .diary-date.active-date {
     border-color: #fcf3c9;
+    background-size: 60%;
     /* background: #D7E9B9;  */
 }
   
@@ -309,4 +301,28 @@ color: black;
     -webkit-transform: translateY(3px) scale(0.97);
     -ms-transform: translateY(3px) scale(0.97);
     transform: translateY(3px) scale(0.97); 
+}
+
+/*--------------------------------------------------------------
+# 캘린더 부분 (main.js)
+--------------------------------------------------------------*/
+.diary-card {
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 10px;
+    border-right: 10px solid #fcf3c9; /* 왼쪽 테두리 설정 */
+    box-shadow:  5px 5px 17px #e3dfdf,
+                -5px -5px 17px #ffffff;
+}
+      
+.diary-card a {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-secondary);
+    transition: 0.3s;
+    text-decoration: none;
+}
+  
+.diary-card a:hover {
+    color: #AACB73;
 }

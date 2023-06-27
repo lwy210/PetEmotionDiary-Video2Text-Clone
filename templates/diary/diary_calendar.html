@@ -34,32 +34,31 @@
 <section id='blog' class='blog'>
     <div class="container my-3" data-aos="fade-up">
 
-        <div class="d-flex justifyactive-date-content-between my-4">
+        <div class='diary-view-wrap'>
+            <div>
+                <a href="{% url 'diary:index' %}" class="btn-viewtype selected_type"><i class="bi bi-calendar3"></i> 캘린더 뷰</a>
+            </div>
+            <div>
+                <a href="{% url 'diary:index_list' %}" class="btn-viewtype"><i class="bi bi-card-list"></i> 리스트 뷰</a>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between my-4">
             <label class="mx-2">
               전체 글 &nbsp <span class="text-danger">{{ diary_list.paginator.count }}</span>
             </label>
-            
             <!-- 일기 작성 버튼-->
             <div>
                 <a href="{% url 'diary:diary_create_before' %}" class="btn-register">일기쓰기</a>
             </div>
         </div>
-        <hr>
 
         <div class="row g-5 mb-3">
-            <div class='diary-view-wrap'>
-                <div>
-                    
-                    <a href="{% url 'diary:index' %}" class="btn-viewtype selected_type"><i class="bi bi-calendar-heart-fill"></i> 캘린더 뷰</a>
-                </div>
-                <div>
-                    <a href="{% url 'diary:index_list' %}" class="btn-viewtype"><i class="bi bi-clipboard-heart-fill"></i> 리스트 뷰</a>
-                </div>
-        </div>
-            <div class='posts-list col-lg-9'>
+            
+            <div class='posts-list'>
                 
                 <!-- 캘린더 -->
-                <section class="ftco-section card shadow rounded-card">
+                <section class="ftco-section card shadow" style="border-radius: 50px;">
                     <div class="container my-5">
                         {% comment %} <div class="row justify-content-center">
                             <div class="col-md-6 text-center mb-5">
@@ -70,13 +69,13 @@
                             <div class="col-md-12">
                                 <div class="content w-100">
                                     <div class="calendar-container">
-                                        <div class="calendar"> 
+                                        <div class="calendar py-4"> 
                                             <div class="year-header"> 
                                                 <span class="left-button bi bi-chevron-left mt-2" id="prev"> </span> 
-                                                <span class="year" id="label"></span> 
+                                                <span class="year" id="label"></span>
                                                 <span class="right-button  bi bi-chevron-right mt-2" id="next"> </span>
                                             </div> 
-                                            <table class="months-table w-100 mb-3"> 
+                                            <table class="months-table w-100"> 
                                                 <tbody>
                                                     <tr class="months-row">
                                                         <td class="month">Jan</td> 
@@ -105,7 +104,7 @@
                                                 <td class="day">Sat</td>
                                             </table> 
                                             <div class="frame"> 
-                                                <table class="dates-table w-100"> 
+                                                <table class="dates-table w-100 h-auto"> 
                                                     <tbody class="tbody">             
                                                     </tbody> 
                                                 </table>

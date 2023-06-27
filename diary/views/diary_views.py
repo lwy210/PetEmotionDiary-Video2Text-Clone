@@ -125,5 +125,5 @@ def diary_bookmark(request, diary_id):
     query_string = urlencode(query_params)
 
     return HttpResponseRedirect(
-        f"{resolve_url('diary:index')}?{query_string}#diary_{diary.id}"
+        f"{resolve_url('diary:index_list')}?{query_string}#diary_{diary.id}"
     )

@@ -175,57 +175,59 @@
                             <h1 class="mt-4">No Posts!</h1>
                         </div>
                     {% endif %}
+
+                    <!-- 페이징처리 시작 -->
+                    <ul class="pagination my justify-content-center mt-3">
+                        <!-- 이전페이지 -->
+                        {% if diary_list.has_previous %}
+                            <li class="page-item">
+                            <a class="page-link" data-page="{{ diary_list.previous_page_number }}"
+                            href="?page={{ diary_list.previous_page_number }}&pet_id={{ request.GET.pet_id }}"
+                            onclick="handleClick(event, {{ diary_list.previous_page_number }})"><i class="bi bi-arrow-left">&nbsp;</i></a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" tabindex="-1" aria-disabled="true" href="#"><i class="bi bi-arrow-left">&nbsp;</i></a>
+                            </li>
+                        {% endif %}
+                        <!-- 페이지리스트 -->
+                    <!-- 페이지 리스트 -->
+                        {% for page_number in diary_list.paginator.page_range %}
+                            {% if page_number == diary_list.number %}
+                                <li class="page-item active" aria-current="page">
+                                <a class="page-link" data-page="{{ page_number }}"
+                                href="?page={{ page_number }}&pet_id={{ request.GET.pet_id }}&keyword={{ keyword|default_if_none:'' }}&bookmark={{ request.GET.bookmark }}"
+                                onclick="handleClick(event, {{ page_number }})">{{ page_number }}</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item">
+                                <a class="page-link" data-page="{{ page_number }}"
+                                href="?page={{ page_number }}&pet_id={{ request.GET.pet_id }}&keyword={{ keyword|default_if_none:'' }}&bookmark={{ request.GET.bookmark }}"
+                                onclick="handleClick(event, {{ page_number }})">{{ page_number }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        <!-- 다음페이지 -->
+                        {% if diary_list.has_next %}
+                            <li class="page-item">
+                            <a class="page-link" data-page="{{ diary_list.next_page_number }}"
+                            href="?page={{ diary_list.next_page_number }}&pet_id={{ request.GET.pet_id }}"
+                            onclick="handleClick(event, {{ diary_list.next_page_number }})"><i class="bi bi-arrow-right">&nbsp;</i></a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" tabindex="-1" aria-disabled="true" href="#"><i class="bi bi-arrow-right">&nbsp;</i></a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                    <!-- 페이징처리 끝 -->
+
                 </div>
             </div>
-
         </div>
 
 
-        <!-- 페이징처리 시작 -->
-        <ul class="pagination my justify-content-center">
-            <!-- 이전페이지 -->
-            {% if diary_list.has_previous %}
-                <li class="page-item">
-                <a class="page-link" data-page="{{ diary_list.previous_page_number }}"
-                href="?page={{ diary_list.previous_page_number }}&pet_id={{ request.GET.pet_id }}"
-                onclick="handleClick(event, {{ diary_list.previous_page_number }})"><i class="bi bi-arrow-left">&nbsp;</i></a>
-                </li>
-            {% else %}
-                <li class="page-item disabled">
-                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#"><i class="bi bi-arrow-left">&nbsp;</i></a>
-                </li>
-            {% endif %}
-            <!-- 페이지리스트 -->
-        <!-- 페이지 리스트 -->
-            {% for page_number in diary_list.paginator.page_range %}
-                {% if page_number == diary_list.number %}
-                    <li class="page-item active" aria-current="page">
-                    <a class="page-link" data-page="{{ page_number }}"
-                    href="?page={{ page_number }}&pet_id={{ request.GET.pet_id }}&keyword={{ keyword|default_if_none:'' }}&bookmark={{ request.GET.bookmark }}"
-                    onclick="handleClick(event, {{ page_number }})">{{ page_number }}</a>
-                    </li>
-                {% else %}
-                    <li class="page-item">
-                    <a class="page-link" data-page="{{ page_number }}"
-                    href="?page={{ page_number }}&pet_id={{ request.GET.pet_id }}&keyword={{ keyword|default_if_none:'' }}&bookmark={{ request.GET.bookmark }}"
-                    onclick="handleClick(event, {{ page_number }})">{{ page_number }}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
-            <!-- 다음페이지 -->
-            {% if diary_list.has_next %}
-                <li class="page-item">
-                <a class="page-link" data-page="{{ diary_list.next_page_number }}"
-                href="?page={{ diary_list.next_page_number }}&pet_id={{ request.GET.pet_id }}"
-                onclick="handleClick(event, {{ diary_list.next_page_number }})"><i class="bi bi-arrow-right">&nbsp;</i></a>
-                </li>
-            {% else %}
-                <li class="page-item disabled">
-                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#"><i class="bi bi-arrow-right">&nbsp;</i></a>
-                </li>
-            {% endif %}
-        </ul>
-        <!-- 페이징처리 끝 -->
+        
         </div>
 
         {% comment %} <form id="searchForm" method="get" action="{% url 'post:index' %}">

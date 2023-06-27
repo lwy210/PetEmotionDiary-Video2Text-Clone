@@ -156,37 +156,61 @@ function show_events(month, day, diarys) {
     $(".events-container").show(250);
     // If there are no events for this date, notify the user
 
+    var diary_card = $("<div class=''></div>");
+    var diary_date = $("<h2 class='my-3 d-flex justify-content-end'>" + month + " " + day + "</h2> <hr>");
+    $(diary_card).append(diary_date);
+    $(".events-container").append(diary_card);
+
+
     if(diarys.length===0) {
         // // diary 없을때 보여주는 거
-        var diary_card = $("<div class='diary-card'></div>");
-        var diary_name = $("<div class='diary-name'>There are no diarys planned for "+month+" "+day+".</div>");
-        $(diary_card).css({ "border-left": "10px solid #FF1744" });
-        $(diary_card).append(diary_name);
+        var diary_empty = $("<div class='text-center mt-3'></div>");
+        // var diary_img = $("<img src={% static 'img/no posts.jpg'%} class='img-fluid'>");
+        var diary_content = $("<div class='mt-4'>작성한 일기가 없습니다.</div>");
+        $(diary_empty).css({ "border-left": "10px solid #FF1744" });
+        // $(diary_empty).append(diary_img);
+        $(diary_empty).append(diary_content);
 
         // append
-        $(".events-container").append(diary_card);
+        $(".events-container").append(diary_empty);
     }
     else {
         // diary 보여주기
         for(var i=0; i<diarys.length; i++) {
             var id = diarys[i].id
             // var keywords
-            var diary_card = $("<div class='diary-card'></div>");
+            var diary_card = $("<div class='diary-card m-3'></div>");
             (function(id, diary_card) {
             $.ajax({
                 type:'GET',
                 url : "http://127.0.0.1:8000/diary/get_diary_info/"+id.toString()+"/",
                 success: function(response){
                     var diary_title = $('<a href="/diary/' + id + '/"><h3>' + response["title"] + '</h3></a>');
-                    var keywords_div = "";
+                    // 북마크 상태
+                    if (response["bookmark"]) {
+                        var bookmarkState = $('<i class="bi bi-bookmark-heart-fill text-danger"></i>');
+                    }
+                    else {
+                        var bookmarkState = $('<i class="bi bi-bookmark-heart text-danger"></i>');
+                    }
+                    
+                    // 키워드
+                    var keywords_container = $("<div class='d-flex align-items-center'>");
+                    var keywords_div = "<i class='bi bi-tags' style='color: #198754'></i>";
                     var keywords = response["keywords"];
                     // bookmark = response["bookmark"];
                     for(var j = 0; j < keywords.length; j++) {
-                        keywords_div += "<div>#" + keywords[j] + "</div>";
+                        keywords_div += "<div class='mx-2' style='font-size: 0.9rem'>#" + keywords[j] + "</div>";
                     }
+                    keywords_container.append(keywords_div);
+                    // 제목 + 북마크 합치기
+                    var diary_title_div = $("<div class='d-flex align-items-center'></div>");
+                    diary_title_div.append(diary_title);
+                    diary_title_div.append(bookmarkState);
+                    // 제목 + 북마크 + 키워드 합치기
                     var diary_element = $("<div></div>");
-                    diary_element.append(diary_title);
-                    diary_element.append(keywords_div);
+                    diary_element.append(diary_title_div);
+                    diary_element.append(keywords_container);
 
                      // Creating bookmark form dynamically using JavaScript
                     var bookmarkForm = $("<form></form>");
@@ -199,18 +223,16 @@ function show_events(month, day, diarys) {
                     csrfInput.attr("name", "csrfmiddlewaretoken");
                     csrfInput.attr("value", csrftoken);  // The csrftoken variable that you've obtained above
 
+                    var submitButton_div = $("<div class='d-flex justify-content-end'></div>");
                     var submitButton = $("<input></input>");
                     submitButton.attr("type", "submit");
                     submitButton.attr("value", "Bookmark");
                     submitButton.addClass("btn btn-sm btn-outline-danger");
+                    $(submitButton_div).append(submitButton);
 
                     bookmarkForm.append(csrfInput);  // Append csrf input to form
-                    bookmarkForm.append(submitButton);
+                    bookmarkForm.append(submitButton_div);
                     diary_element.append(bookmarkForm);
-
-                    // 북마크 상태
-                    var bookmarkState = $('<div>' + response["bookmark"] + '</div>');
-                    diary_element.append(bookmarkState);
 
                     $(diary_card).append(diary_element);
                     $(".events-container").append(diary_card);
