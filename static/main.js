@@ -157,7 +157,7 @@ function show_events(month, day, diarys) {
     // If there are no events for this date, notify the user
 
     var diary_card = $("<div class=''></div>");
-    var diary_date = $("<h2 class='my-3 d-flex justify-content-end'>" + month + " " + day + "</h2> <hr>");
+    var diary_date = $("<h2 class='mt-3 pb-4 d-flex justify-content-end border-bottom'>" + month + " " + day + "</h2>");
     $(diary_card).append(diary_date);
     $(".events-container").append(diary_card);
 
