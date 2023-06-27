@@ -25,7 +25,7 @@
   z-index: 0; }
 
 
-.package {
+  .index-div .package {
   margin: 5px 15px;
   text-align: center;
   background-color: #f2f2f2;
@@ -34,18 +34,18 @@
   padding: 40px;
   border-radius: 7px; 
 }
-  .package h3 {
+.index-div .package h3 {
     font-size: 30px;
     color: #4682B4;
     margin-bottom: 20px; }
-  .package p {
+    .index-div .package p {
     font-size: 15px;
     margin-bottom: 20px; }
-  .package .img-wrap {
+    .index-div .package .img-wrap {
     display: block;
     margin: 0 auto 30px auto;
     width: 80px; }
-    .package .img-wrap img {
+    .index-div .package .img-wrap img {
       width: 80px; }
 
 
@@ -73,7 +73,7 @@
     background: transparent;
     color: #FF5733; }
 
-    .btn.btn-warning {
+    .index-div .btn.btn-warning {
   color: #212529;
   background-color: #ffc107;
   border: 2px solid #ffc107; }
@@ -93,9 +93,10 @@
         color: #218838; }
 
         .index-div .btn-custom-1 {
-      border-radius: 30px;
-      border-top-right-radius: 0;
-      border-bottom-left-radius: 0; }
+      border-radius: 5px;
+      /* border-top-right-radius: 0;
+      border-bottom-left-radius: 0;  */
+    }
 
 /* ============== Service End ============== */
 
