@@ -6,7 +6,7 @@ function getDiarys(callback) {
     $.ajax({
         type:'GET',
         // url : '{% url "diary:get_diarys"  %}',
-        url : "http://127.0.0.1:8000/diary/get_diarys/",
+        url : "/diary/get_diarys/",
         success: function(response){
             diary_data = response
             if (typeof callback === "function") { // callback이 함수인 경우에만 호출
@@ -183,7 +183,7 @@ function show_events(month, day, diarys) {
             (function(id, diary_card) {
             $.ajax({
                 type:'GET',
-                url : "http://127.0.0.1:8000/diary/get_diary_info/"+id.toString()+"/",
+                url : "/diary/get_diary_info/"+id.toString()+"/",
                 success: function(response){
                     var diary_title = $('<a href="/diary/' + id + '/"><h3>' + response["title"] + '</h3></a>');
                     // 북마크 상태
