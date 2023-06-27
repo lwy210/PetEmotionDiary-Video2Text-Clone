@@ -1,0 +1,219 @@
+.container-login100 {
+  width: 100%;  
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  background: #f2f2f2;
+}
+  
+.wrap-login100 {
+  width: 100%;
+  background: #fff;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  flex-direction: row-reverse;
+}
+  
+.login100-more {
+  width: calc(100% - 560px);
+  background-image: url('img/login.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  z-index: 1;
+}
+
+.login100-more::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0,0,0,0.1);
+}
+  
+
+/* [ Form ] -------------------------------- */
+
+.login100-form {
+  width: 560px;
+  min-height: 100vh;
+  display: block;
+  background-color: #f7f7f7;
+  padding: 173px 55px 55px 55px;
+}
+
+.login100-form-title {
+  width: 100%;
+  display: block;
+  font-family: KCC-Ganpan;
+  font-size: 30px;
+  color: #333333;
+  line-height: 1.2;
+  text-align: center;
+}
+  
+/* [ Button ] --------------------------------------- */
+
+.container-login100-form-btn {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.login100-form-btn {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 50px;
+  border-radius: 10px;
+  
+  background-color: #AACB73;
+  color: black;
+  border-color: transparent;
+  padding: 10px 30px;
+
+  font-family: KCC-Ganpan;
+  font-size: 18px;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.login100-form-btn:hover {
+  background-color: black;
+  color: #AACB73;
+}
+
+.login100-form-btn .btn-kakao {
+  background-color: #ffeb3b;
+  color: black;
+  border-color: transparent;
+  }
+  
+.login100-form-btn .btn-kakao:hover {
+  background-color: black;
+  color: #ffeb3b;
+  }
+
+/* [ Responsive ] --------------------------------------- */
+
+@media (max-width: 992px) {
+  .login100-form {
+    width: 50%;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .login100-more {
+    width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .login100-form {
+    width: 100%;
+  }
+
+  .login100-more {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .login100-form {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 70px;
+  }
+}
+
+/* [ Input ] --------------------------------------- */
+  
+.validate-input {
+  position: relative;
+}
+  
+  
+.divider-text {
+  position: relative;
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  }
+
+.text-center {
+  font-family: KCC-Ganpan;
+  position: relative;
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.register-in {
+  font-family: KCC-Ganpan;
+  color: #3b5998;
+  position: relative;
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.login-divider {
+  position: relative;
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  clear:both; 
+}
+
+.login-divider span {
+  padding: 7px;
+  font-size: 12px;
+  position: relative;   
+  z-index: 2;
+  background-color: #f7f7f7;
+}
+
+.login-divider:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+  top: 55%;
+  left: 0;
+  z-index: 1;
+  background-color: #f7f7f7;
+}
