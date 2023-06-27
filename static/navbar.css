@@ -1,6 +1,39 @@
-.nav-link li a.current { 
-    background-color: #FF6347; color: white; 
+.nav-link { 
+    position: relative;
+    color: white; 
+    height: 40px;
+    margin: 0px 5px
 }
 
-.nav-link li a:hover:not(.current) { 
-    background-color: #CD853F; color: white; }
+/* .nav-link:hover:not(.current) { 
+    border-bottom: 3px solid green;
+} */
+
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    bottom: 0;
+    height: 3px;
+    background: #198754;
+    transition: all 0.3s;
+}
+
+.nav-link:hover::after {
+    left: 0;
+    right: 0;
+}
+
+.nav-link.active::after {
+    left: 0;
+    right: 0;
+    transition: none;
+}
+
+.nav-link.active {
+    /* 원하는 스타일을 여기
+    에 추가하세요. 예를 들어: */
+    color: black;
+    background-color: white;
+}
