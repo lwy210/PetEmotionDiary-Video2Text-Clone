@@ -31,6 +31,32 @@ def index(request):
     paginator = Paginator(diary_list, 5)  # 페이지당 5개씩 보여주기
     page_obj = paginator.get_page(page)
     context = {"diary_list": page_obj, "pet_list": pet_list, "keyword": keyword}
+    return render(request, "diary/diary_calendar.html", context)
+
+
+@login_required(login_url="account:login")
+def index_list(request):
+    page = request.GET.get("page", "1")  # 페이지
+    keyword = request.GET.get("keyword", "")  # 검색어
+    bookmark = request.GET.get("bookmark")
+
+    q = Q()
+
+    pet_id = request.GET.get("pet_id")
+    if pet_id:
+        q &= Q(pet_id=pet_id)
+
+    if bookmark:
+        q &= Q(bookmark=True)
+
+    diary_list = Diary.objects.filter(q).order_by("-registered_time")
+    if keyword:
+        diary_list = diary_list.filter(Q(keywords__word=keyword)).distinct()
+
+    pet_list = Pet.objects.order_by("birth_day")
+    paginator = Paginator(diary_list, 5)  # 페이지당 5개씩 보여주기
+    page_obj = paginator.get_page(page)
+    context = {"diary_list": page_obj, "pet_list": pet_list, "keyword": keyword}
     return render(request, "diary/diary_list.html", context)
 
 

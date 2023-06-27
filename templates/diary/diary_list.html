@@ -34,6 +34,15 @@
 <section id='blog' class='blog'>
     <div class="container my-3" data-aos="fade-up">
 
+        <div class='diary-view-wrap'>
+            <div>
+                <a href="{% url 'diary:index' %}" class="btn-viewtype "><i class="bi bi-calendar3"></i> 캘린더 뷰</a>
+            </div>
+            <div>
+                <a href="{% url 'diary:index_list' %}" class="btn-viewtype selected_type"><i class="bi bi-card-list"></i> 리스트 뷰</a>
+            </div>
+        </div>
+
         <div class="d-flex justify-content-between my-4">
             <label class="mx-2">
               전체 글 &nbsp <span class="text-danger">{{ diary_list.paginator.count }}</span>
@@ -43,11 +52,11 @@
                 <a href="{% url 'diary:diary_create_before' %}" class="btn-register">일기쓰기</a>
             </div>
         </div>
-        <hr>
 
         <div class="row g-5 mb-3">
+            
 
-            <div class="col-lg-3">
+            <div class="col-lg-4">
                 <div class="sidebar register-form card shadow mb-5 bg-body rounded">
                 
                     <!-- 검색 기능 -->
@@ -64,11 +73,11 @@
                     <h3 class="sidebar-title" for="pet_id">Category</h3>
                     <div class="sidebar-item mt-3">
                         <div class="mb-3 d-flex justify-content-start">
-                            <form method="GET" action="{% url 'diary:index' %}">
+                            <form method="GET" action="{% url 'diary:index_list' %}">
                                 <input type="hidden" name="keyword" value="{{ keyword|default_if_none:'' }}">
                                 <input type="submit" value="전체보기" class="btn btn-sm btn-outline-dark flex-fill">
                             </form>
-                            <form method="GET" action="{% url 'diary:index' %}" class="">
+                            <form method="GET" action="{% url 'diary:index_list' %}" class="">
                                 <input type="hidden" name="keyword" value="{{ keyword|default_if_none:'' }}">
                                 <input type="hidden" name="bookmark" value=True>
                                 <input type="submit" value="즐겨찾기" class="btn btn-sm btn-outline-dark mx-3 flex-fill">
@@ -79,7 +88,7 @@
                         <h3 class="sidebar-title" for="pet_id">반려동물</h3>
                         <div class="sidebar-item my-3">
                             {% for pet in pet_list %}
-                                <form method="GET" action="{% url 'diary:index' %}">
+                                <form method="GET" action="{% url 'diary:index_list' %}">
                                     <input type="hidden" name="pet_id" value="{{ pet.id }}">
                                     <input type="hidden" name="page" value="{{ diary_list.number }}">
                                     <input type="hidden" name="keyword" value="{{ keyword|default_if_none:'' }}">
@@ -92,177 +101,140 @@
                 </div>
             </div>
 
-            <div class='posts-list col-lg-9'>
-                <!-- 캘린더 -->
-                <section class="ftco-section card shadow rounded-card">
-                    <div class="container my-5">
-                        {% comment %} <div class="row justify-content-center">
-                            <div class="col-md-6 text-center mb-5">
-                                <h2 class="heading-section">Calendar #04</h2>
-                            </div>
-                        </div> {% endcomment %}
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="content w-100">
-                                    <div class="calendar-container">
-                                        <div class="calendar"> 
-                                            <div class="year-header"> 
-                                                <span class="left-button bi bi-chevron-left mt-2" id="prev"> </span> 
-                                                <span class="year" id="label"></span> 
-                                                <span class="right-button  bi bi-chevron-right mt-2" id="next"> </span>
-                                            </div> 
-                                            <table class="months-table w-100 mb-3"> 
-                                                <tbody>
-                                                    <tr class="months-row">
-                                                        <td class="month">Jan</td> 
-                                                        <td class="month">Feb</td> 
-                                                        <td class="month">Mar</td> 
-                                                        <td class="month">Apr</td> 
-                                                        <td class="month">May</td> 
-                                                        <td class="month">Jun</td> 
-                                                        <td class="month">Jul</td>
-                                                        <td class="month">Aug</td> 
-                                                        <td class="month">Sep</td> 
-                                                        <td class="month">Oct</td>          
-                                                        <td class="month">Nov</td>
-                                                        <td class="month">Dec</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table> 
-                                            
-                                            <table class="days-table w-100"> 
-                                                <td class="day">Sun</td> 
-                                                <td class="day">Mon</td> 
-                                                <td class="day">Tue</td> 
-                                                <td class="day">Wed</td> 
-                                                <td class="day">Thu</td> 
-                                                <td class="day">Fri</td> 
-                                                <td class="day">Sat</td>
-                                            </table> 
-                                            <div class="frame"> 
-                                                <table class="dates-table w-100"> 
-                                                    <tbody class="tbody">             
-                                                    </tbody> 
-                                                </table>
-                                            </div> 
-                                            <button class="button" id="add-button">Add Event</button>
+            <div class="posts-list col-lg-8">
+                <div class="card shadow px-3 mb-5 bg-body rounded">
+                    <!-- 일기 리스트 -->
+                    {% if diary_list %}
+                        {% for diary in diary_list %}
+                            <div class="row border-bottom pb-2 mt-3">
+
+                                <div class="col-lg-3">
+                                    {% if diary.thumbnail %}
+                                        <img src="{{ diary.thumbnail }}" alt="Diary Thumbnail" class="thumbnail-img d-block rounded">
+                                    {% else %}
+                                        <img src={% static "img/pp.jpg" %} alt="Diary Thumbnail" class="thumbnail-img d-block rounded">
+                                    {% endif %}
+                                </div>
+
+                                <div class="col-lg-8">
+                                    <div class="d-flex align-items-center">
+                                        <h2 class='title mb-1'>
+                                            <a id="diary_{{ diary.id }}"></a>
+                                            <a href="{% url 'diary:detail' diary.id %}">{{ diary.title }} </a>
+                                        </h2> &nbsp;
+
+                                        {% if diary.bookmark %}
+                                            <i class="bi bi-bookmark-heart-fill text-danger"></i>
+                                        {% else %}
+                                            <i class="bi bi-bookmark-heart text-danger"></i>
+                                        {% endif %}
+                                    </div>
+
+                                    <div class="meta-top my-2">
+                                        <ul>
+                                            <li class="d-flex align-items-center"><i class="bi bi-clock"></i> {{ diary.day }}</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="d-flex align-items-center">
+                                        <i class="bi bi-tags" style="color: #198754"></i>
+                                        {% for keyword in diary.keywords.all %}
+                                            <div class="mx-2" style="font-size: 0.9rem">#{{ keyword }}</div>
+                                        {% endfor %}
+                                    </div>
+        
+                                    
+
+                                    <div class="d-flex justify-content-end mt-4">
+                                        <div class="mx-3">
+                                          <p><a href="{% url 'diary:detail' diary.id %}" class="btn btn-sm btn-outline-success">자세히 보기</a></p>
+                                        </div>
+                      
+                                        <div class="">
+                                            <!-- 북마크 기능 -->
+                                            <form action="{% url 'diary:diary_bookmark' diary.id %}" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="keyword" value="{{ keyword|default_if_none:'' }}">
+                                                <input type="hidden" name="pet_id" value="{{ request.GET.pet_id }}">
+                                                <input type="hidden" name="page" value="{{ diary_list.number }}">
+                                                <div class="btn btn-sm btn-outline-danger">
+                                                    <input type="submit" value="Bookmark" class="bookmark-btn">
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
-                                <div class="events-container">
-                                </div>
-                                <div class="dialog" id="dialog">
-                                    <h2 class="dialog-header"> Add New Event </h2>
-                                    <form class="form" id="form">
-                                        <div class="form-container" align="center">
-                                            <label class="form-label" id="valueFromMyButton" for="name">Event name</label>
-                                            <input class="input" type="text" id="name" maxlength="36">
-                                            <label class="form-label" id="valueFromMyButton" for="count">Number of people to invite</label>
-                                            <input class="input" type="number" id="count" min="0" max="1000000" maxlength="7">
-                                            <input type="button" value="Cancel" class="button" id="cancel-button">
-                                            <input type="button" value="OK" class="button button-white" id="ok-button">
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
 
+                                </div>
+                            </div>
+
+
+                        {% endfor %}
+                    {% else %}
+                        <div class="text-center mt-3">
+                            <img src={% static "img/no posts.jpg"%} class="img-fluid">
+                            <h1 class="mt-4">No Posts!</h1>
+                        </div>
+                    {% endif %}
+
+                    <!-- 페이징처리 시작 -->
+                    <ul class="pagination my justify-content-center mt-3">
+                        <!-- 이전페이지 -->
+                        {% if diary_list.has_previous %}
+                            <li class="page-item">
+                            <a class="page-link" data-page="{{ diary_list.previous_page_number }}"
+                            href="?page={{ diary_list.previous_page_number }}&pet_id={{ request.GET.pet_id }}"
+                            onclick="handleClick(event, {{ diary_list.previous_page_number }})"><i class="bi bi-arrow-left">&nbsp;</i></a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" tabindex="-1" aria-disabled="true" href="#"><i class="bi bi-arrow-left">&nbsp;</i></a>
+                            </li>
+                        {% endif %}
+                        <!-- 페이지리스트 -->
+                    <!-- 페이지 리스트 -->
+                        {% for page_number in diary_list.paginator.page_range %}
+                            {% if page_number == diary_list.number %}
+                                <li class="page-item active" aria-current="page">
+                                <a class="page-link" data-page="{{ page_number }}"
+                                href="?page={{ page_number }}&pet_id={{ request.GET.pet_id }}&keyword={{ keyword|default_if_none:'' }}&bookmark={{ request.GET.bookmark }}"
+                                onclick="handleClick(event, {{ page_number }})">{{ page_number }}</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item">
+                                <a class="page-link" data-page="{{ page_number }}"
+                                href="?page={{ page_number }}&pet_id={{ request.GET.pet_id }}&keyword={{ keyword|default_if_none:'' }}&bookmark={{ request.GET.bookmark }}"
+                                onclick="handleClick(event, {{ page_number }})">{{ page_number }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        <!-- 다음페이지 -->
+                        {% if diary_list.has_next %}
+                            <li class="page-item">
+                            <a class="page-link" data-page="{{ diary_list.next_page_number }}"
+                            href="?page={{ diary_list.next_page_number }}&pet_id={{ request.GET.pet_id }}"
+                            onclick="handleClick(event, {{ diary_list.next_page_number }})"><i class="bi bi-arrow-right">&nbsp;</i></a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" tabindex="-1" aria-disabled="true" href="#"><i class="bi bi-arrow-right">&nbsp;</i></a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                    <!-- 페이징처리 끝 -->
+
+                </div>
+            </div>
         </div>
+
 
         
-
-        <div class="card shadow p-3 mb-5 bg-body rounded ">
-            <!-- 일기 리스트 -->
-            {% if diary_list %}
-                <ul>
-                    {% for diary in diary_list %}
-                        <li>
-                            <a id="diary_{{ diary.id }}"></a>
-                            <a href="{% url 'diary:detail' diary.id %}"><h1>{{ diary.title }}</h1></a>
-                            <div>{{ diary.day }}</div>
-                            {% if diary.thumbnail %}
-                            <img src="{{ diary.thumbnail }}" alt="Diary Thumbnail" style="max-height: 200px; width: auto;">
-                            {% endif %}
-                            {% for keyword in diary.keywords.all %}
-                                <div>#{{ keyword }}</div>
-                            {% endfor %}
-
-                            <!-- 북마크 기능 -->
-                            <form action="{% url 'diary:diary_bookmark' diary.id %}" method="POST">
-                                {% csrf_token %}
-                                <input type="hidden" name="keyword" value="{{ keyword|default_if_none:'' }}">
-                                <input type="hidden" name="pet_id" value="{{ request.GET.pet_id }}">
-                                <input type="hidden" name="page" value="{{ diary_list.number }}">
-                                <input type="submit" value="Bookmark" class="btn btn-sm btn-outline-danger">
-                            </form>
-                            <div>{{ diary.bookmark }}</div>
-                        </li>
-
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <div class="text-center mt-3">
-                    <img src={% static "img/no posts.jpg"%} class="img-fluid">
-                    <h1 class="mt-4">No Posts!</h1>
-                </div>
-            {% endif %}
-        </div>
-
-        <!-- 페이징처리 시작 -->
-        <ul class="pagination my justify-content-center">
-            <!-- 이전페이지 -->
-            {% if diary_list.has_previous %}
-                <li class="page-item">
-                <a class="page-link" data-page="{{ diary_list.previous_page_number }}"
-                href="?page={{ diary_list.previous_page_number }}&pet_id={{ request.GET.pet_id }}"
-                onclick="handleClick(event, {{ diary_list.previous_page_number }})"><i class="bi bi-arrow-left">&nbsp;</i></a>
-                </li>
-            {% else %}
-                <li class="page-item disabled">
-                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#"><i class="bi bi-arrow-left">&nbsp;</i></a>
-                </li>
-            {% endif %}
-            <!-- 페이지리스트 -->
-        <!-- 페이지 리스트 -->
-            {% for page_number in diary_list.paginator.page_range %}
-                {% if page_number == diary_list.number %}
-                    <li class="page-item active" aria-current="page">
-                    <a class="page-link" data-page="{{ page_number }}"
-                    href="?page={{ page_number }}&pet_id={{ request.GET.pet_id }}&keyword={{ keyword|default_if_none:'' }}&bookmark={{ request.GET.bookmark }}"
-                    onclick="handleClick(event, {{ page_number }})">{{ page_number }}</a>
-                    </li>
-                {% else %}
-                    <li class="page-item">
-                    <a class="page-link" data-page="{{ page_number }}"
-                    href="?page={{ page_number }}&pet_id={{ request.GET.pet_id }}&keyword={{ keyword|default_if_none:'' }}&bookmark={{ request.GET.bookmark }}"
-                    onclick="handleClick(event, {{ page_number }})">{{ page_number }}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
-            <!-- 다음페이지 -->
-            {% if diary_list.has_next %}
-                <li class="page-item">
-                <a class="page-link" data-page="{{ diary_list.next_page_number }}"
-                href="?page={{ diary_list.next_page_number }}&pet_id={{ request.GET.pet_id }}"
-                onclick="handleClick(event, {{ diary_list.next_page_number }})"><i class="bi bi-arrow-right">&nbsp;</i></a>
-                </li>
-            {% else %}
-                <li class="page-item disabled">
-                    <a class="page-link" tabindex="-1" aria-disabled="true" href="#"><i class="bi bi-arrow-right">&nbsp;</i></a>
-                </li>
-            {% endif %}
-        </ul>
-        <!-- 페이징처리 끝 -->
         </div>
 
         {% comment %} <form id="searchForm" method="get" action="{% url 'post:index' %}">
         <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
         <input type="hidden" id="page" name="page" value="{{ page }}">
         </form> {% endcomment %}
-        <form id="searchForm" method="get" action="{% url 'diary:index' %}">
+        <form id="searchForm" method="get" action="{% url 'diary:index_list' %}">
             <input type="hidden" id="keyword" name="keyword" value="{{ keyword|default_if_none:'' }}">
             <input type="hidden" id="page" name="page" value="{{ page }}">
             <input type="hidden" id="bookmark" name="bookmark" value="{{ request.GET.bookmark }}">
@@ -276,6 +248,8 @@
 
 {% block script %}
 <script type='text/javascript'>
+    var diaryBookmarkUrl = "{% url 'diary:diary_bookmark' 0 %}";
+    var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     function handleClick(event, pageNumber) {
         // 기본 동작 방지
         event.preventDefault();
