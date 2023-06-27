@@ -1,4 +1,4 @@
-.ftco-section {
+.index-div .ftco-section {
   overflow-x: hidden;
   position: relative;
   padding: 30px;
@@ -55,20 +55,20 @@
 
 
 /* ============== Service Start ============== */
-.bg-white {
+.index-div .bg-white {
   background-color: #fff !important; }
 
-.img-fluid {
+  .index-div .img-fluid {
     max-width: 100%;
     height: auto; }
 
 
-.btn.btn-primary {
+.index-div .btn.btn-primary {
   background: #FF5733;
   border: 2px solid #FF5733;
   color: #fff; 
   }
-  .btn.btn-primary:hover {
+  .index-div .btn.btn-primary:hover {
     border: 2px solid #FF5733;
     background: transparent;
     color: #FF5733; }
@@ -77,22 +77,22 @@
   color: #212529;
   background-color: #ffc107;
   border: 2px solid #ffc107; }
-  .btn.btn-warning:hover {
+  .index-div .btn.btn-warning:hover {
     border: 2px solid #e0a800;
     background: transparent;
     color: #e0a800; }
 
-    .btn.btn-success {
+    .index-div .btn.btn-success {
       font-family: KCC-Ganpan;
       color: #fff;
       background-color: #28a745;
       border: 2px solid #28a745; }
-      .btn.btn-success:hover {
+      .index-div .btn.btn-success:hover {
         border: 2px solid #218838;
         background: transparent;
         color: #218838; }
 
-    .btn-custom-1 {
+        .index-div .btn-custom-1 {
       border-radius: 30px;
       border-top-right-radius: 0;
       border-bottom-left-radius: 0; }
@@ -159,19 +159,19 @@
   /*//////////////////////////////////////////////////////////////////
   [ RESTYLE TAG ]*/
   
-* {
+.index-div * {
     margin: 0px; 
     padding: 0px; 
     box-sizing: border-box;
   }
   
-body, html {
+  .index-div body, html {
     height: 100%;
     font-family: KCC-Ganpan, sans-serif;
   }
   
   /*---------------------------------------------*/
-  a {
+  .index-div a {
       font-family: KCC-Ganpan;
       font-size: 14px;
       line-height: 1.7;
@@ -184,12 +184,12 @@ body, html {
   }
   
   /*---------------------------------------------*/
-  h1,h2,h3,h4,h5,h6 {
+  .index-div h1,h2,h3,h4,h5,h6 {
     font-family: KCC-Ganpan;
     margin: 0px;
   }
   
-  p {
+  .index-div p {
       font-family: KCC-Ganpan;
       font-size: 14px;
       line-height: 1.7;
@@ -197,19 +197,19 @@ body, html {
       margin: 0px;
   }
   
-  ul, li {
+  .index-div ul, li {
       margin: 0px;
       list-style-type: none;
   }
   
 
   
-  textarea {
+  .index-div textarea {
     outline: none;
     border: none;
   }
   
-  textarea:focus, input:focus {
+  .index-div textarea:focus, input:focus {
     border-color: transparent !important;
   }
   
@@ -234,23 +234,23 @@ body, html {
   textarea:-ms-input-placeholder { color: #999999;}
   
   
-  label {
+  .index-div label {
     display: block;
     margin: 0;
   }
   
   /*---------------------------------------------*/
-  button {
+  .index-div button {
       outline: none !important;
       border: none;
       background: transparent;
   }
   
-  button:hover {
+  .index-div button:hover {
       cursor: pointer;
   }
   
-  iframe {
+  .index-div iframe {
       border: none !important;
   }
   
@@ -376,7 +376,7 @@ body, html {
   }
 
 
-  .text-center {
+  .index-div .text-center {
     font-family: KCC-Ganpan;
     position: relative;
     text-align: center;
@@ -395,19 +395,19 @@ body, html {
 }
 
 
-.row {
+.index-div .row {
   font-family: KCC-Ganpan;
 }
 
 
-.page-section {
+.index-div .page-section {
   background-color: #555555;
   padding: 20px;
 }
 
 
 
-.hero-wrap{
+.index-div .hero-wrap{
   position:relative;
   text-align:center;
   display: flex;
@@ -427,13 +427,13 @@ body, html {
 
 }
 
-  .overlay{
+.index-div .overlay{
     position:absolute;
     top: 70%;
     height: 100%;
   }
 
-.overlay h1, .overlay h3 {
+  .index-div .overlay h1, .overlay h3 {
   font-family: KCC-Ganpan;
   margin-top: 10px;
   text-align: center;
@@ -454,7 +454,7 @@ body, html {
 
 
 /* About Us */
-.form-contact {
+.index-div .form-contact {
   width: 90%; margin: auto;
 }
 
