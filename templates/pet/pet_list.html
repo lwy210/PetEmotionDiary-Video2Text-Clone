@@ -91,9 +91,11 @@
 
         </div>
         {% else %}
-            <div class="text-center mt-3">
-                <img src={% static "img/no posts.jpg"%} class="img-fluid">
-                <h1 class="mt-4">No Pets!</h1>
+            <div class="card shadow mb-5 p-4 rounded">
+                <div class="text-center mt-3">
+                    <img src={% static "img/no posts.jpg"%} class="img-fluid">
+                    <h1 class="mt-4">No Pets!</h1>
+                </div>
             </div>
         {% endif %}
 
