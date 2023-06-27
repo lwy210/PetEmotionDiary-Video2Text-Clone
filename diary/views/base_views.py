@@ -57,7 +57,7 @@ def index_list(request):
     if keyword:
         diary_list = diary_list.filter(Q(keywords__word=keyword)).distinct()
 
-    pet_list = Pet.objects.order_by("birth_day")
+    pet_list = Pet.objects.filter(user_id=request.user.id).order_by("birth_day")
     paginator = Paginator(diary_list, 5)  # 페이지당 5개씩 보여주기
     page_obj = paginator.get_page(page)
     context = {"diary_list": page_obj, "pet_list": pet_list, "keyword": keyword}
