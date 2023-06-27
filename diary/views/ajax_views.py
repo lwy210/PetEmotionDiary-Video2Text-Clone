@@ -1,6 +1,7 @@
 import json
 
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import JsonResponse
 
 from ..models import Diary
@@ -8,7 +9,9 @@ from ..models import Diary
 
 @login_required(login_url="account:login")
 def get_diarys(request):
-    diarys = Diary.objects.all()
+    q = Q(user_id=request.user.id)
+    diarys = Diary.objects.filter(q).order_by("-registered_time")
+
     return JsonResponse({"diarys": list(diarys.values())})
 
 

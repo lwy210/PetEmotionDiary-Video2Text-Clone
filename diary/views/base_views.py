@@ -23,6 +23,8 @@ def index(request):
     if bookmark:
         q &= Q(bookmark=True)
 
+    q &= Q(user_id=request.user.id)
+
     diary_list = Diary.objects.filter(q).order_by("-registered_time")
     if keyword:
         diary_list = diary_list.filter(Q(keywords__word=keyword)).distinct()
@@ -48,6 +50,8 @@ def index_list(request):
 
     if bookmark:
         q &= Q(bookmark=True)
+
+    q &= Q(user_id=request.user.id)
 
     diary_list = Diary.objects.filter(q).order_by("-registered_time")
     if keyword:
