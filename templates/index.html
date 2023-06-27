@@ -1,31 +1,10 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <title>오늘뭐했개? 일기쓸고양!</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!--===============================================================================================-->
-    <link rel="icon" href={% static 'img/logo.png' %}>
-    <!--===============================================================================================-->
-    <link rel="stylesheet" href={% static 'animate.css' %}>
-    <link rel="stylesheet" href={% static 'style.css' %}>
-    <link rel="stylesheet" href={% static 'index.css' %}>
-    <!--===============================================================================================-->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-</head>
 
-<header>
-    <!-- 네비게이션바 -->
-    {% include "navbar.html" %}
-</header>
-
-<body>
+{% block content %}
 <div class="index-div">
     <!-- Main Start -->
-    <div class="hero-wrap py-5">
+    <div class="hero-wrap py-5" style="background-color: white">
         {% comment %} <video autoplay muted loop id="mainVideo">
             <source src={% static "img/kong.mp4" %} type="video/mp4">
         </video> {% endcomment %}
@@ -52,7 +31,7 @@
             </div>
             
             <div class="row">
-                <div class="col-lg-4 mb-4 mb-lg-0">
+                <div class="col-lg-4 mb-10 mb-lg-0">
                     <div class="package shadow">
                         <span class="img-wrap"><img src={% static "img/diary.png" %} alt="diary image" class="img-fluid"></span>
                         <h3 class="text-title">일기 작성</h3>
@@ -103,7 +82,7 @@
                                 <img class="img-fluid align-center" src={% static "img/kms.png" %} alt="곽민성">
                             </div>
 
-                            <div class="col-md-7 bg-white">
+                            <div class="col-md-7 bg-white" style="width: auto;">
                                 <div class="p-4">
                                     <div class="mb-3">
                                         <h4>곽민성</h4>
@@ -130,7 +109,7 @@
                                 <img class="img-fluid align-center" src={% static "img/kdh.png" %} alt="김도현">
                             </div>
 
-                            <div class="col-md-7 bg-white">
+                            <div class="col-md-7 bg-white" style="width: auto;">
                                 <div class="p-4">
                                     <div class="mb-3">
                                         <h4>김도현</h4>
@@ -157,7 +136,7 @@
                                 <img class="img-fluid align-center" src={% static "img/wyj.png" %} alt="위예진">
                             </div>
 
-                            <div class="col-md-7 bg-white">
+                            <div class="col-md-7 bg-white" style="width: auto;">
                                 <div class="p-4">
                                     <div class="mb-3">
                                         <h4>위예진</h4>
@@ -185,7 +164,7 @@
                                 <img class="img-fluid align-center" src={% static "img/lyw.png" %} alt="이용우">
                             </div>
 
-                            <div class="col-md-7 bg-white">
+                            <div class="col-md-7 bg-white" style="width: auto;">
                                 <div class="p-4">
                                     <div class="mb-3">
                                         <h4>이용우</h4>
@@ -212,7 +191,7 @@
                                 <img class="img-fluid align-center" src={% static "img/lwy.png" %} alt="이원영">
                             </div>
 
-                            <div class="col-md-7 bg-white">
+                            <div class="col-md-7 bg-white" style="width: auto;">
                                 <div class="p-4">
                                     <div class="mb-3">
                                         <h4>이원영</h4>
@@ -239,7 +218,7 @@
                                 <img class="img-fluid align-center" src={% static "img/jec.png" %} alt="정은찬">
                             </div>
 
-                            <div class="col-md-7 bg-white">
+                            <div class="col-md-7 bg-white" style="width: auto;">
                                 <div class="p-4">
                                     <div class="mb-3">
                                         <h4>정은찬</h4>
@@ -301,37 +280,6 @@
     </section>
     <!-- Contact Us End -->
 </div>
-
-
-<!-- Footer Start -->
-<footer class="footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-lg-4 mb-3">
-                <h2 class="footer-heading">Pet Diary</h2>
-                <p>모든 반려동물과의 행복한 추억을 기록하는 일기장</p>
-            </div>
-
-            <div class="col-md-6 col-lg-5 mb-3 mb-md-0">
-            </div>
-
-            <div class="col-md-6 col-lg-3 pl-lg-5 mb-3 mb-md-0">
-                <h2 class="footer-heading">Quick Links</h2>
-                <ul class="list-unstyled">
-                    <li><a href="#" class="py-2 d-block">Home</a></li>
-                    <li><a href="#" class="py-2 d-block">Board</a></li>
-                    <li><a href="#" class="py-2 d-block">Diary</a></li>
-                    <li><a href="#" class="py-2 d-block">Pet Info</a></li>
-                    <li><a href="#" class="py-2 d-block">My page</a></li>
-                </ul>
-            </div>  
-        </div>
-    </div>
-</footer>
-<!-- Footer End -->
-<script data-cfasync="false" src="form-submission-handler.js"></script>
-{% block content %}
 {% endblock %}
-{% include "footer.html" %}
-</body>
-</html>
+{% block script %}
+{% endblock %}

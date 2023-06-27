@@ -24,7 +24,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 999; /* 다른 요소 위에 표시하려면 z-index를 설정해야 함 */
+    z-index: 99999; /* 다른 요소 위에 표시하려면 z-index를 설정해야 함 */
     border-bottom: 1px solid #ccc; /* 아래쪽 border 추가 */
     min-height: 60px;
     transition: min-height 0.3s ease;
