@@ -70,9 +70,9 @@
                     <hr>
 
                     <!-- 카테고리 ver. 버튼 -->
-                    <h3 class="sidebar-title" for="pet_id">Category</h3>
-                    <div class="sidebar-item mt-3">
-                        <div class="mb-3 d-flex justify-content-start">
+                    <h3 class="sidebar-title" for="pet_id mt-2">Category</h3>
+                    <div class="sidebar-item mt-4">
+                        <div class="mb-4 d-flex justify-content-start">
                             <form method="GET" action="{% url 'diary:index_list' %}">
                                 <input type="hidden" name="keyword" value="{{ keyword|default_if_none:'' }}">
                                 <input type="submit" value="전체보기" class="btn btn-sm btn-outline-dark flex-fill">
@@ -85,14 +85,14 @@
                         </div>
                         <hr>
 
-                        <h3 class="sidebar-title" for="pet_id">반려동물</h3>
-                        <div class="sidebar-item my-3">
+                        <h3 class="sidebar-title" for="pet_id">Pets</h3>
+                        <div class="sidebar-item mt-3">
                             {% for pet in pet_list %}
                                 <form method="GET" action="{% url 'diary:index_list' %}">
                                     <input type="hidden" name="pet_id" value="{{ pet.id }}">
                                     <input type="hidden" name="page" value="{{ diary_list.number }}">
                                     <input type="hidden" name="keyword" value="{{ keyword|default_if_none:'' }}">
-                                    <input type="submit" class="btn-yellow-register  btn-sm" value="{{ pet.name }}의 일기">
+                                    <input type="submit" class="btn-yellow-register btn-sm mb-2" value="{{ pet.name }}의 일기">
                                 </form>
                             {% endfor %}
                         </div>
