@@ -23,16 +23,20 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'post:index' %}">{{ user.username }} Board</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'diary:index' %}">{{ user.username }} Diary</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'pet:index' %}">{{ user.username }} Pet Info</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'account:update' %}">{{ user.username }} My Page</a></li>
+                <li class="nav-item"><a class="nav-link {% if request.resolver_match.app_name == 'post' %}active{% endif %}" href="{% url 'post:index' %}">{{ user.username }} Board</a></li>
+                <li class="nav-item"><a class="nav-link {% if request.resolver_match.app_name == 'diary' %}active{% endif %}" href="{% url 'diary:index' %}">{{ user.username }} Diary</a></li>
+                <li class="nav-item"><a class="nav-link {% if request.resolver_match.app_name == 'pet' %}active{% endif %}" href="{% url 'pet:index' %}">{{ user.username }} Pet Info</a></li>
+                <li class="nav-item"><a class="nav-link {% if request.resolver_match.view_name == 'account:update' %}active
+                                                         {% elif request.resolver_match.view_name == 'account:check_password'%}active
+                                                        {% elif request.resolver_match.view_name == 'account:update_password'%}active
+                                                        {% elif request.resolver_match.view_name == 'account:delete'%}active{% endif %}"
+                                                                                                                           href="{% url 'account:update' %}">{{ user.username }} My Page</a></li>
                 <li class="nav-item"><a class="nav-link" href="{% url 'account:logout' %}">{{ user.username }} Logout</a></li>
                 
                 {% else %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'post:index' %}">{{ user.username }} Board</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'account:login' %}">Login</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'account:signup' %}">Sign Up</a></li>
+                <li class="nav-item"><a class="nav-link {% if request.resolver_match.app_name == 'post' %}active{% endif %}" href="{% url 'post:index' %}">{{ user.username }} Board</a></li>
+                <li class="nav-item"><a class="nav-link {% if request.resolver_match.view_name == 'account:login' %}active{% endif %}" href="{% url 'account:login' %}">Login</a></li>
+                <li class="nav-item"><a class="nav-link {% if request.resolver_match.view_name == 'account:signup' %}active{% endif %}" href="{% url 'account:signup' %}">Sign Up</a></li>
                 {% endif %}
             </ul>
         </div>
