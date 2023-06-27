@@ -101,8 +101,10 @@ addKeywordButton.addEventListener("click", function() {
     var newField = document.createElement("div");
     var keywordId = "new_keyword_" + Math.random().toString(36).substring(2, 8);
     newField.innerHTML = `
-        <input type="checkbox" name="keywords" id="${keywordId}" checked>
-        <input type="text" name="custom_keywords" placeholder="새 키워드 입력" oninput="document.getElementById('${keywordId}').value = this.value">
+        <div class="mx-4">
+            <input type="checkbox" name="keywords" id="${keywordId}" checked>
+            <input type="text" name="custom_keywords" placeholder="새 키워드 입력" oninput="document.getElementById('${keywordId}').value = this.value">
+        </div>
     `;
     keywordFields.appendChild(newField);
 });
