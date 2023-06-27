@@ -17,8 +17,12 @@
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 </head>
 
+<header>
+    <!-- 네비게이션바 -->
+    {% include "navbar.html" %}
+</header>
+
 <body>
-{% include 'navbar.html' %}
 <div class="index-div">
     <!-- Main Start -->
     <div class="hero-wrap py-5">
@@ -328,5 +332,6 @@
 <script data-cfasync="false" src="form-submission-handler.js"></script>
 {% block content %}
 {% endblock %}
+{% include "footer.html" %}
 </body>
 </html>
