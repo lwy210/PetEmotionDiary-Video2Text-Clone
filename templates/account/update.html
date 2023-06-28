@@ -1,36 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
 {% block content %}
-{% if messages %}
-<div class="alert alert-danger my-3" role="alert">
-{% for message in messages %}
-    <strong>{{ message.tags }}</strong>
-    <ul><li>{{ message.message }}</li></ul>
-{% endfor %}
-</div>
-{% endif %}
-<form action="{% url 'account:update' %}" method="POST">
-    {% csrf_token %}
-     <div class="mb-3">
+
+<div class="update-container mb-4">
+    <div class="my-3" style="height:100px; padding-top:30px">
+        <h2 class="card-title my-3 text-center"><img src={% static 'img/black_paw.png' %} height="30px"> 회원정보 수정</h2>
+    </div>
+
+    {% if messages %}
+    <div class="alert alert-danger my-3" role="alert">
+    {% for message in messages %}
+        <strong>{{ message.tags }}</strong>
+        <ul><li>{{ message.message }}</li></ul>
+    {% endfor %}
+    </div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        {% include "form_errors.html" %}
+        <div class="mb-3">
             <label for="email">이메일</label>
             <input type="text" class="form-control" name="email" id="email"
-                   value="{{ form.email.value|default_if_none:'' }}">
-    </div>
-    <div class="mb-3">
-            <label for="birth_day">생일</label>
-            <input type="date" class="form-control" name="birth_day" id="birth_day"
-                   value="{{ form.birth_day.value|default_if_none:'' }}">
+                value={{user.email}} readonly>
+            <span class="small-notice">* 이메일은 변경 불가능합니다.</span> 
         </div>
+
         <div class="mb-3">
             <label for="user_name">성함</label>
             <input type="text" class="form-control" name="user_name" id="user_name"
-                   value="{{ form.user_name.value|default_if_none:'' }}">
+                value={{user.user_name}}>
         </div>
+
+        <div class="mb-3">
+            <label for="birth_day">생일</label>
+            <input type="date" class="form-control" name="birth_day" id="birth_day"
+                value={{user.birth_day}}>
+        </div>
+        
         <div class="mb-3">
             <label for="nick_name">닉네임</label>
             <input type="text" class="form-control" name="nick_name" id="nick_name"
-                   value="{{ form.nick_name.value|default_if_none:'' }}">
-    </div>
-    <button>회원정보수정</button>
-    <a class="nav-link" href="{% url 'account:update_password' %}"> (비밀번호 변경)</a>
-    <a class="nav-link" href="{% url 'account:delete' %}"> (회원 탈퇴)</a>
-</form>
-{% endblock  %}
+                value={{user.nick_name}}>
+        </div>
+        
+        <div class="my-3" align="right">
+            <button type="submit" class="info-update-btn my-3" formaction={% url 'account:update' %}>회원정보수정</button>
+        </div>
+    </form>
+</div>    
+{% endblock %}
+
+{% block script %}
+{% endblock %}
