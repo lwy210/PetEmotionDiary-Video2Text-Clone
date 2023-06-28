@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from pet.models import Pet
 
@@ -29,7 +29,11 @@ def index(request):
     if keyword:
         diary_list = diary_list.filter(Q(keywords__word=keyword)).distinct()
 
-    pet_list = Pet.objects.order_by("birth_day")
+    pet_list = Pet.objects.filter(user_id=request.user.id).order_by("birth_day")
+
+    if not pet_list.exists():
+        return redirect("pet:pet_create")
+
     paginator = Paginator(diary_list, 5)  # 페이지당 5개씩 보여주기
     page_obj = paginator.get_page(page)
     context = {"diary_list": page_obj, "pet_list": pet_list, "keyword": keyword}
