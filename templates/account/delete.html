@@ -1,4 +1,73 @@
-<form action="{% url 'account:delete' %}" method="POST">
-    {% csrf_token %}
-    <button class="btn btn-secondary">회원 탈퇴</button>
-</form>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div>
+    <form name="withdraw" method="POST" onSubmit="return DeleteForm(this)">
+        {% csrf_token %}
+        <article class="card-body mx-auto" style="max-width: 700px;">
+            <div>
+                <h2 class="card-title mt-3 text-center">회원 탈퇴</h2>
+            </div>
+
+            <p class="divider-text">
+                <br>
+            </p>
+
+            <div class="mb-5">
+                <h4 class="text-center">탈퇴 계정 정보</h4>
+                <label for="email">이메일</label>
+                <input type="text" class="form-control" name="email" id="email"
+                    value={{ user.email }} readonly>
+            </div>
+
+
+            <div class="mb-3">
+                <h3 class="text-center">회원 탈퇴 시 주의사항</h3>
+                <span>회원 탈퇴 이후 탈퇴한 계정 정보는 되돌릴 수 없으며,<br>
+                회원 탈퇴가 접수된 즉시 모든 개인 정보는 파기됩니다.</span>    
+            </div>
+
+            <div class="mb-3">
+                <input id="checkwithdrawal" type="checkbox">
+                <span>위 내용을 확인하였으며 회원탈퇴에 동의합니다.</span>
+            </div>
+
+            <div class="del-btn my-3">
+                <button type="submit" class="delete-btn" formaction={% url 'account:delete' %}>회원 탈퇴</button>
+            </div>
+
+        </article>
+    </form>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+function Delcheck(){
+    Swal.fire({
+        icon: 'error',
+        title: '회원탈퇴약관 필수 동의',
+        html: '회원탈퇴약관에 반드시 동의해야<br>계정을 탈퇴할 수 있습니다.',
+        })
+}
+function Delcomplete(){
+    Swal.fire({
+        icon: 'info',
+        title : '회원탈퇴 완료',
+        timer: 5000,
+        html: '계정이 탈퇴되었습니다.<br>그동안 이용해주셔서 감사합니다.<br>곧 로그인화면으로 자동 이동됩니다.',
+        })
+}
+function DeleteForm(Join){
+    var check=document.withdraw.checkwithdrawal.checked;
+    if(!check){
+        Delcheck();
+        return false;}
+    else{
+        Delcomplete();
+    }
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+{% endblock %}

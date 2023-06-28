@@ -1,0 +1,149 @@
+/* =========================================== */
+/* [ mypage.html ] --------------------------- */
+.mypage {
+    max-width: 1000px;
+
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+}
+
+.info-card {
+    max-width: 800px;
+    height: 350px;
+
+    margin: auto;
+    
+    justify-content: center;
+}
+
+.info-card .info-text{
+    width: 100%;
+}
+
+.info-card .info-mod{
+    text-align: right; 
+    margin-right:20px;
+}
+
+.info-btn {
+    max-width: 800px;
+
+    display: flex;
+    color: black;
+
+    margin:auto; 
+    text-align: center;
+}
+
+.info-btn a{
+    color: inherit;
+    text-decoration: none;
+
+    width: 150px;
+    height: 40px;
+    
+    display : 1;
+
+    margin: 0px 10px;
+
+    background-color: #AACB73;
+    border-radius: 5px;
+    border-color: transparent;
+
+    float: right;
+}
+
+.info-btn a:hover{
+    color: #AACB73;
+    background-color: black;
+}
+/* =========================================== */
+
+
+/* =========================================== */
+/* [ update.html ] --------------------------- */
+.update-container {
+    max-width:500px;
+    align-items: center;
+    border-radius: 3px;
+    padding-bottom: 5px;
+    margin: 0 auto;
+  }
+
+.info-update-btn {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    
+  
+    width: 170px;
+    height: 35px;
+    border-radius: 5px;
+    
+    background-color: #AACB73;
+    color: black;
+    border-color: transparent;
+    padding: 10px 30px;
+  
+    font-family: KCC-Ganpan;
+    font-size: 18px;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+  }
+  
+  .info-update-btn:hover {
+    background-color: black;
+    color: #AACB73;
+  }
+
+
+/* =========================================== */
+
+
+/* =========================================== */
+/* [ delete.html ] --------------------------- */
+
+.del-btn {
+    max-width: 800px;
+
+    display: flex; 
+    justify-content: center;
+    color: black;
+
+    margin:auto; 
+    text-align: center;
+}
+
+.del-btn button{
+    color: inherit;
+    text-decoration: none;
+
+    width: 150px;
+    height: 40px;
+    
+    display : inline-block ;
+
+    margin: 0px 10px;
+
+    background-color: #AACB73;
+    border-radius: 5px;
+    border-color: transparent;
+}
+
+.del-btn button:hover{
+    color: #AACB73;
+    background-color: black;
+}
+/* =========================================== */

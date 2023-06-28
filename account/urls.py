@@ -1,7 +1,7 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 
-from .views import signup_views, update_views
+from .views import signup_views, update_views, mypage_views
 from .views.kakao import kakao_views
 
 app_name = "account"
@@ -25,4 +25,5 @@ urlpatterns = [
         kakao_views.KaKaoSignInCallBackView,
         name="kakao_callback",
     ),
+    path("mypage", mypage_views.mypage, name="mypage"),
 ]

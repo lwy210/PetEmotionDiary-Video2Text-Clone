@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="mypage">
+	<div class="text-center my-5">
+		<h2 class="text-black">My page</h2>
+	</div>
+
+	<div class="card info-card">
+		<div>
+			<h3 class="text-black text-center my-4">{{user.user_name}}님, 반갑다개</h3>
+		</div>
+
+		<div class="info-text mb-3">
+			<h4 class="text-black text-center mb-4">내 정보 미리보기</h4>
+			<p style="margin-left:200px;
+			"><strong>이메일 : </strong><span>{{user.email}}</span></p>
+			<p style="margin-left:200px;
+			"><strong>생일 : </strong><span>{{user.birth_day}}</span></p>
+			<p style="margin-left:200px;
+			"><strong>닉네임 : </strong><span>{{user.nick_name}}</span></p>
+		</div>
+		
+		<div class="info-mod">
+			<p style="text-align: right; margin-right:20px;
+		">마지막 수정 시간 : {{user.update_time}}</p>
+		</div>
+	</div>
+
+	<div class="info-btn my-3">
+		<a class="nav-link" href={% url 'account:check_password' %}>회원 정보 수정</a>
+		<a class="nav-link" href={% url 'account:update_password' %}>비밀번호 변경</a>
+		<a class="nav-link" href={% url 'account:delete' %}>회원 탈퇴</a>
+	</div>
+</div>
+{% endblock %}
+
+{% block script %}
+{% endblock %}

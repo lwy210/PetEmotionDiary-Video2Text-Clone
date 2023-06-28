@@ -16,7 +16,8 @@ def update(request):
             user = form.save(commit=False)
             user.update_time = timezone.now()
             user.save()
-            return redirect("account:logout_test")
+            data = {"user": request.user}
+            return render(request, "account/mypage.html", data)
     else:
         form = UserChangeForm(instance=request.user)
     context = {
@@ -62,9 +63,11 @@ def update_password(request):
                     )
                     return redirect("account:update_password")
                 request.user.set_password(new_password)
+                request.user.update_time = timezone.now()
                 request.user.save()
                 login(request, request.user)
-                return redirect("account:logout_test")
+                data = {"user": request.user}
+                return render(request, "account/mypage.html", data)
             else:
                 messages.error(request, "새 비밀번호를 다시 확인해주세요.")
         else:
