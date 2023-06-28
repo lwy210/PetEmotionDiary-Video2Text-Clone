@@ -1,21 +1,48 @@
+var diary_data = {
+
+};
+
+function getDiarys(callback) {
+    $.ajax({
+        type:'GET',
+        // url : '{% url "diary:get_diarys"  %}',
+        url : "/diary/get_diarys/",
+        success: function(response){
+            diary_data = response
+            if (typeof callback === "function") { // callback이 함수인 경우에만 호출
+                callback();
+            }
+        },
+        error: function(response){
+            alert("An Error Occured");
+        },
+    });
+}
+// 그 다음부터는 지정된 시간 간격으로 실행
+// setInterval(function(){
+//     getDiarys(); // 콜백 없이 호출
+// }, 1000);
+
+
 (function($) {
 
 	"use strict";
 
 	// Setup the calendar with the current date
 $(document).ready(function(){
-    var date = new Date();
-    var today = date.getDate();
-    // Set click handlers for DOM elements
-    $(".right-button").click({date: date}, next_year);
-    $(".left-button").click({date: date}, prev_year);
-    $(".month").click({date: date}, month_click);
-    $("#add-button").click({date: date}, new_event);
-    // Set current month as active
-    $(".months-row").children().eq(date.getMonth()).addClass("active-month");
-    init_calendar(date);
-    var events = check_events(today, date.getMonth()+1, date.getFullYear());
-    show_events(events, months[date.getMonth()], today);
+    getDiarys(function() {
+        var date = new Date();
+        var today = date.getDate();
+        // Set click handlers for DOM elements
+        $(".right-button").click({date: date}, next_year);
+        $(".left-button").click({date: date}, prev_year);
+        $(".month").click({date: date}, month_click);
+        // Set current month as active
+        $(".months-row").children().eq(date.getMonth()).addClass("active-month");
+        init_calendar(date);
+        // var events = check_events(today, date.getMonth()+1, date.getFullYear());
+        var diarys = check_diarys(today, date.getMonth()+1, date.getFullYear());
+    });
 });
 
 // Initialize the calendar by appending the HTML dates
@@ -49,17 +76,22 @@ function init_calendar(date) {
         }   
         else {
             var curr_date = $("<td class='table-date'>"+day+"</td>");
-            var events = check_events(day, month+1, year);
+            // var events = check_events(day, month+1, year);
+            var diarys = check_diarys(day, month+1, year);
+            // active된 날짜가 없으면 오늘 날짜로 activate
             if(today===day && $(".active-date").length===0) {
                 curr_date.addClass("active-date");
-                show_events(events, months[month], day);
+                // 오늘 날짜 active 됐으니 오른쪽 칸에 보여주기
+                 
+                // setInterval(function() {
+                    show_events(months[month], day, diarys);
+                // }, 1000);
             }
-            // If this date has any events, style it with .event-date
-            if(events.length!==0) {
-                curr_date.addClass("event-date");
+            if(diarys.length!==0) {
+                curr_date.addClass("diary-date");
             }
             // Set onClick handler for clicking a date
-            curr_date.click({events: events, month: months[month], day:day}, date_click);
+            curr_date.click({month: months[month], day:day, diarys: diarys}, date_click);
             row.append(curr_date);
         }
     }
@@ -81,7 +113,7 @@ function date_click(event) {
     $("#dialog").hide(250);
     $(".active-date").removeClass("active-date");
     $(this).addClass("active-date");
-    show_events(event.data.events, event.data.month, event.data.day);
+    show_events(event.data.month, event.data.day, event.data.diarys); //
 };
 
 // Event handler for when a month is clicked
@@ -116,196 +148,140 @@ function prev_year(event) {
     init_calendar(date);
 }
 
-// Event handler for clicking the new event button
-function new_event(event) {
-    // if a date isn't selected then do nothing
-    if($(".active-date").length===0)
-        return;
-    // remove red error input on click
-    $("input").click(function(){
-        $(this).removeClass("error-input");
-    })
-    // empty inputs and hide events
-    $("#dialog input[type=text]").val('');
-    $("#dialog input[type=number]").val('');
-    $(".events-container").hide(250);
-    $("#dialog").show(250);
-    // Event handler for cancel button
-    $("#cancel-button").click(function() {
-        $("#name").removeClass("error-input");
-        $("#count").removeClass("error-input");
-        $("#dialog").hide(250);
-        $(".events-container").show(250);
-    });
-    // Event handler for ok button
-    $("#ok-button").unbind().click({date: event.data.date}, function() {
-        var date = event.data.date;
-        var name = $("#name").val().trim();
-        var count = parseInt($("#count").val().trim());
-        var day = parseInt($(".active-date").html());
-        // Basic form validation
-        if(name.length === 0) {
-            $("#name").addClass("error-input");
-        }
-        else if(isNaN(count)) {
-            $("#count").addClass("error-input");
-        }
-        else {
-            $("#dialog").hide(250);
-            console.log("new event");
-            new_event_json(name, count, date, day);
-            date.setDate(day);
-            init_calendar(date);
-        }
-    });
-}
-
-// Adds a json event to event_data
-function new_event_json(name, count, date, day) {
-    var event = {
-        "occasion": name,
-        "invited_count": count,
-        "year": date.getFullYear(),
-        "month": date.getMonth()+1,
-        "day": day
-    };
-    event_data["events"].push(event);
-}
 
 // Display all events of the selected date in card views
-function show_events(events, month, day) {
-    // Clear the dates container
+function show_events(month, day, diarys) {
+    // Clear the dates container //
     $(".events-container").empty();
     $(".events-container").show(250);
-    console.log(event_data["events"]);
     // If there are no events for this date, notify the user
-    if(events.length===0) {
-        var event_card = $("<div class='event-card'></div>");
-        var event_name = $("<div class='event-name'>There are no events planned for "+month+" "+day+".</div>");
-        $(event_card).css({ "border-left": "10px solid #FF1744" });
-        $(event_card).append(event_name);
-        $(".events-container").append(event_card);
+
+    var diary_card = $("<div class=''></div>");
+    var diary_date = $("<h2 class='mt-3 pb-4 d-flex justify-content-end border-bottom'>" + month + " " + day + "</h2>");
+    $(diary_card).append(diary_date);
+    $(".events-container").append(diary_card);
+
+
+    if(diarys.length===0) {
+        // // diary 없을때 보여주는 거
+        var diary_empty = $("<div class='text-center mt-3'></div>");
+        // var diary_img = $("<img src={% static 'img/no posts.jpg'%} class='img-fluid'>");
+        var diary_content = $("<div class='mt-4'>작성한 일기가 없습니다.</div>");
+        $(diary_empty).css({ "border-left": "10px solid #FF1744" });
+        // $(diary_empty).append(diary_img);
+        $(diary_empty).append(diary_content);
+
+        // append
+        $(".events-container").append(diary_empty);
     }
     else {
-        // Go through and add each event as a card to the events container
-        for(var i=0; i<events.length; i++) {
-            var event_card = $("<div class='event-card'></div>");
-            var event_name = $("<div class='event-name'>"+events[i]["occasion"]+":</div>");
-            var event_count = $("<div class='event-count'>"+events[i]["invited_count"]+" Invited</div>");
-            if(events[i]["cancelled"]===true) {
-                $(event_card).css({
-                    "border-left": "10px solid #FF1744"
-                });
-                event_count = $("<div class='event-cancelled'>Cancelled</div>");
-            }
-            $(event_card).append(event_name).append(event_count);
-            $(".events-container").append(event_card);
+        // diary 보여주기
+        for(var i=0; i<diarys.length; i++) {
+            var id = diarys[i].id
+            // var keywords
+            var diary_card = $("<div class='diary-card m-3'></div>");
+            (function(id, diary_card) {
+            $.ajax({
+                type:'GET',
+                url : "/diary/get_diary_info/"+id.toString()+"/",
+                success: function(response){
+                    var diary_title = $('<a href="/diary/' + id + '/"><h3>' + response["title"] + '</h3></a>');
+                    // 북마크 상태
+                    if (response["bookmark"]) {
+                        var bookmarkState = $('<i class="bi bi-bookmark-heart-fill text-danger"></i>');
+                    }
+                    else {
+                        var bookmarkState = $('<i class="bi bi-bookmark-heart text-danger"></i>');
+                    }
+                    
+                    // 키워드
+                    var keywords_container = $("<div class='d-flex align-items-center'>");
+                    var keywords_div = "<i class='bi bi-tags' style='color: #198754'></i>";
+                    var keywords = response["keywords"];
+                    // bookmark = response["bookmark"];
+                    for(var j = 0; j < keywords.length; j++) {
+                        keywords_div += "<div class='mx-2' style='font-size: 0.9rem'>#" + keywords[j] + "</div>";
+                    }
+                    keywords_container.append(keywords_div);
+                    // 제목 + 북마크 합치기
+                    var diary_title_div = $("<div class='d-flex align-items-center'></div>");
+                    diary_title_div.append(diary_title);
+                    diary_title_div.append(bookmarkState);
+                    // 제목 + 북마크 + 키워드 합치기
+                    var diary_element = $("<div></div>");
+                    diary_element.append(diary_title_div);
+                    diary_element.append(keywords_container);
+
+                     // Creating bookmark form dynamically using JavaScript
+                    var bookmarkForm = $("<form></form>");
+                    bookmarkForm.attr("action", diaryBookmarkUrl.replace('0', id.toString()));
+                    bookmarkForm.attr("method", "POST");
+
+                     // Creating csrf input field
+                    var csrfInput = $("<input></input>");
+                    csrfInput.attr("type", "hidden");
+                    csrfInput.attr("name", "csrfmiddlewaretoken");
+                    csrfInput.attr("value", csrftoken);  // The csrftoken variable that you've obtained above
+
+                    var submitButton_div = $("<div class='d-flex justify-content-end'></div>");
+                    var submitButton = $("<input></input>");
+                    submitButton.attr("type", "submit");
+                    submitButton.attr("value", "Bookmark");
+                    submitButton.addClass("btn btn-sm btn-outline-danger");
+                    $(submitButton_div).append(submitButton);
+
+                    bookmarkForm.append(csrfInput);  // Append csrf input to form
+                    bookmarkForm.append(submitButton_div);
+                    diary_element.append(bookmarkForm);
+
+                    $(diary_card).append(diary_element);
+                    $(".events-container").append(diary_card);
+
+                     // AJAX bookmark form submission
+                    bookmarkForm.submit(function(e) {
+                        e.preventDefault();  // Prevent the form from being submitted normally
+                        $.ajax({
+                            type: "POST",
+                            url: bookmarkForm.attr('action'),
+                            data: bookmarkForm.serialize(),
+                            success: function(response) {
+                                show_events(month, day, diarys)
+                                bookmarkState.text(response["bookmark"]);
+                            },
+                            error: function(response) {
+                                console.log("error bookmark", response);
+                                // alert('An error occurred while bookmarking');
+                            }
+                        });
+                    });
+                },
+                error: function(response){
+                    alert("An Error Occured");
+                },
+            });
+        })(id, diary_card);
         }
     }
 }
 
-// Checks if a specific date has any events
-function check_events(day, month, year) {
-    var events = [];
-    for(var i=0; i<event_data["events"].length; i++) {
-        var event = event_data["events"][i];
-        if(event["day"]===day &&
-            event["month"]===month &&
-            event["year"]===year) {
-                events.push(event);
-            }
-    }
-    return events;
-}
 
-// Given data for events in JSON format
-var event_data = {
-    "events": [
-    {
-        "occasion": " Repeated Test Event ",
-        "invited_count": 120,
-        "year": 2020,
-        "month": 5,
-        "day": 10,
-        "cancelled": true
-    },
-    {
-        "occasion": " Repeated Test Event ",
-        "invited_count": 120,
-        "year": 2020,
-        "month": 5,
-        "day": 10,
-        "cancelled": true
-    },
-        {
-        "occasion": " Repeated Test Event ",
-        "invited_count": 120,
-        "year": 2020,
-        "month": 5,
-        "day": 10,
-        "cancelled": true
-    },
-    {
-        "occasion": " Repeated Test Event ",
-        "invited_count": 120,
-        "year": 2020,
-        "month": 5,
-        "day": 10
-    },
-        {
-        "occasion": " Repeated Test Event ",
-        "invited_count": 120,
-        "year": 2020,
-        "month": 5,
-        "day": 10,
-        "cancelled": true
-    },
-    {
-        "occasion": " Repeated Test Event ",
-        "invited_count": 120,
-        "year": 2020,
-        "month": 5,
-        "day": 10
-    },
-        {
-        "occasion": " Repeated Test Event ",
-        "invited_count": 120,
-        "year": 2020,
-        "month": 5,
-        "day": 10,
-        "cancelled": true
-    },
-    {
-        "occasion": " Repeated Test Event ",
-        "invited_count": 120,
-        "year": 2020,
-        "month": 5,
-        "day": 10
-    },
-        {
-        "occasion": " Repeated Test Event ",
-        "invited_count": 120,
-        "year": 2020,
-        "month": 5,
-        "day": 10,
-        "cancelled": true
-    },
-    {
-        "occasion": " Repeated Test Event ",
-        "invited_count": 120,
-        "year": 2020,
-        "month": 5,
-        "day": 10
-    },
-    {
-        "occasion": " Test Event",
-        "invited_count": 120,
-        "year": 2020,
-        "month": 5,
-        "day": 11
+function check_diarys(day, month, year) {
+    var diarys = []
+    for(var i=0; i<diary_data["diarys"].length; i++) {
+        var diary = diary_data["diarys"][i];
+        var date = new Date(diary["day"]);
+        if(date.getDate()===day &&
+        date.getMonth()+1===month &&
+        date.getFullYear()===year) {
+            diarys.push(diary);
+        }
     }
-    ]
-};
+    diarys.sort(function(a, b) {
+        var dateA = new Date(a["updated_time"]), dateB = new Date(b["updated_time"]);
+        return dateB - dateA;
+    });
+    return diarys
+}
 
 const months = [ 
     "January", 
