@@ -74,7 +74,7 @@
                 </p>
 
                 <div class="container-signup-form-btn">
-                    <button type="submit" id="kakao-login" class="signup-form-btn btn-kakao" formaction={% url 'account:kakao' %}><img src={% static 'img/kakao.png' %} style="height:30px; margin-right:5px;"> 카카오 계정으로 로그인하기</button>
+                    <button type="submit" id="kakao-login" class="signup-form-btn btn-kakao"  formaction={% url 'account:kakao' %}><img src={% static 'img/kakao.png' %} style="height:30px; margin-right:5px;" onclick='CheckForm("kakao");'> 카카오 계정으로 로그인하기</button>
                 </div>
 
             </article>
@@ -92,11 +92,14 @@
           })
     }
     function CheckForm(Join){
-        var check=document.register.checkAgreement.checked;
-        if(!check){
-            Agreement();
-            return false;}
+        if(str=="kakao"){ }
+        else{
+            var check=document.register.checkAgreement.checked;
+            if(!check){
+                Agreement();
+                return false;}
         }
+    }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     {% endblock %}
