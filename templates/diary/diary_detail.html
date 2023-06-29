@@ -1,29 +1,121 @@
-<!-- 목록/수정/삭제 버튼 -->
-<h1>{{ pet.name }}의 일기</h1>
-<a href="{% url 'diary:index' %}">목록으로</a>
-<div class="my-3">
-    {% if request.user == diary.user %}
-    <a href="{% url 'diary:diary_modify' diary.id  %}" 
-       class="btn btn-sm btn-outline-secondary">수정</a>
-    <a href="#" class="delete btn btn-sm btn-outline-secondary "
-       data-uri="{% url 'diary:diary_delete' diary.id  %}">삭제</a>
-    {% endif %}
-</div>
+{% extends 'base.html' %}
+{% load static %}
 
-<!-- 일기 내용 -->
-<div>제목 : {{ diary.title }}</div>
-<div>날짜 : {{ diary.day }}</div>
-<div>작성 날짜 : {{ diary.registered_time }}</div>
-{% if diary.registered_time != diary.updated_time %}
-    <div>수정 날짜 : {{ diary.updated_time }}</div>
-{% endif %}
-{% for keyword in diary.keywords.all %}
-<div>#{{ keyword }}</div>
-{% endfor %}
-{% if diary.thumbnail %}
-<img src="{{ diary.thumbnail }}" alt="Diary Thumbnail" style="max-height: 200px; width: auto;">
-{% endif %}
-<div>{{ diary.content }}</div>
+{% block content %}
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs">
+    <div class="container">
+  
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>
+            일기 자세히 보기
+        </h2>
+        <ol>
+          <li><a href="{% url 'main' %}">Home</a></li>
+          <li><a href={% url 'diary:index' %}>일기 목록</a></li>
+          <li>
+            일기 자세히 보기
+          </li>
+        </ol>
+      </div>
+  
+    </div>
+</div><!-- End Breadcrumbs -->
+
+<!-- ======= Content Section ======= -->
+<section class='content'>
+    <div class="container my-3" data-aos="fade-up">
+
+        <!-- 목록/수정/삭제 버튼 -->
+        <div class="container py-2">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <a href="{% url 'diary:index' %}" class="btn-register">목록으로</a>
+                </div>
+              <ul>
+                {% if request.user == diary.user %}
+                    <li><a href="{% url 'diary:diary_modify' diary.id  %}" 
+                    class="btn-register">수정하기</a></li>
+                    <li><a href="#" class="delete btn-register"
+                    data-uri="{% url 'diary:diary_delete' diary.id  %}">삭제하기</a></li>
+                {% endif %}
+              </ul>
+            </div>
+        </div>    
+        <hr>
+
+        <div class='post-content card shadow'>
+
+            <!-- 일기 header-->
+            <div class="card-header p-5">
+                <h2>{{ pet.name }}의 하루 <i class="bi bi-pencil"></i></h2>
+                <div class="meta-top mt-3">
+                    <ul>
+                        <li class="d-flex align-items-center">
+                            <i class="bi bi-clock"></i> {{ diary.registered_time }}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 일기 내용 -->
+            <div class="diary-section card-body p-5">
+
+                <div class="write-diary">
+
+                    <div class="diary-title">제목 : {{ diary.title }}</div>
+
+                    <div class="diary-day">날짜 : {{ diary.day }}</div>
+
+                    <div class="diary-thumbnail">
+                        {% if diary.thumbnail %}
+                            <img src="{{ diary.thumbnail }}" alt="Diary Thumbnail" class="d-block rounded">
+                        {% else %}
+                            <img src={% static "img/no posts.jpg" %} alt="Diary Thumbnail" class="d-block rounded">
+                        {% endif %}
+                    </div>
+
+                    <div class="diary-content">{{ diary.content }}</div>
+
+                </div>
+                
+            </div>
+
+            <!-- footer: 업데이트 여부 -->
+            <div class="card-footer d-flex justify-content-between mx-4">
+                {% if diary.registered_time != diary.updated_time %}
+                    <p class="mt-2 text-muted">마지막 업데이트: {{ diary.updated_time }}</p>
+                {% else %}
+                    <label></label>
+                {% endif %}
+
+                <li class="d-flex align-items-center">
+                    {% comment %} <i class="bi bi-tags"></i>  {% endcomment %}
+                    <div class="d-flex align-items-center">
+                        {% for keyword in diary.keywords.all %}
+                            <div class="mr-3"># {{ keyword }}</div>   
+                        {% endfor %}
+                    </div>
+                </li>
+                {% comment %} <ul>
+                    <li class="d-flex align-items-center mb-3"><i class="bi bi-suit-heart"></i> {{ post_likes }}</li>
+                    <li>
+                        <form action="{% url 'post:post_like' post.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="submit" value="Like" class="btn btn-sm btn-outline-danger">
+                        </form>
+                    </li>
+                </ul> {% endcomment %}
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+
+{% endblock %}
 
 {% block script %}
 <script type='text/javascript'>
