@@ -35,7 +35,7 @@ def check_password(request):
             messages.error(request, "비밀번호가 틀렸습니다.")
             return redirect("account:check_password")
         else:
-            return render(request, "account/update.html")
+            return redirect("account:update")
     else:
         return render(request, "account/password_check.html")
 
@@ -78,6 +78,13 @@ def update_password(request):
 
 @login_required(login_url="account:login")
 def delete(request):
+    if request.method == "POST":
+        return render(request, "account/delete.html")
+
+    return render(request, "account/update.html")
+
+@login_required(login_url="account:login")
+def withdraw(request):
     if request.method == "POST":
         request.user.delete()
         logout(request)

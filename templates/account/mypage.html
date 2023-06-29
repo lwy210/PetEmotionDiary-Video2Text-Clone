@@ -30,9 +30,8 @@
 	</div>
 
 	<div class="info-btn my-3">
-		<a class="nav-link" href={% url 'account:check_password' %}>회원 정보 수정</a>
-		<a class="nav-link" href={% url 'account:update_password' %}>비밀번호 변경</a>
-		<a class="nav-link" href={% url 'account:delete' %}>회원 탈퇴</a>
+		<button type="submit" class="info-mod-btn my-3" onclick = "location.href = '{% url 'account:check_password' %}'">회원정보 수정</button>
+		<button type="submit" class="info-mod-btn my-3" onclick = "location.href = '{% url 'account:update_password' %}'">비밀번호 변경</button>
 	</div>
 </div>
 {% endblock %}
