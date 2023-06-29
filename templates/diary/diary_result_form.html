@@ -34,9 +34,13 @@
                 
                 <h5 for="image" class="form-label">썸네일 이미지</h5>
                 <div class="my-4">
-                    생성된 썸네일 이미지 올리기
+                    {% if diary.thumbnail %}
+                        <img src="{{ diary.thumbnail }}" alt="Diary Thumbnail" class="img-fluid">
+                    {% else %}
+                        <img src={% static "img/no posts.jpg" %} alt="Diary Thumbnail" class="img-fluid">
+                    {% endif %}
                 </div>
-                <input type="file" class="form-control" name="image" id="image">
+                <input type="file" class="form-control" name="image" id="image" accept="image/*">
             </div>
         </div>   <!-- 썸네일 End -->
 

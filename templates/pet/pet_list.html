@@ -78,9 +78,9 @@
                             <h3 class="portfolio-caption-heading mb-3">{{ pet.name }}</h3>
                             <div class="portfolio-caption-subheading text-muted">
                                 {% if pet.kind == "Dog" %}
-                                    <i class="bi bi-person-fill"></i> {{pet.user.nick_name}}~ 일기 쓰개!
+                                    <i class="bi bi-person-fill"></i> {{pet.owner_name}}~ 일기 쓰개!
                                 {% else %}
-                                    <i class="bi bi-person-fill"></i> {{pet.user.nick_name}}~ 일기 쓸고양?
+                                    <i class="bi bi-person-fill"></i> {{pet.owner_name}}~ 일기 쓸고양?
                                 {% endif %}
                             </div>
                         </a>

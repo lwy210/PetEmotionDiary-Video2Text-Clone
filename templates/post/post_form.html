@@ -65,11 +65,11 @@
         <div class="my-3">
             <div class="my-4">
                 <h5 for="image" class="form-label">이미지 업로드</h5>
-                <input type="file" class="form-control" name="image" id="image">
+                <input type="file" class="form-control" name="image" id="image" accept="image/*">
             </div>
             <div class="my-4">
                 <h5 for="video" class="form-label">비디오 업로드</h5>
-                <input type="file" class="form-control" name="video" id="video">
+                <input type="file" class="form-control" name="video" id="video" accept="video/*">
             </div>
         </div>
 
@@ -81,4 +81,21 @@
 {% endblock %}
 
 {% block script %}
+<script type='text/javascript'>
+    // 업로드 동영상의 용량 제한
+    $("input[name='video']").off().on("change", function(){
+
+        if (this.files && this.files[0]) {    // 업로드한 파일이 있는 지 확인
+
+            var maxSize = 250 * 1024 * 1024;    // 250MB 사이즈로 최대용량 지정
+            var fileSize = this.files[0].size;    // 업로드한 파일의 용량
+
+            if(fileSize > maxSize){
+                alert("250MB 이내의 영상만 업로드할 수 있습니다.");
+                $(this).val('');    // 업로드한 파일 제거
+                return false;
+            }
+        }
+    });
+</script>
 {% endblock %}
