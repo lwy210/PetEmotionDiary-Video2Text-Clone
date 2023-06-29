@@ -164,6 +164,8 @@ def get_secret(setting, secrets=secrets):
 
 KAKAO_KEY = get_secret("kakao_key")
 
+OPEN_API_KEY = get_secret("Open_Api_key")
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
