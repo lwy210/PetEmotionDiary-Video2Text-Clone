@@ -64,11 +64,11 @@
     position: relative;
     margin: 0 auto;
     height: 100%;
-    width: 50%;
+    width: 100%;
     background: #fff;
     font: 13px Helvetica, Arial, san-serif;
     display: inline-block;
-    padding: 20px;
+    padding: 10px;
     float: left; 
 }
 @media (max-width: 991.98px) {
@@ -311,7 +311,7 @@
     padding: 10px;
     margin-top: 20px;
     border-radius: 10px;
-    border-right: 10px solid #fcf3c9; /* 왼쪽 테두리 설정 */
+    border-left: 10px solid #fcf3c9; /* 왼쪽 테두리 설정 */
     box-shadow:  5px 5px 17px #e3dfdf,
                 -5px -5px 17px #ffffff;
 }
