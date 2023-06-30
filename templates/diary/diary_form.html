@@ -1,5 +1,39 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
+
+<style>
+    #loading {
+        position: fixed;
+        z-index: 99;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #loading-content {
+        text-align: center;
+    }
+
+    #loading-content p {
+        color: white;
+        font-size: 2em;
+        margin-top: 0.5em;
+    }
+</style>
+
+<!-- ======= Loading div, initially hidden ======= -->
+<div id="loading" style="display: none;">
+    <div id="loading-content">
+        <img src={% static "img/CatAndDog.gif" %} alt="Loading..." />
+        <p>일기 작성 중이다냥냥 멍!</p>
+    </div>
+</div>
 
 <!-- ======= Breadcrumbs ======= -->
 <div class="breadcrumbs">
@@ -20,7 +54,7 @@
 <!-- ======= Diary Section ======= -->
 <div class="container card register-form shadow my-5 px-5 py-4">
 
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" action="{% url 'diary:diary_create_before' %}" enctype="multipart/form-data">
         {% csrf_token %}
         <!-- 오류표시 Start -->
         {% if form.errors %}
@@ -125,6 +159,10 @@ addButton.addEventListener("click", function() {
     input.className = "form-control";
     newField.appendChild(input);
     contentFields.appendChild(newField);
+});
+
+$("form").on('submit', function() {
+    $("#loading").show();  // 로딩 화면을 보여줍니다.
 });
 </script>
 {% endblock %}

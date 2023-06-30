@@ -1,11 +1,18 @@
 import json
+import os
 from urllib.parse import urlencode
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.files.storage import FileSystemStorage, default_storage
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render, resolve_url
 from django.utils import timezone
+
+from ai.views import diary_views
+
+# from ai.views.diary_views import create_diary
+from pet.models import Personality, Pet
 
 from ..forms import DiaryForm
 from ..models import Diary, Keyword
@@ -16,13 +23,35 @@ def diary_create_before(request):
     if request.method == "POST":
         form = DiaryForm(request.user, request.POST, request.FILES)
         if form.is_valid():
-            # < -- 모델 처리 -- >
+            # <- 보낼거 함수에 ->
+            diary = form.save(commit=False)
+            user_id = request.user.id
+            pet_id = form.cleaned_data["pet"].id
+            pet = Pet.objects.get(id=pet_id)
+            personality = Personality.objects.get(pet=pet)
+            content_list = request.POST.getlist("content[]")
+            diary.registered_time = timezone.now()
+            diary.updated_time = timezone.now()
+            diary.user_id = user_id
+            diary.save()
 
+            input = {
+                "pet": pet,
+                "personality": personality,
+                "add_content": content_list,
+                "video": "static/" + diary.video.url,
+            }
+
+            result = diary_views.create_diary(input)
+            # result = "일기 내용 일기 내용 일기 내용 일기 내용 "
+
+            # content = create_diary(context)
             content_list = request.POST.getlist("content[]")
             context = {
                 "form": form,
-                "content": "\n".join(content_list[1:]),
+                "content": result,
                 "title": content_list[0],
+                "video": diary.video.url,
                 "keywords": ["즐거움", "행복", "산책"],  # 생성된 keyword
             }
 
@@ -36,7 +65,7 @@ def diary_create_before(request):
 @login_required(login_url="account:login")
 def diary_create(request):
     if request.method == "POST":
-        form = DiaryForm(request.user, request.POST)
+        form = DiaryForm(request.user, request.POST, request.FILES)
         if form.is_valid():
             diary = form.save(commit=False)
             diary.user = request.user
@@ -44,6 +73,8 @@ def diary_create(request):
             diary.updated_time = timezone.now()
             diary.content = request.POST.get("content")
             diary.title = request.POST.get("title")
+            diary.video = request.POST.get("video").replace("media/", "")
+            print("check", diary.video)
 
             checked_list_str = request.POST["keyword_list"]
             checked_list = json.loads(checked_list_str)

@@ -19,7 +19,7 @@ class Diary(models.Model):
     registered_time = models.DateTimeField()
     updated_time = models.DateTimeField()
     title = models.CharField(max_length=45)
-    content = models.CharField(max_length=255)
+    content = models.CharField(max_length=1024)
     video = models.FileField(upload_to="diary_videos/", null=True, blank=True)
     day = models.DateField()
     thumbnail = models.CharField(max_length=45)

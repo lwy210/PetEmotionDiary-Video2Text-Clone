@@ -9,3 +9,4 @@ media
 
 secrets.json
 .env
+static/models/

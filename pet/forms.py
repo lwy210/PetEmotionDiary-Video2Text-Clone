@@ -17,18 +17,18 @@ class PetForm(forms.ModelForm):
     gender = forms.ChoiceField(choices=GENDER_CHOICES, widget=forms.RadioSelect)
 
     activity = forms.ChoiceField(
-        choices=Personality.ACTIVITY_CHOICES, widget=forms.RadioSelect, required=False
+        choices=Personality.ACTIVITY_CHOICES, widget=forms.RadioSelect, required=True
     )
     relationship = forms.ChoiceField(
         choices=Personality.RELATIONSHIP_CHOICES,
         widget=forms.RadioSelect,
-        required=False,
+        required=True,
     )
     proto_dog = forms.ChoiceField(
-        choices=Personality.PROTO_DOG_CHOICES, widget=forms.RadioSelect, required=False
+        choices=Personality.PROTO_DOG_CHOICES, widget=forms.RadioSelect, required=True
     )
     dependence = forms.ChoiceField(
-        choices=Personality.DEPENDENCE_CHOICES, widget=forms.RadioSelect, required=False
+        choices=Personality.DEPENDENCE_CHOICES, widget=forms.RadioSelect, required=True
     )
 
     class Meta:

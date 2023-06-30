@@ -33,10 +33,21 @@
             <div class="my-4">
                 
                 <h5 for="image" class="form-label">썸네일 이미지</h5>
-                <div class="my-4">
+                    <!-- 비디오 업로드 -->
+                    <div class="my-3">
+                        <div class="my-4">
+                            {% comment %} <h5 for="imgfile">비디오 업로드 </h5>
+                            <input type="file" class="form-control" name="video" id="video" value="{{ video }}"> {% endcomment %}
+                            <video width="320" height="240" controls>
+                                <source src="{{ video }}" type="video/mp4">
+                                Your browser does not support the video tag.
+                              </video>
+                        </div>
+                    </div>
+                {% comment %} <div class="my-4">
                     생성된 썸네일 이미지 올리기
                 </div>
-                <input type="file" class="form-control" name="image" id="image">
+                <input type="file" class="form-control" name="image" id="image"> {% endcomment %}
             </div>
         </div>   <!-- 썸네일 End -->
 
@@ -45,6 +56,7 @@
 
             <form method="post" action="{% url 'diary:diary_create' %}">
                 {% csrf_token %}
+                <input type="hidden" name="diary_id" value="{{ diary_id }}">
 
                 <div class="mb-4">
                     <h5 for="pet" class="form-label">반려동물 선택</h5>
@@ -77,11 +89,12 @@
 
                 <div class="my-4">
                     <h5 for="content" class="form-label mb-2">일기 내용</h5>
-                    <textarea class="form-control" id="content" name="content" rows="5">{{ content }}</textarea>
+                    <textarea class="form-control" id="content" name="content" rows="5" maxlength='1000'>{{ content }}</textarea>
                 </div>
 
                 <!-- 숨겨진 필드(hidden field)로 선택된 키워드들의 값을 저장하는 용도 -->
                 <input type="hidden" id="keyword-list" name="keyword_list">
+                <input type="hidden" name="video" value="{{ video }}">
                 <button type="submit" class="btn-register mt-4" onclick="prepareKeywordList()">저장</button>
 
             </form>
