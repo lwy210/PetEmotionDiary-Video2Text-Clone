@@ -34,7 +34,7 @@
             </div>
 
             <div class="del-btn my-3">
-                <button type="submit" class="delete-btn" formaction={% url 'account:delete' %}>회원 탈퇴</button>
+                <button type="submit" class="delete-btn" formaction={% url 'account:withdraw' %}>회원 탈퇴</button>
             </div>
 
         </article>
@@ -55,7 +55,7 @@ function Delcomplete(){
     Swal.fire({
         icon: 'info',
         title : '회원탈퇴 완료',
-        timer: 5000,
+        timer : 500,
         html: '계정이 탈퇴되었습니다.<br>그동안 이용해주셔서 감사합니다.<br>곧 로그인화면으로 자동 이동됩니다.',
         })
 }
@@ -63,10 +63,8 @@ function DeleteForm(Join){
     var check=document.withdraw.checkwithdrawal.checked;
     if(!check){
         Delcheck();
-        return false;}
-    else{
-        Delcomplete();
-    }
+        return false; }
+    else{ }
     }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>

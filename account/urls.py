@@ -19,6 +19,7 @@ urlpatterns = [
     path("check/", update_views.check_password, name="check_password"),
     path("update/password", update_views.update_password, name="update_password"),
     path("update/delete", update_views.delete, name="delete"),
+    path("update/withdraw", update_views.withdraw, name="withdraw"),
     path("login/kakao", kakao_views.KakaoSignInView, name="kakao"),
     path(
         "login/kakao/callback/",

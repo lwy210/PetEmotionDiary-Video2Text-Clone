@@ -4,13 +4,22 @@
 
 <div class="container-login100">
     <div class="wrap-login100">
-        <form class="login100-form validate-form" method="post" onsubmit="return frm_check();">
+        <form class="login100-form validate-form" method="POST" onsubmit="return frm_check();">
             {% csrf_token %}
             {% include "form_errors.html" %}
     
             <span class="login100-form-title p-b-43 mt-3 mb-5">
                 <img src={% static 'img/black_paw.png' %} height="25px"> 로그인하개
             </span>
+
+            {% if messages %}
+            <div class="alert alert-danger my-3" role="alert">
+            {% for message in messages %}
+                <strong>{{ message.tags }}</strong>
+                <ul><li>{{ message.message }}</li></ul>
+            {% endfor %}
+            </div>
+            {% endif %}
 
             <div class="validate-input mb-3" data-validate = "올바른 형식의 이메일을 입력해주세요">
                 <label for="email" for="username">아이디</label>
@@ -33,7 +42,7 @@
             </div>
 
             <div class="container-login100-form-btn">
-                <button class="login100-form-btn" type="submit" formaction={% url 'main' %}>
+                <button class="login100-form-btn" type="submit">
                     로그인
                 </button>
             </div>
