@@ -468,6 +468,7 @@
   background: rgba(0, 0, 0, 0.7);
   z-index: 999;
   display: none;
+  clear: left
 }
 
 .thankyou_message > section > h1 {
