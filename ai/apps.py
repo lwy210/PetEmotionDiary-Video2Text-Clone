@@ -12,13 +12,13 @@ class AiConfig(AppConfig):
     name = "ai"
 
     # 모델 불러오기
-    dog_emotion_predictor = TabularPredictor.load("static\models\dog_emotion_dir")
+    dog_emotion_predictor = TabularPredictor.load("models\dog_emotion_dir")
 
-    dog_action_predictor = TabularPredictor.load("static\models\dog_action_dir")
+    dog_action_predictor = TabularPredictor.load("models\dog_action_dir")
 
-    cat_emotion_predictor = TabularPredictor.load("static\models\cat_emotion_dir")
+    cat_emotion_predictor = TabularPredictor.load("models\cat_emotion_dir")
 
-    cat_action_predictor = TabularPredictor.load("static\models\cat_action_dir")
+    cat_action_predictor = TabularPredictor.load("models\cat_action_dir")
 
     path = os.path.join(settings.MODELS, "cat_skeleton_model_ep18_1.20.pkl")
     with open(path, "rb") as f:
