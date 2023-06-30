@@ -86,7 +86,8 @@ S3_SECRET_KEY= S3 시크릿 키
 ## secrets.json 설정
 ```
 {
-    "kakao_key": 카카오 API key
+    "kakao_key": 카카오 API key,
+    "Open_Api_key": 챗 GPT Open ai key
 }
 ```
 
