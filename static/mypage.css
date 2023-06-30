@@ -31,16 +31,21 @@
 
     display: flex;
     color: black;
+    border-color: transparent;
 
     margin:auto; 
     text-align: center;
+
+    justify-content: center;
+    align-items: center;
 }
 
-.info-btn a{
+
+.info-mod-btn {
     color: inherit;
     text-decoration: none;
 
-    width: 150px;
+    width: 160px;
     height: 40px;
     
     display : 1;
@@ -52,9 +57,14 @@
     border-color: transparent;
 
     float: right;
+
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
 }
 
-.info-btn a:hover{
+.info-mod-btn:hover{
     color: #AACB73;
     background-color: black;
 }
@@ -71,32 +81,35 @@
     margin: 0 auto;
   }
 
-.info-update-btn {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+.update-btn {
+    max-width: 800px;
 
-    
-  
-    width: 170px;
-    height: 35px;
-    border-radius: 5px;
-    
-    background-color: #AACB73;
+    display: flex;
     color: black;
     border-color: transparent;
-    padding: 10px 30px;
-  
-    font-family: KCC-Ganpan;
-    font-size: 18px;
-    line-height: 1.2;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  
+
+    margin:auto; 
+    text-align: center;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.info-update-btn {
+    color: inherit;
+    text-decoration: none;
+
+    width: 160px;
+    height: 40px;
+    
+    display : 1;
+
+    margin: 0px;
+
+    background-color: #AACB73;
+    border-radius: 5px;
+    border-color: transparent;
+
     -webkit-transition: all 0.4s;
     -o-transition: all 0.4s;
     -moz-transition: all 0.4s;
@@ -106,6 +119,33 @@
   .info-update-btn:hover {
     background-color: black;
     color: #AACB73;
+  }
+
+  .info-del-btn {
+    color: white;
+    text-decoration: none;
+
+    width: 160px;
+    height: 40px;
+    
+    display : 1;
+
+    margin: 0px;
+
+    background-color: grey;
+    border-radius: 5px;
+    border-color: transparent;
+
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+  }
+  
+  .info-del-btn:hover {
+    border-color: grey;
+    background-color: #f2f2f2;
+    color: black;
   }
 
 
