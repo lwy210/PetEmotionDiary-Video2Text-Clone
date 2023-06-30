@@ -51,7 +51,7 @@
 <br>
 
 ## AI 모델링
-<a href="https://www.notion.so/5b5666b4316a4be68d4ccd4f9613b06c?v=50b641aecf9644f6915778f383801829"> AI 모델링 문서 링크 </a>
+<a href="https://www.notion.so/AI-6b2e37d6ede6449a80bc7b7d063666e7?pvs=4"> AI 모델링 문서 링크 </a>
 
 <br>
 <br>
