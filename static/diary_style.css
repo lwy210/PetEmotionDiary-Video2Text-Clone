@@ -340,7 +340,6 @@
 
 .diary-section .write-diary * {
     font-family: MinGuk;
-    font-size: 5vh;
 }
 
 .diary-section {
@@ -351,7 +350,7 @@
 
 .diary-section .write-diary {
     background-image: url('img/diary_back_tmp.png');
-    height: 1100px;
+    height: 1300px;
     /* width: 100%; */
     background-size: 100% 100%;
     background-position: center top;
@@ -360,43 +359,52 @@
 }
 
 .write-diary .diary-day {
+    font-size: 45px;
     position: relative;
-    top: 6%;
-    left: 12%;
+    top: 140px;
+    left: 140px;
+    padding-right: 250px;
 }
 
 .write-diary .diary-thumbnail {
     position: relative;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, 50%);
+    top: 170px;
+    left: 170px;
+    /* transform: translate(-50%, 50%); */
     /* display: flex;
     justify-content: center;
     align-items: center;
     text-align: center; */
-    max-height: 400vh;
-    max-width: 50vw;
+    width:900px;
+    height:530px;
+    padding-right: 250px;
+    /* object-fit: contain; */
 }
 
 .write-diary .diary-thumbnail img {
     padding: 3px;
-    height: auto;
-    width: 100%;
+    height: 100%;
+    width: auto;
+    max-width: 900px;
     text-align: center;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%)
+    transform: translate(-50%, -50%);
 }
 
 .write-diary .diary-title {
     position: relative;
-    top: 62%;
-    left: 12%;
+    top: 200px;
+    left: 140px;
+    padding-right: 260px;
+    font-size: 40px;
 }
 
 .write-diary .diary-content {
     position: relative;
-    top: 58%;
-    left: 12%;
+    top: 210px;
+    left: 140px;
+    padding-right: 260px;
+    font-size: 30px;
 }
