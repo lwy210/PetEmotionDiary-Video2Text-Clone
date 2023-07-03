@@ -34,13 +34,12 @@
                 
                 <h5 for="image" class="form-label">썸네일 이미지</h5>
                 <div class="my-4">
-                    {% if diary.thumbnail %}
-                        <img src="{{ diary.thumbnail }}" alt="Diary Thumbnail" class="img-fluid">
+                    {% if thumbnail %}
+                        <img src="{{ thumbnail }}" alt="Diary Thumbnail" class="img-fluid">
                     {% else %}
                         <img src={% static "img/no posts.jpg" %} alt="Diary Thumbnail" class="img-fluid">
                     {% endif %}
                 </div>
-                <input type="file" class="form-control" name="image" id="image" accept="image/*">
             </div>
         </div>   <!-- 썸네일 End -->
 
@@ -49,6 +48,7 @@
 
             <form method="post" action="{% url 'diary:diary_create' %}">
                 {% csrf_token %}
+                <input type="hidden" name="diary_id" value="{{ diary_id }}">
 
                 <div class="mb-4">
                     <h5 for="pet" class="form-label">반려동물 선택</h5>
@@ -81,11 +81,14 @@
 
                 <div class="my-4">
                     <h5 for="content" class="form-label mb-2">일기 내용</h5>
-                    <textarea class="form-control" id="content" name="content" rows="5">{{ content }}</textarea>
+                    <textarea class="form-control" id="content" name="content" rows="5" maxlength='1000'>{{ content }}</textarea>
                 </div>
 
                 <!-- 숨겨진 필드(hidden field)로 선택된 키워드들의 값을 저장하는 용도 -->
                 <input type="hidden" id="keyword-list" name="keyword_list">
+                <input type="hidden" name="video" value="{{ video }}">
+                <input type="hidden" name="thumbnail" value="{{ thumbnail }}">
+                <input type="hidden" name="diary_id" value="{{ diary_id }}">
                 <button type="submit" class="btn-register mt-4" onclick="prepareKeywordList()">저장</button>
 
             </form>
