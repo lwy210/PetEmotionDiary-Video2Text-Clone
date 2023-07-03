@@ -29,20 +29,20 @@ class Pet(models.Model):
 
 class Personality(models.Model):
     ACTIVITY_CHOICES = [
-        ("A", "모험"),
-        ("L", "안주"),
+        ("A", "모험-A"),
+        ("L", "안주-L"),
     ]
     RELATIONSHIP_CHOICES = [
-        ("E", "외향"),
-        ("I", "내향"),
+        ("E", "외향-E"),
+        ("I", "내향-I"),
     ]
     PROTO_DOG_CHOICES = [
-        ("C", "교감"),
-        ("W", "본능"),
+        ("C", "교감-C"),
+        ("W", "본능-W"),
     ]
     DEPENDENCE_CHOICES = [
-        ("T", "신뢰"),
-        ("N", "필요"),
+        ("T", "신뢰-T"),
+        ("N", "필요-N"),
     ]
     pet = models.ForeignKey(Pet, on_delete=models.CASCADE)
     activity = models.CharField(max_length=1, choices=ACTIVITY_CHOICES)
