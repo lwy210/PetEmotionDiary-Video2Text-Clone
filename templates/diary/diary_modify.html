@@ -64,12 +64,18 @@
                 
                 <div class="mb-3 container" id="keyword-fields">
                     <h5 class="form-label"><i class="bi bi-tags" style="color: #198754"></i> 키워드</h5>
-                    <div class="d-flex align-items-center">
-                        {% for keyword in diary.keywords.all %}
-                            <div class="mx-3"># {{ keyword }}</div>   
-                        {% endfor %}
+                    <div class="d-flex flex-column">
+                        <div class="d-flex align-items-center">
+                            {% for keyword in diary.keywords.all %}
+                                {% if forloop.counter|divisibleby:6 and not forloop.first %}
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                {% endif %}
+                                <div class="mx-3"># {{ keyword }}</div>
+                            {% endfor %}
+                        </div>
                     </div>
-                </div> 
+                </div>
                 <button type="button" id="add-keyword-button" class="btn-yellow-register btn-sm mx-5">키워드 추가</button>
                 
                 </div>

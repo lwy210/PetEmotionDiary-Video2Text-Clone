@@ -5,7 +5,7 @@ from pet.models import Pet
 
 
 class DiaryForm(forms.ModelForm):
-    content = forms.CharField(widget=forms.Textarea, required=False)
+    content = forms.CharField(widget=forms.Textarea, required=False, max_length=1000)
     title = forms.CharField(required=False)
     video = forms.FileField(
         widget=forms.FileInput(attrs={"class": "form-control", "id": "video"}),

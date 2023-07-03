@@ -75,7 +75,7 @@
 
                     <div class="diary-title">제목 : {{ diary.title }}</div>
 
-                    <pre class="diary-content">{{ diary.content }}</pre>
+                    <div class="diary-content">{{ diary.content }}</div>
 
                 </div>
                 
@@ -83,20 +83,28 @@
 
             <!-- footer: 업데이트 여부 -->
             <div class="card-footer d-flex justify-content-between mx-4">
-                {% if diary.registered_time != diary.updated_time %}
-                    <p class="mt-2 text-muted">마지막 업데이트: {{ diary.updated_time }}</p>
-                {% else %}
-                    <label></label>
-                {% endif %}
-
-                <li class="d-flex align-items-center">
-                    {% comment %} <i class="bi bi-tags"></i>  {% endcomment %}
-                    <div class="d-flex align-items-center">
-                        {% for keyword in diary.keywords.all %}
-                            <div class="mr-3"># {{ keyword }}</div>   
-                        {% endfor %}
+                <div class="row w-100 align-items-center">
+                    <div class="col-4">
+                        {% if diary.registered_time != diary.updated_time %}
+                            <p class="mt-2 text-muted">마지막 업데이트: {{ diary.updated_time }}</p>
+                        {% else %}
+                            <label></label>
+                        {% endif %}
                     </div>
-                </li>
+            
+                    <div class="col-8">
+                        <div class="d-flex flex-wrap justify-content-end align-items-center">
+                            <i class="bi bi-tags" style="color: #198754"></i>
+                            {% for keyword in diary.keywords.all %}
+                                {% if forloop.counter|divisibleby:7 and not forloop.first %}
+                                    <br/>
+                                {% endif %}
+                                <div class="mx-2" style="font-size: 0.9rem">#{{ keyword }}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
                 {% comment %} <ul>
                     <li class="d-flex align-items-center mb-3"><i class="bi bi-suit-heart"></i> {{ post_likes }}</li>
                     <li>
