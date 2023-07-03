@@ -117,7 +117,9 @@
 
 
 
-
+.half-highlight {
+  background: linear-gradient(to top, #9ACD32 50%, transparent 50%);
+}
 
 
 
@@ -386,14 +388,6 @@
     z-index: 9999;
 }
 
-.register-in {
-    font-family: KCC-Ganpan;
-    color: #3b5998;
-    position: relative;
-    text-align: center;
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
 
 
 .index-div .row {
@@ -451,6 +445,14 @@
 .github-link:hover {
   border: 1px solid #333333;
 }
+
+.github-img {
+  padding: 0px;
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+}
+
 
 
 

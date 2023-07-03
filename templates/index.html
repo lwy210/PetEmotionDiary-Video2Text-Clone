@@ -77,8 +77,8 @@
 				<div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
 					<div class="box">
 						<img src={% static "img/journal.png" %} class="img-fluid" alt="" style="width: 250px;">
-						<h2>일기 작성</h2>
-						<p style='font-size: 18px;'>반려동물의 일기를 작성해보세요</p>
+						<h2 class="py-3">일기 작성</h2>
+						<p style='font-size: 18px; color:#696969'>반려동물의 동영상을 올리기만 하면,<br>AI로 반려동물 시점의 일기를 자동 생성하고<br>언제 어디서나 자유롭게 열람할 수 있습니다.</p>
 						<p><a href={% url 'diary:index' %} class="btn btn-success btn-custom-1 mt-4" style="font-size: 20px;">바로가기</a></p>
 					</div>
 				</div>
@@ -86,8 +86,8 @@
 				<div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="400">
 					<div class="box">
 						<img src={% static "img/pets-1.png" %} class="img-fluid" alt="" style="width: 250px;">
-						<h2>반려동물 목록</h2>
-						<p style='font-size: 18px;'>반려동물의 목록을 관리해보세요</p>
+						<h2 class="py-3">반려동물 목록</h2>
+						<p style='font-size: 18px; color:#696969'>내 반려동물을 등록하고, 반려동물에 대한<br>다양한 정보를 기록하고 관리할 수 있습니다.<br>반려동물 추가 후 일기를 작성할 수 있습니다.</p>
 						<p><a href={% url 'pet:index' %} class="btn btn-success btn-custom-1 mt-4" style="font-size: 20px;">바로가기</a></p>
 					</div>
 				</div>
@@ -95,8 +95,8 @@
 				<div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="600">
 					<div class="box">
 						<img src={% static "img/board-1.png" %} class="img-fluid" alt="" style="width: 250px;">
-						<h2>게시판</h2>
-						<p style='font-size: 18px;'>집사들과 이야기를 나눠보세요</p>
+						<h2 class="py-3">게시판 이용</h2>
+						<p style='font-size: 18px; color:#696969'>자유/고민/자랑으로 나뉜 게시판에서<br>다양한 견주, 집사들과 정보를 공유하고<br>원하는 주제로 자유롭게 소통할 수 있습니다.</p>
 						<p><a href={% url 'post:index' %} class="btn btn-success btn-custom-1 mt-4" style="font-size: 20px;">바로가기</a></p>
 					</div>
 				</div>
@@ -119,41 +119,32 @@
 					<img src={% static "assets/img/Image viewer-amico.png" %}  style='height: 300px;' class="img-fluid" alt="">
 				</div>
 
-				<div class="col-lg-6">
+				<div class="col-lg-6 align-self-center">
 					<header class="section-header">
-						{% comment %} <h2 style='color: #444444;'>- STEP 1 -</h2> {% endcomment %}
-						<p style='color: black; font-size: 25px;'>STEP 1 : 반려동물과 찍은 동영상 업로드</p>
+						<h3 style='color: black;' align="left">📸 STEP 1 : 반려동물과 찍은 <span style="background: linear-gradient(to top, #D7E9B9 40%, transparent 40%);">동영상 업로드</span></h3>
 					</header>
 
-					<div class="d-flex align-items-center mb-2">
-						<h4>✅ 일기 작성 시작</h4>
-					</div>
-					<p>가장 먼저 상단바의 Diary 탭을 클릭해주세요.<br>
-						만약 등록된 반려동물이 없다면, 반려동물 등록을 진행해주세요.<br>
-						일기목록 화면의 오른쪽 상단에 있는 일기쓰기 버튼을 눌러주세요.</p>
-					
-					<div class="d-flex align-items-center mb-2" style="padding: 20px 0 0 0;">
-						<h4>😊 비디오 업로드</h4>
-					</div>
-					<p>일기를 생성하고 싶은 순간이 담긴 동영상을 선택해주세요.<br>
-						선택한 동영상을 왼쪽의 비디오 업로드 섹션의 파일 선택을 통해 업로드 해주세요.</p>
+					<p style="font-size:18px;" align="left">가장 먼저 상단바의 Diary 탭을 클릭해주세요.
+						일기목록 화면의 오른쪽 상단에 있는
+						<span class="emphasis" style="color:#198754">일기쓰기 버튼</span>을 눌러주세요.
+						그 다음 <span class="emphasis" style="color:#198754">일기를 생성하고 싶은 순간이 담긴 동영상</span>을
+						왼쪽의 동영상 업로드 섹션을 통해 업로드해주세요.</p>
 				</div>
 			</div>
 			<!-- End Feature Tabs -->
 
           	<!-- Feature Tabs -->
-          	<div class="row feture-tabs" data-aos="fade-up">
-				<div class="col-lg-6">
+          	<div class="row feture-tabs" data-aos="fade-up"> 
+				<div class="col-lg-6 align-self-center">
 					<header class="section-header">
-						<p style='color: black; font-size: 25px;'>STEP 2 : 업로드된 영상을 바탕으로 AI 일기 생성</p>
+						<h3 style='color: black;' align="left">STEP 2 📔: 업로드된 영상으로 <span style="background: linear-gradient(to top, #D7E9B9 40%, transparent 40%);">AI 일기 생성</span></h3>
 					</header>
-  
-					<div class="d-flex align-items-center mb-2">
-						<h4>✅ AI로 일기 자동 생성</h4>
-					</div>
-                  	<p>동영상을 업로드하게 되면, 인공지능 모델이 가장 먼저 반려동물의 행동과 감정을 예측합니다.<br>
-						동시에 기록된 반려동물의 성격도 반영하여 반려동물 시점에서의 일기를 자동 생성합니다.<br>
-						일기에 꼭 기록하고 싶은 내용이 있다면 해당 내용을 추가할 수 있습니다.</p>
+
+                  	<p style="font-size:18px;" align="left">동영상을 업로드하게 되면, 인공지능 모델이 가장 먼저 
+						<span class="emphasis" style="color:#198754">반려동물의 행동과 감정을 예측</span>합니다.
+						동시에 기록된 반려동물의 성격도 반영하여 
+						<span class="emphasis" style="color:#198754">반려동물 시점에서의 일기를 자동 생성</span>합니다.
+						일기에 꼭 기록하고 싶은 내용도 추가할 수 있습니다.</p>
             	</div>
   
 				<div class="col-lg-6  d-flex justify-content-center align-items-center">
@@ -169,16 +160,15 @@
 					<img src={% static "assets/img/Good doggy-cuate.png" %}  style='height: 300px;' class="img-fluid" alt="">
 				</div>
 
-				<div class="col-lg-6">
+				<div class="col-lg-6 align-self-center">
 					<header class="section-header">
-						<p style='color: black; font-size: 25px;'>STEP 3 : 반려동물과의 추억을 자유롭게 꺼내보기</p>
+						<h3 style='color: black;' align="left">🎁 STEP 3 : <span style="background: linear-gradient(to top, #D7E9B9 40%, transparent 40%);">반려동물과의 추억</span>을 꺼내보기</h3>
 					</header>
-					
-					<div class="d-flex align-items-center mb-2" style="padding: 20px 0 0 0;">
-						<h4>💝 반려동물 일기 모아보기</h4>
-					</div>
-					<p>일기 목록에서 달력/리스트 형식으로 일기를 마음껏 감상하세요.<br>
-						북마크 기능을 통해 다시 보고 싶은 일기를 표시할 수 있습니다.
+
+					<p style="font-size:18px;" align="left">일기 목록에서 <span class="emphasis" style="color:#198754">달력/리스트 형식</span>으로 일기를 마음껏 감상하세요.
+						달력 뷰를 통해 <span class="emphasis" style="color:#198754">각 날짜마다 쓴 일기</span>를 손쉽게 모아 볼 수 있습니다.
+						리스트 뷰를 통해 <span class="emphasis" style="color:#198754">지금까지 쓴 일기의 내용</span>을 함께 확인할 수 있습니다.
+						<span class="emphasis" style="color:#198754">북마크 기능</span>을 통해 다시 보고 싶은 일기를 표시할 수 있습니다.
 					</p>
 				</div>
 			</div>
@@ -193,28 +183,27 @@
 		<div class="container" data-aos="fade-up">
 			<header class="section-header">
 				<h2 style="color: #444444;">About Us</h2>
-				<p style="color: #198754">KT AIVLE School 3기 1반 2조</p>
+				<p class="mb-4" style="color: #198754">KT AIVLE School 3기 1반 2조</p>
 			</header>
 
 			<div class="row gy-4" data-aos="fade-left">
 				<div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
 					<div class="box">
-						<div class="row no-gutters">
-							<div class="col-md-5" style="text-align : center;">
-								<img class="img-fluid align-center" src={% static "img/kms.png" %} alt="곽민성">
+						<div class="row no-gutters d-flex justify-content-between">
+							<div class="col-md-6 px-4" style="text-align : center;">
+								<img class="img-fluid align-center profile-img" src={% static "img/kms.png" %} alt="곽민성">
 							</div>
 
-							<div class="col-md-7 bg-white" style="width: auto;">
+							<div class="col-md-7 p-4 bg-white align-self-center" style="width: auto;">
 								<div class="p-4">
 									<div class="mb-3">
-										<h4>곽민성</h4>
-										<span>PM, Backend</span>
+										<h2>곽민성</h2>
+										<span style="color:#28a745">PM, BACK-END</span>
 									</div>
-									<p>안녕하세요 곽민성입니다</p>
 
 									<div class="d-flex">
 										<a class="btn github-link" href="https://github.com/kawkmin" target="_blank">
-											<img class="align-center" src={% static "img/github.png" %} style="height:15px; margin-right:10px">Github</a>
+											<img class="align-center github-img" src={% static "img/github.png" %} style="height:15px; margin-right:10px">Github</a>
 									</div>
 								</div>
 							</div>
@@ -224,22 +213,21 @@
 
 				<div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
 					<div class="box">
-						<div class="row no-gutters">
-							<div class="col-md-5" style="text-align : center;">
-								<img class="img-fluid align-center" src={% static "img/kdh.png" %} alt="김도현">
+						<div class="row no-gutters d-flex justify-content-between">
+							<div class="col-md-6 px-4" style="text-align : center;">
+								<img class="img-fluid align-center profile-img" src={% static "img/kdh.png" %} alt="김도현">
 							</div>
 
-							<div class="col-md-7 bg-white" style="width: auto;">
+							<div class="col-md-7 p-4 bg-white align-self-center" style="width: auto;">
 								<div class="p-4">
 									<div class="mb-3">
-										<h4>김도현</h4>
-										<span>Frontend, AI</span>
+										<h2>김도현</h2>
+										<span style="color:#28a745">FRONT-END</span>
 									</div>
-									<p>안녕하세요 김도현입니다</p>
 									
 									<div class="d-flex">
 										<a class="btn github-link" href="https://github.com/dohyun-99" target="_blank">
-											<img class="align-center" src={% static "img/github.png" %} style="height:15px; margin-right:10px">Github</a>
+											<img class="align-center github-img" src={% static "img/github.png" %} style="height:15px; margin-right:10px">Github</a>
 									</div>
 								</div>
 							</div>
@@ -249,22 +237,21 @@
 
 				<div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="300">
 					<div class="box">
-						<div class="row no-gutters">
-							<div class="col-md-5" style="text-align : center;">
-								<img class="img-fluid align-center" src={% static "img/wyj.png" %} alt="위예진">
+						<div class="row no-gutters d-flex justify-content-between">
+							<div class="col-md-6 px-4" style="text-align : center;">
+								<img class="img-fluid align-center profile-img" src={% static "img/wyj.png" %} alt="위예진">
 							</div>
 
-							<div class="col-md-7 bg-white" style="width: auto;">
+							<div class="col-md-7 p-4 bg-white align-self-center" style="width: auto;">
 								<div class="p-4">
 									<div class="mb-3">
-										<h4>위예진</h4>
-										<span>Frontend, AI</span>
+										<h2>위예진</h2>
+										<span style="color:#28a745">FRONT-END</span>
 									</div>
-									<p>안녕하세요 위예진입니다</p>
 									
 									<div class="d-flex">
 										<a class="btn github-link" href="https://github.com/bokkuembab" target="_blank">
-											<img class="align-center" src={% static "img/github.png" %} style="height:15px; margin-right:10px">Github</a>
+											<img class="align-center github-img" src={% static "img/github.png" %} style="height:15px; margin-right:10px">Github</a>
 									</div>
 								</div>
 							</div>
@@ -276,22 +263,21 @@
 			<div class="row gy-4" data-aos="fade-left" style='padding: 20px 0px'>
 				<div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="400">
 					<div class="box">
-						<div class="row no-gutters">
-							<div class="col-md-5" style="text-align : center;">
-								<img class="img-fluid align-center" src={% static "img/lyw.png" %} alt="이용우">
+						<div class="row no-gutters d-flex justify-content-between">
+							<div class="col-md-6 px-4" style="text-align : center;">
+								<img class="img-fluid align-center profile-img" src={% static "img/lyw.png" %} alt="이용우">
 							</div>
 
-							<div class="col-md-7 bg-white" style="width: auto;">
+							<div class="col-md-7 p-4 bg-white align-self-center" style="width: auto;">
 								<div class="p-4">
 									<div class="mb-3">
-										<h4>이용우</h4>
-										<span>AI, Frontend</span>
+										<h2>이용우</h2>
+										<span style="color:#28a745">AI Modeling</span>
 									</div>
-									<p>안녕하세요 이용우입니다</p>
 
 									<div class="d-flex">
 										<a class="btn github-link" href="https://github.com/Yongtato" target="_blank">
-											<img class="align-center" src={% static "img/github.png" %} style="height:15px; margin-right:10px">Github</a>
+											<img class="align-center github-img" src={% static "img/github.png" %} style="height:15px; margin-right:10px">Github</a>
 									</div>
 								</div>
 							</div>
@@ -301,22 +287,21 @@
 
 				<div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="400">
 					<div class="box">
-						<div class="row no-gutters">
-							<div class="col-md-5" style="text-align : center;">
-								<img class="img-fluid align-center" src={% static "img/lwy.png" %} alt="이원영">
+						<div class="row no-gutters d-flex justify-content-between">
+							<div class="col-md-6 px-4" style="text-align : center;">
+								<img class="img-fluid align-center profile-img" src={% static "img/lwy.png" %} alt="이원영">
 							</div>
 
-							<div class="col-md-7 bg-white" style="width: auto;">
+							<div class="col-md-7 p-4 bg-white align-self-center" style="width: auto;">
 								<div class="p-4">
 									<div class="mb-3">
-										<h4>이원영</h4>
-										<span>Backend</span>
+										<h2>이원영</h2>
+										<span style="color:#28a745">BACK-END</span>
 									</div>
-									<p>안녕하세요 이원영입니다</p>
 									
 									<div class="d-flex">
 										<a class="btn github-link" href="https://github.com/lwy210" target="_blank">
-											<img class="align-center" src={% static "img/github.png" %} style="height:15px; margin-right:10px">Github</a>
+											<img class="align-center github-img" src={% static "img/github.png" %} style="height:15px; margin-right:10px">Github</a>
 									</div>
 								</div>
 							</div>
@@ -326,22 +311,21 @@
 
 				<div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="400">
 					<div class="box">
-						<div class="row no-gutters">
-							<div class="col-md-5" style="text-align : center;">
-								<img class="img-fluid align-center" src={% static "img/jec.png" %} alt="정은찬">
+						<div class="row no-gutters d-flex justify-content-between">
+							<div class="col-md-6 px-4" style="text-align : center;">
+								<img class="img-fluid align-center profile-img" src={% static "img/jec.png" %} alt="정은찬">
 							</div>
 
-							<div class="col-md-7 bg-white" style="width: auto;">
+							<div class="col-md-7 p-4 bg-white align-self-center" style="width: auto;">
 								<div class="p-4">
 									<div class="mb-3">
-										<h4>정은찬</h4>
-										<span>AI, Frontend</span>
+										<h2>정은찬</h2>
+										<span style="color:#28a745">AI Modeling</span>
 									</div>
-									<p>안녕하세요 정은찬입니다</p>
 									
-									<div class="d-flex">
-										<a class="btn github-link" href="https://github.com/EunchanJeong" target="_blank">
-											<img class="align-center" src={% static "img/github.png" %} style="height:15px; margin-right:10px">Github</a>
+									<div class="d-flex github-link">
+										<a class="btn" href="https://github.com/EunchanJeong" target="_blank">
+											<img class="align-center github-img" src={% static "img/github.png" %} style="height:15px; margin-right:10px">Github</a>
 									</div>
 								</div>
 							</div>
@@ -362,7 +346,7 @@
 			</header>
 
         <div class="row gy-4" data-aos="fade-left">
-            <form id="contactForm" method="post" action="https://script.google.com/macros/s/AKfycbwwTNT8cz732d_pBV8IzGn35LgwbJ7kqo3WKxMb0UjTGbulso9EUcXE2XOqJcKfddb7/exec" class="gform mt-5 form-contact slideanim php-email-form">
+            <form id="contactForm" name="contactform" method="post" action="https://script.google.com/macros/s/AKfycbwwTNT8cz732d_pBV8IzGn35LgwbJ7kqo3WKxMb0UjTGbulso9EUcXE2XOqJcKfddb7/exec" class="gform mt-5 form-contact slideanim php-email-form">
               	<div class="row">
 					<div class="form-group col-sm-6">
 						<label for="name" class="blind">이름</label>
@@ -380,7 +364,7 @@
 					<textarea class="form-control" rows="8" id="message" name="message" rows="10" placeholder="문의하실 내용을 작성해주세요."></textarea>
 					
 					<div class="my-3">
-						<button type="submit" class="btn btn-ask" style="float: right; background-color: #198754;">문의하기</button>
+						<button type="submit" id="question_submit" class="btn btn-ask" style="float: right; background-color: #198754;" disabled>문의하기</button>
 					</div>
 				</div>
             
@@ -413,6 +397,25 @@
 <script data-cfasync="false" src={% static "form-submission-handler.js" %}></script>
 <script>
 AOS.init();
+</script>
+
+<!-- Contact Us Button Activation -->
+<script>
+	const nameBox = document.querySelector('#name');
+	const emailBox = document.querySelector('#email');
+	const messageBox = document.querySelector('#message');
+	const sendButton = document.querySelector('#question_submit');
+
+	nameBox.addEventListener('keyup', activeEvent);
+	emailBox.addEventListener('keyup', activeEvent);
+	messageBox.addEventListener('keyup', activeEvent);
+
+	function activeEvent() {
+	switch(!(nameBox.value &&emailBox.value &&messageBox.value)){
+		case true : sendButton.disabled = true; break;
+		case false : sendButton.disabled = false; break
+		}
+	}
 </script>
 
 </body>
