@@ -107,6 +107,11 @@ def extract_frames(video_path, output_dir, diary_id):
         # frame_interval 마다 이미지 저장
         if frame_count % frame_interval == 0:
             output_path = f"{output_dir}/{diary_id}frame_{saved_count}.jpg"
+            if saved_count == 0:
+                output_path = (
+                    f"static/media/split_imgs/{diary_id}frame_{saved_count}.jpg"
+                )
+
             cv2.imwrite(output_path, frame)
             saved_count += 1
 
@@ -371,7 +376,7 @@ def parse_result(result_string):
 
 # 일기 쓰기 함수
 def create_diary(context):
-    images_dir_path = os.path.join(settings.MEDIA_ROOT, "split_imgs")
+    images_dir_path = settings.MEDIA_URL + "split_imgs"
     diary_id = str(context["diary_id"])
 
     # 동영상에서 분할한 이미지들을 저장할 폴더 (추가 필요)
