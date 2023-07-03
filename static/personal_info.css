@@ -1,0 +1,47 @@
+/* =========================================== */
+/* [ total setting ] --------------------------- */
+@font-face {
+    font-family: KCC-Ganpan;
+    src: url('font/KCC-Ganpan.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: KCC-Ganpan;
+}
+
+hr {
+    margin: 0px;
+}
+
+li {
+    padding-right: 10px;
+}
+
+ul>li {
+    margin-right: 10px;
+    padding-right: 10px;
+}
+
+/* =========================================== */
+/* [ details ] --------------------------- */
+
+.card {
+    box-sizing : border-box;
+    max-width:800px;
+    border:3px solid grey;
+    border-style: solid;
+    border-width: 2px;
+}
+.term-title{
+    margin: 0px;
+    padding: 10px;
+}
+
+.term-detail{
+    margin : 10px;
+    padding: 10px;
+}
+
+/* =========================================== */

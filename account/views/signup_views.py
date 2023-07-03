@@ -23,3 +23,6 @@ def signup(request):
 
 def logout_test(request):
     return render(request, "account/logout.html")
+
+def terms_of_service(request):
+    return render(request, "account/personal_info.html")

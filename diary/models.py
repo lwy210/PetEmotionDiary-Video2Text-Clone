@@ -19,10 +19,14 @@ class Diary(models.Model):
     registered_time = models.DateTimeField()
     updated_time = models.DateTimeField()
     title = models.CharField(max_length=45)
-    content = models.CharField(max_length=255)
-    video = models.CharField(max_length=45)
+    content = models.CharField(max_length=1024)
+    video = models.FileField(
+        upload_to="diary_videos/", null=True, blank=True, max_length=500
+    )
     day = models.DateField()
-    thumbnail = models.CharField(max_length=45)
+    thumbnail = models.ImageField(
+        upload_to="diary_images/", null=True, blank=True, max_length=500
+    )
     bookmark = models.BooleanField(default=False)
     keywords = models.ManyToManyField(Keyword)
 

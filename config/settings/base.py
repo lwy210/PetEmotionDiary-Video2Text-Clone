@@ -20,6 +20,7 @@ from django.core.exceptions import ImproperlyConfigured
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 MEDIA_ROOT = os.path.join(BASE_DIR, "static/media")
 MEDIA_URL = "/media/"
+MODELS = os.path.join(BASE_DIR, "models")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -30,7 +31,7 @@ SECRET_KEY = "django-insecure-(bpm59pc93u9-s#n0ka%=8j&itk&mogsy$)l8bunwm8pgx^l!5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     "diary.apps.DiaryConfig",
     "post_liked.apps.PostLikedConfig",
     "comment_liked.apps.CommentLikedConfig",
+    "ai.apps.AiConfig",
     "account",
     "storages",
 ]
@@ -161,6 +163,8 @@ def get_secret(setting, secrets=secrets):
 
 
 KAKAO_KEY = get_secret("kakao_key")
+
+OPEN_API_KEY = get_secret("Open_Api_key")
 
 LOGGING = {
     "version": 1,
