@@ -77,7 +77,7 @@ def diary_create_before(request):
 
             result = diary_views.create_diary(input)
 
-            local_file_path = f"static\media\split_imgs\{diary.id}frame_0.jpg"
+            local_file_path = f"static/media/split_imgs/{diary.id}frame_0.jpg"
             s3_bucket = settings.AWS_STORAGE_BUCKET_NAME
             s3_key = f"media/diary_images/{diary.id}frame_0.jpg"
             upload_file_to_s3(local_file_path, s3_bucket, s3_key)
