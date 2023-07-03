@@ -11,10 +11,13 @@ class DiaryForm(forms.ModelForm):
         widget=forms.FileInput(attrs={"class": "form-control", "id": "video"}),
         required=False,
     )
+    thumbnail = forms.ImageField(
+        required=False,
+    )
 
     class Meta:
         model = Diary
-        fields = ["pet", "day", "content", "title", "video"]
+        fields = ["pet", "day", "content", "title", "video", "thumbnail"]
         widgets = {
             "day": forms.DateInput(attrs={"type": "date"}),
         }

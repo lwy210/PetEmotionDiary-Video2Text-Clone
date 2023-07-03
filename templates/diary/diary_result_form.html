@@ -43,6 +43,9 @@
                                 Your browser does not support the video tag.
                               </video>
                         </div>
+                        <div class="my-4">
+                            <img src="{{ thumbnail }}" alt="thumbnail" style="height: 400px; width: auto;">
+                        </div>
                     </div>
                 {% comment %} <div class="my-4">
                     생성된 썸네일 이미지 올리기
@@ -95,6 +98,8 @@
                 <!-- 숨겨진 필드(hidden field)로 선택된 키워드들의 값을 저장하는 용도 -->
                 <input type="hidden" id="keyword-list" name="keyword_list">
                 <input type="hidden" name="video" value="{{ video }}">
+                <input type="hidden" name="thumbnail" value="{{ thumbnail }}">
+                <input type="hidden" name="diary_id" value="{{ diary_id }}">
                 <button type="submit" class="btn-register mt-4" onclick="prepareKeywordList()">저장</button>
 
             </form>

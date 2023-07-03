@@ -20,12 +20,10 @@
 {% for keyword in diary.keywords.all %}
 <div>#{{ keyword }}</div>
 {% endfor %}
-{% if diary.thumbnail %}
 <img src="{{ diary.thumbnail }}" alt="Diary Thumbnail" style="max-height: 200px; width: auto;">
-{% endif %}
 <div>{{ diary.content }}</div>
 <div class="col mb-5 d-flex justify-continer-center">
-    <video src="{{ diary.video.url }}" controls style="height: 400px; width: auto;"></video>
+    <video src="{{ diary.video }}" controls style="height: 400px; width: auto;"></video>
 </div>
 
 {% block script %}

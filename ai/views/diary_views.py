@@ -1,4 +1,5 @@
 import math
+import os
 import pickle
 import time
 from glob import glob
@@ -80,7 +81,7 @@ def detecting(input_data):
 
 
 # 동영상 이미지 분할 함수
-def extract_frames(video_path, output_dir):
+def extract_frames(video_path, output_dir, diary_id):
     num_frames = 5  # 동영상을 이미지로 나눌 숫자 (5개 이미지 분할)
 
     # 동영상 파일 열기
@@ -105,7 +106,7 @@ def extract_frames(video_path, output_dir):
 
         # frame_interval 마다 이미지 저장
         if frame_count % frame_interval == 0:
-            output_path = f"{output_dir}/frame_{saved_count}.jpg"
+            output_path = f"{output_dir}/{diary_id}frame_{saved_count}.jpg"
             cv2.imwrite(output_path, frame)
             saved_count += 1
 
@@ -223,7 +224,6 @@ def extract_features(df, animal):
     # 수정된 코드
     sequence = sequence.astype(float)  # sequence를 실수형으로 변환
     velocities = np.linalg.norm(np.diff(sequence, axis=0), axis=1)
-    # velocities = np.linalg.norm(np.diff(sequence, axis=0), axis=1)
     features.extend(velocities)
 
     # 가속도 추출
@@ -234,7 +234,7 @@ def extract_features(df, animal):
     direction_changes = np.diff(np.arctan2(sequence[:, 1::2], sequence[:, ::2]), axis=0)
     features.extend(direction_changes.flatten())
 
-    if animal == "cat":
+    if animal == "Cat":
         features = features[:400]
 
     return features
@@ -281,9 +281,6 @@ def chatGPT(input_data, emotion, action, detected_objs):
 
     prompt = ""
 
-    print("input_data", input_data)
-    print("input_data['personality']", input_data["personality"])
-
     if input_data["pet"].kind == "Dog":
         prompt = f"""강아지 이름: {input_data['pet'].name}
 강아지 성별 : {input_data['pet'].gender}
@@ -298,9 +295,18 @@ def chatGPT(input_data, emotion, action, detected_objs):
 
 참고사항: 주인 - 주인 이름, 나 - 강아지 이름
 
-위 사항을 기반해 고양이가 쓴 일기처럼 강아지 시점에서 일기를 써주세요.
+위 사항을 기반해 강아지가 쓴 일기처럼 강아지 시점에서 일기를 써주세요.
 
-분량 제한: 15문장
+일기를 토대로 제목도 작성해주세요 
+일기를 토대로 키워드도 작성해주세요
+
+일기 형식 : "title: 편안한 하루
+
+diary_content: 오늘은 정말 편안한 하루였어멍. 집사가 나에게 소중한 이름 냐옹이라고 부르면서 마주쳐줬어멍.
+
+keywords: 편안, 안정, 누워있기" 
+
+위 모든 결과 분량 제한: 900자
     """
 
     elif input_data["pet"].kind == "Cat":
@@ -313,33 +319,66 @@ def chatGPT(input_data, emotion, action, detected_objs):
 
 주인 이름: {input_data['pet'].owner_name}
 
-쓰고 싶은 내용: {str(input_data['content_list'])[1:-1]}
+쓰고 싶은 내용: {str(input_data['add_content'])[1:-1]}
 
 참고사항: 주인 - 주인 이름, 나 - 고양이 이름
 
 위 사항을 기반해 고양이가 쓴 일기처럼 고양이 시점에서 일기를 써주세요.
 
-분량 제한: 15문장
+일기를 토대로 제목도 작성해주세요 
+일기를 토대로 키워드도 작성해주세요
+
+일기 형식 : "title: 편안한 하루
+
+diary_content: 오늘은 정말 편안한 하루였어냥. 집사가 나에게 소중한 이름 냐옹이라고 부르면서 마주쳐줬어냥.
+
+keywords: 편안, 안정, 누워있기"
+
+위 모든 결과 분량 제한: 900자
     """
 
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo", messages=[{"role": "user", "content": prompt}]
     )
-    print(completion)
     result = completion.choices[0].message.content
+
     return result
 
 
 #####################################################################################################
+def parse_result(result_string):
+    result = {}
+
+    # Split by new lines
+    lines = result_string.split("\n")
+
+    for line in lines:
+        # Split by colon
+        key_value = line.split(": ")
+
+        if len(key_value) == 2:
+            key = key_value[0]
+            value = key_value[1]
+
+            # If the key is "키워드", split the value by comma
+            if key == "keywords":
+                value = [v.strip() for v in value.split(",")]
+
+            result[key] = value
+
+    return result
 
 
 # 일기 쓰기 함수
 def create_diary(context):
-    images_dir_path = "static\models\split_imgs"  # 동영상에서 분할한 이미지들을 저장할 폴더 (추가 필요)
+    images_dir_path = os.path.join(settings.MEDIA_ROOT, "split_imgs")
+    diary_id = str(context["diary_id"])
+
+    # 동영상에서 분할한 이미지들을 저장할 폴더 (추가 필요)
 
     detected_objs = detecting(context)  # 객체 탐지 추출
 
-    extract_frames(context["video"], images_dir_path)  # 동영상에서 이미지로 분할후 폴더에 저장
+    extract_frames(context["video"], images_dir_path, diary_id)  # 동영상에서 이미지로 분할후 폴더에 저장
 
     frames = glob(images_dir_path + "*.jpg")  # 이미지들의 경로를 저장한 리스트
     frames.sort()  # 시간순으로 정렬
@@ -361,4 +400,6 @@ def create_diary(context):
         context, pet_emotion, pet_action, detected_objs
     )  # chatGPI 일기 쓰기 요청
 
-    return result
+    result_dict = parse_result(result)
+
+    return result_dict
