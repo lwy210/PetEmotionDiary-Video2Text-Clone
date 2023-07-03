@@ -27,4 +27,5 @@ urlpatterns = [
         name="kakao_callback",
     ),
     path("mypage", mypage_views.mypage, name="mypage"),
+    path("termofservice", signup_views.terms_of_service, name="terms"),
 ]
