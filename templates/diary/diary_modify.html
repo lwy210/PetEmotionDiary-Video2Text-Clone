@@ -1,37 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
-<div class="container">
-    <h3 class="my-3 border-bottom pb-2">일기 결과</h3>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="mb-3">
-            <label for="title" class="form-label">일기 제목</label>
-            {{ form.title }}
-        </div>
-        <div class="mb-3">
-            <label for="day" class="form-label">작성 날짜</label>
-            {% comment %} <input type="text" class="form-control" id="day" name="day" value="{{ form.day.value }}" readonly> {% endcomment %}
-            {{ form.day }}
-        </div>
-        {% for keyword in diary.keywords.all %}
-            <div>#{{ keyword }}</div>   
-        {% endfor %}
-        <div class="mb-3" id="keyword-fields">
-        </div> 
-        <button type="button" id="add-keyword-button" class="btn btn-secondary">키워드 추가</button>
-        <div class="mb-3">
-            <label for="content" class="form-label">일기 내용</label>
-            {{ form.content }}
-        </div>
-        <div class="mb-3">
-            <label for="pet" class="form-label">반려동물 선택</label>
-            {{ form.pet }}
-        </div>
-        <!-- 숨겨진 필드(hidden field)로 선택된 키워드들의 값을 저장하는 용도 -->
-        <input type="hidden" id="keyword-list" name="keyword_list">
-        <button type="submit" class="btn btn-primary" onclick="prepareKeywordList()">일기 수정</button>
-        <a href="#" class="delete btn btn-sm btn-outline-secondary "
-        data-uri="{% url 'diary:diary_delete' diary.id  %}">일기 삭제</a>
-    </form>
+
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs">
+    <div class="container">
+  
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>일기 수정하기</h2>
+        <ol>
+          <li><a href={% url 'main' %}>Home</a></li>
+          <li><a href={% url 'diary:index' %}>일기목록</a></li>
+          <li>일기 수정하기</li>
+        </ol>
+      </div>
+  
+    </div>
+</div><!-- End Breadcrumbs -->
+
+<!-- ======= Diary Section ======= -->
+<div class="container card register-form shadow my-5 px-5 py-4">
+
+    <div class="row">
+
+        <!-- 썸네일 Start -->
+        <div class="col-lg-4">
+            <div class="my-4">
+                
+                <h5 for="image" class="form-label">썸네일 이미지</h5>
+                <div class="my-4">
+                    {% if diary.thumbnail %}
+                        <img src="{{ diary.thumbnail }}" alt="Diary Thumbnail" class="img-fluid">
+                    {% else %}
+                        <img src={% static "img/no posts.jpg" %} alt="Diary Thumbnail" class="img-fluid">
+                    {% endif %}
+                </div>
+                <input type="file" class="form-control" name="image" id="image" accept="image/*">
+            </div>
+        </div>   <!-- 썸네일 End -->
+
+        <!-- 일기 정보 Start -->
+        <div class="col-lg-8 px-5 my-4">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <div class="mb-4 container">
+                    <h5 for="pet" class="form-label">반려동물 선택</h5>
+                    <div class="row ml-1">{{ form.pet }}</div>
+                </div>
+
+                <div class="mb-4 container">
+                    <h5 for="title" class="form-label">일기 제목</h5>
+                    <div class="row ml-1">{{ form.title }}</div>
+                </div>
+
+                <div class="mb-4 container">
+                    <h5 for="day" class="form-label">작성 날짜</h5>
+                    {% comment %} <input type="text" class="form-control" id="day" name="day" value="{{ form.day.value }}" readonly> {% endcomment %}
+                    <div class="row ml-1">{{ form.day }}</div>
+                </div>
+                
+                
+                <div class="mb-3 container" id="keyword-fields">
+                    <h5 class="form-label"><i class="bi bi-tags" style="color: #198754"></i> 키워드</h5>
+                    <div class="d-flex align-items-center">
+                        {% for keyword in diary.keywords.all %}
+                            <div class="mx-3"># {{ keyword }}</div>   
+                        {% endfor %}
+                    </div>
+                </div> 
+                <button type="button" id="add-keyword-button" class="btn-yellow-register btn-sm mx-5">키워드 추가</button>
+                
+                </div>
+                <hr>
+
+                <div class="my-4 container">
+                    <h5 for="content" class="form-label mb-2">일기 내용</h5>
+                    <div class="row px-2">{{ form.content }}</div>
+                </div>
+
+                <!-- 숨겨진 필드(hidden field)로 선택된 키워드들의 값을 저장하는 용도 -->
+                <input type="hidden" id="keyword-list" name="keyword_list">
+                <div class="d-flex mt-5 justify-content-end">{% comment %} 오른쪽 정렬: text-lg-end {% endcomment %}
+                    <button type="submit" class="btn-register mx-2" onclick="prepareKeywordList()">수정완료</button>
+                    <a href="#" class="delete btn-register mx-2"
+                    data-uri="{% url 'diary:diary_delete' diary.id  %}">삭제하기</a>
+                </div>
+
+            </form>
+        </div>    <!-- 일기 정보 End -->
+
+    </div>
 </div>
 {% endblock %}
 
@@ -44,8 +104,10 @@ addKeywordButton.addEventListener("click", function() {
     var newField = document.createElement("div");
     var keywordId = "new_keyword_" + Math.random().toString(36).substring(2, 8);
     newField.innerHTML = `
-        <input type="checkbox" name="keywords" id="${keywordId}" checked>
-        <input type="text" name="custom_keywords" placeholder="새 키워드 입력" oninput="document.getElementById('${keywordId}').value = this.value">
+        <div class="mx-3 mt-2">
+            <input type="checkbox" name="keywords" id="${keywordId}" checked>
+            <input type="text" name="custom_keywords" placeholder="새 키워드 입력" oninput="document.getElementById('${keywordId}').value = this.value">
+        </div>
     `;
     keywordFields.appendChild(newField);
 });

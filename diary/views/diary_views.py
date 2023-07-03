@@ -105,12 +105,14 @@ def diary_create_before(request):
 
 # ========================= prod end =======================
 
+
 # ========================= local start =======================
 # def save_thumbnail(video_path, thumbnail_path):
 #     vidcap = cv2.VideoCapture(video_path)
 #     success, image = vidcap.read()
 #     if success:
 #         cv2.imwrite(thumbnail_path, image)
+
 
 # @login_required(login_url="account:login")
 # def diary_create_before(request):

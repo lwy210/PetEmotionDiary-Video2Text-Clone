@@ -1,285 +1,420 @@
-{% extends 'base.html' %}
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block content %}
-<div class="index-div">
-    <!-- Main Start -->
-    <div class="hero-wrap py-5" style="background-color: white">
-        {% comment %} <video autoplay muted loop id="mainVideo">
-            <source src={% static "img/kong.mp4" %} type="video/mp4">
-        </video> {% endcomment %}
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<title>오늘뭐했개? 일기쓸고양!</title>
+	<meta content="" name="description">
+	<meta content="" name="keywords">
 
-        <div class="align-self-center">
-            <h1 style="font-size:50px">AI로 작성하는 반려동물 일기</h1>
-            <h3 style="font-size:30px">영상을 통해 강아지/고양이 시점의 일기를 자동 작성</h3>
-        </div>
+  	<!-- Favicons -->
+    <link rel="icon" href={% static 'img/logo.png' %}>
 
-        <div class="ml-5">
-            <img src={% static "img/Cat and dog_yellow.gif" %}></img>
-        </div>
-    </div>
-    <!-- Main End-->
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
+	<!-- Vendor CSS Files -->
+	<link href={% static 'assets/vendor/aos/aos.css' %} rel="stylesheet">
+	{% comment %} <link href={% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %} rel="stylesheet"> {% endcomment %}
+	<link href={% static 'assets/vendor/glightbox/css/glightbox.min.css' %} rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href={% static 'footer.css' %}>
+	<link href={% static 'assets/vendor/remixicon/remixicon.css' %} rel="stylesheet">
+	<link href={% static 'assets/vendor/swiper/swiper-bundle.min.css' %} rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
-    <!-- Services Start-->
-    <section class="ftco-section ftco-no-pt ftco-intro py-5" id="service-section" style="background-color:#D7E9B9">
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-12 text-center my-3">
-                    <h2 class="text-black" style="font-size:40px"><img src={% static 'img/service.png' %} height="45px"> 이용 가능한 서비스</h2>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-lg-4 mb-10 mb-lg-0">
-                    <div class="package shadow">
-                        <span class="img-wrap"><img src={% static "img/diary.png" %} alt="diary image" class="img-fluid"></span>
-                        <h3 class="text-title">일기 작성</h3>
-                        <p>반려동물의 일기를 작성해보세요</p>
-                        <p><a href={% url 'diary:index' %} class="btn btn-primary btn-custom-1 mt-4" style="font-size: 20px;">바로가기</a></p>
-                    </div>
-                </div>
+	<!-- Template Main CSS File -->
+	<link rel="stylesheet" type="text/css" href={% static 'assets/css/style.css' %}>
+	{% comment %} <link rel="stylesheet" type="text/css" href={% static 'style.css' %}> {% endcomment %}
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"  id="bootstrap-css">
+	<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css">
+   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	{% comment %} <script src="//code.jquery.com/jquery-1.11.1.min.js"></script> {% endcomment %}
+	{% comment %} <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script> {% endcomment %}
 
-                <div class="col-lg-4 mb-4 mb-lg-0">
-                    <div class="package shadow">
-                        <span class="img-wrap"><img src={% static "img/pets.png" %} alt="pets image" class="img-fluid"></span>
-                        <h3 class="text-title">반려동물목록</h3>
-                        <p>반려동물의 목록을 관리해보세요</p>
-                        <p><a href={% url 'pet:index' %} class="btn btn-warning btn-custom-1 mt-4" style="font-size: 20px;">바로가기</a></p>
-                    </div>
-                </div>
+	<!-- =======================================================
+	* Template Name: FlexStart
+	* Updated: Jun 19 2023 with Bootstrap v5.3.0
+	* Template URL: https://bootstrapmade.com/flexstart-bootstrap-startup-template/
+	* Author: BootstrapMade.com
+	* License: https://bootstrapmade.com/license/
+	======================================================== -->
+</head>
 
-                <div class="col-lg-4 mb-4 mb-lg-0">
-                    <div class="package shadow">
-                        <span class="img-wrap"><img src={% static "img/board.png" %} alt="board image" class="img-fluid"></span>
-                        <h3 class="text-title">게시판</h3>
-                        <p>집사들과 이야기를 나눠보세요</p>
-                        <p><a href={% url 'post:index' %} class="btn btn-success btn-custom-1 mt-4" style="font-size: 20px;">바로가기</a></p>
-                    </div>
-                </div>
-            </div>
+<body style="padding-top: 60px;">
+	<header id="header" class="header fixed-top border-bottom">
+    	{% include "navbar.html" %}
+  	</header>
+	<!-- End Header -->
+  
+	<!-- ======= Hero Section ======= -->
+  	<section id="hero" class="hero d-flex align-items-center" style='padding: 0;'>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 d-flex flex-column justify-content-center">
+					<h1 data-aos="fade-up" style='color: #198754;'>AI로 작성하는 반려동물 일기</h1>
+					<h2 data-aos="fade-up" data-aos-delay="400">영상을 통해 강아지/고양이 시점의 일기를 자동 작성</h2>
+				</div>
+				<div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+				<img src={% static "assets/img/ezgif-2-93cb2a29f0.gif" %} class="img-fluid" alt="">
+				</div>
+			</div>
+		</div>
+  	</section>
+	<!-- End Hero -->
+
+  	<main id="main">
+    <!-- ======= Values Section ======= -->
+    <section id="values" class="values">
+		<div class="container" data-aos="fade-up">
+			<header class="section-header">
+				<h2 style="color: #444444;">Our Services</h2>
+				<p style='color: #198754;'>이용가능한 서비스</p>
+			</header>
+
+        	<div class="row">
+				<div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+					<div class="box">
+						<img src={% static "img/journal.png" %} class="img-fluid" alt="" style="width: 250px;">
+						<h2>일기 작성</h2>
+						<p style='font-size: 18px;'>반려동물의 일기를 작성해보세요</p>
+						<p><a href={% url 'diary:index' %} class="btn btn-success btn-custom-1 mt-4" style="font-size: 20px;">바로가기</a></p>
+					</div>
+				</div>
+
+				<div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="400">
+					<div class="box">
+						<img src={% static "img/pets-1.png" %} class="img-fluid" alt="" style="width: 250px;">
+						<h2>반려동물 목록</h2>
+						<p style='font-size: 18px;'>반려동물의 목록을 관리해보세요</p>
+						<p><a href={% url 'pet:index' %} class="btn btn-success btn-custom-1 mt-4" style="font-size: 20px;">바로가기</a></p>
+					</div>
+				</div>
+
+				<div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="600">
+					<div class="box">
+						<img src={% static "img/board-1.png" %} class="img-fluid" alt="" style="width: 250px;">
+						<h2>게시판</h2>
+						<p style='font-size: 18px;'>집사들과 이야기를 나눠보세요</p>
+						<p><a href={% url 'post:index' %} class="btn btn-success btn-custom-1 mt-4" style="font-size: 20px;">바로가기</a></p>
+					</div>
+				</div>
+        	</div>
+      	</div>
+    </section>
+	<!-- End Values Section -->
+    
+	<!-- ======= Features Section ======= -->
+    <section id="features" class="features" style='padding: 100px;'>
+        <div class="container" data-aos="fade-up">
+          	<header class="section-header">
+				<h2 style='color: #444444;'>HOW TO USE</h2>
+				<p style='color: #198754;'>오늘뭐했개? 일기쓸고양! 사용법</p>
+          	</header>
+          	
+			<!-- Feature Tabs -->
+          	<div class="row feture-tabs" data-aos="fade-up">
+				<div class="col-lg-6 d-flex justify-content-center align-items-center">
+					<img src={% static "assets/img/Image viewer-amico.png" %}  style='height: 300px;' class="img-fluid" alt="">
+				</div>
+
+				<div class="col-lg-6">
+					<header class="section-header">
+						{% comment %} <h2 style='color: #444444;'>- STEP 1 -</h2> {% endcomment %}
+						<p style='color: black; font-size: 25px;'>STEP 1 : 반려동물과 찍은 동영상 업로드</p>
+					</header>
+
+					<div class="d-flex align-items-center mb-2">
+						<h4>✅ 일기 작성 시작</h4>
+					</div>
+					<p>가장 먼저 상단바의 Diary 탭을 클릭해주세요.<br>
+						만약 등록된 반려동물이 없다면, 반려동물 등록을 진행해주세요.<br>
+						일기목록 화면의 오른쪽 상단에 있는 일기쓰기 버튼을 눌러주세요.</p>
+					
+					<div class="d-flex align-items-center mb-2" style="padding: 20px 0 0 0;">
+						<h4>😊 비디오 업로드</h4>
+					</div>
+					<p>일기를 생성하고 싶은 순간이 담긴 동영상을 선택해주세요.<br>
+						선택한 동영상을 왼쪽의 비디오 업로드 섹션의 파일 선택을 통해 업로드 해주세요.</p>
+				</div>
+			</div>
+			<!-- End Feature Tabs -->
+
+          	<!-- Feature Tabs -->
+          	<div class="row feture-tabs" data-aos="fade-up">
+				<div class="col-lg-6">
+					<header class="section-header">
+						<p style='color: black; font-size: 25px;'>STEP 2 : 업로드된 영상을 바탕으로 AI 일기 생성</p>
+					</header>
+  
+					<div class="d-flex align-items-center mb-2">
+						<h4>✅ AI로 일기 자동 생성</h4>
+					</div>
+                  	<p>동영상을 업로드하게 되면, 인공지능 모델이 가장 먼저 반려동물의 행동과 감정을 예측합니다.<br>
+						동시에 기록된 반려동물의 성격도 반영하여 반려동물 시점에서의 일기를 자동 생성합니다.<br>
+						일기에 꼭 기록하고 싶은 내용이 있다면 해당 내용을 추가할 수 있습니다.</p>
+            	</div>
+  
+				<div class="col-lg-6  d-flex justify-content-center align-items-center">
+					<img src={% static "assets/img/Chatbot.png" %} style='height: 300px;' class="img-fluid" alt="">
+				</div>
+          	</div>
+			<!-- End Feature Tabs -->
+  
+  
+			<!-- Feature Tabs -->
+			<div class="row feture-tabs" data-aos="fade-up">
+				<div class="col-lg-6 d-flex justify-content-center align-items-center">
+					<img src={% static "assets/img/Good doggy-cuate.png" %}  style='height: 300px;' class="img-fluid" alt="">
+				</div>
+
+				<div class="col-lg-6">
+					<header class="section-header">
+						<p style='color: black; font-size: 25px;'>STEP 3 : 반려동물과의 추억을 자유롭게 꺼내보기</p>
+					</header>
+					
+					<div class="d-flex align-items-center mb-2" style="padding: 20px 0 0 0;">
+						<h4>💝 반려동물 일기 모아보기</h4>
+					</div>
+					<p>일기 목록에서 달력/리스트 형식으로 일기를 마음껏 감상하세요.<br>
+						북마크 기능을 통해 다시 보고 싶은 일기를 표시할 수 있습니다.
+					</p>
+				</div>
+			</div>
+			<!-- End Feature Tabs -->
         </div>
     </section>
-    <!-- Services -->
+	<!-- End Features Section -->
 
+      
+	<!-- ======= Pricing Section ======= -->
+	<section id="pricing" class="pricing">
+		<div class="container" data-aos="fade-up">
+			<header class="section-header">
+				<h2 style="color: #444444;">About Us</h2>
+				<p style="color: #198754">KT AIVLE School 3기 1반 2조</p>
+			</header>
 
-    <!-- Team Start -->
-    <div class="py-5 bg-light team1">
-        <div class="container">
-            <div class="row justify-content-center mb-5">
-                <div class="col-md-7 text-center mb-3">
-                    <h5>About Us</h5>
-                    <h1>KT AIVLE School 3기 1반 2조</h1>
-                </div>
-            </div>
+			<div class="row gy-4" data-aos="fade-left">
+				<div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+					<div class="box">
+						<div class="row no-gutters">
+							<div class="col-md-5" style="text-align : center;">
+								<img class="img-fluid align-center" src={% static "img/kms.png" %} alt="곽민성">
+							</div>
 
-            <div class="row">
-                <!-- column 1 -->
-                <div class="col-lg-4">
-                    <div class="card card-shadow border-2 mb-4">
-                        <div class="row no-gutters">
-                            <div class="col-md-5" style="text-align : center;">
-                                <img class="img-fluid align-center" src={% static "img/kms.png" %} alt="곽민성">
-                            </div>
+							<div class="col-md-7 bg-white" style="width: auto;">
+								<div class="p-4">
+									<div class="mb-3">
+										<h4>곽민성</h4>
+										<span>PM, Backend</span>
+									</div>
+									<p>안녕하세요 곽민성입니다</p>
 
-                            <div class="col-md-7 bg-white" style="width: auto;">
-                                <div class="p-4">
-                                    <div class="mb-3">
-                                        <h4>곽민성</h4>
-                                        <span>PM, Backend</span>
-                                    </div>
-                                    <p>안녕하세요 곽민성입니다</p>
+									<div class="d-flex">
+										<a class="btn github-link" href="https://github.com/kawkmin" target="_blank">
+											<img class="align-center" src={% static "img/github.png" %} style="height:15px; margin-right:10px">Github</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
-                                    <div class="d-flex">
-                                        <a class="btn github-link" href="https://github.com/kawkmin" target="_blank">
-                                            <img class="align-center" src={% static "img/github.png" %} style="height:15px; margin-right:10px">Github</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+				<div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+					<div class="box">
+						<div class="row no-gutters">
+							<div class="col-md-5" style="text-align : center;">
+								<img class="img-fluid align-center" src={% static "img/kdh.png" %} alt="김도현">
+							</div>
 
-                <!-- column 2 -->
-                <div class="col-lg-4">
-                    <div class="card card-shadow border-2 mb-4">
-                        <!-- Row -->
-                        <div class="row no-gutters">
-                            <div class="col-md-5" style="text-align : center;">
-                                <img class="img-fluid align-center" src={% static "img/kdh.png" %} alt="김도현">
-                            </div>
+							<div class="col-md-7 bg-white" style="width: auto;">
+								<div class="p-4">
+									<div class="mb-3">
+										<h4>김도현</h4>
+										<span>Frontend, AI</span>
+									</div>
+									<p>안녕하세요 김도현입니다</p>
+									
+									<div class="d-flex">
+										<a class="btn github-link" href="https://github.com/dohyun-99" target="_blank">
+											<img class="align-center" src={% static "img/github.png" %} style="height:15px; margin-right:10px">Github</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
-                            <div class="col-md-7 bg-white" style="width: auto;">
-                                <div class="p-4">
-                                    <div class="mb-3">
-                                        <h4>김도현</h4>
-                                        <span>Frontend, AI</span>
-                                    </div>
-                                    <p>안녕하세요 김도현입니다</p>
-                                    
-                                    <div class="d-flex">
-                                        <a class="btn github-link" href="https://github.com/dohyun-99" target="_blank">
-                                            <img class="align-center" src={% static "img/github.png" %} style="height:15px; margin-right:10px">Github</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+				<div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="300">
+					<div class="box">
+						<div class="row no-gutters">
+							<div class="col-md-5" style="text-align : center;">
+								<img class="img-fluid align-center" src={% static "img/wyj.png" %} alt="위예진">
+							</div>
 
-                <!-- column 3 -->
-                <div class="col-lg-4">
-                    <div class="card card-shadow border-2 mb-4">
-                        <!-- Row -->
-                        <div class="row no-gutters">
-                            <div class="col-md-5" style="text-align : center;">
-                                <img class="img-fluid align-center" src={% static "img/wyj.png" %} alt="위예진">
-                            </div>
+							<div class="col-md-7 bg-white" style="width: auto;">
+								<div class="p-4">
+									<div class="mb-3">
+										<h4>위예진</h4>
+										<span>Frontend, AI</span>
+									</div>
+									<p>안녕하세요 위예진입니다</p>
+									
+									<div class="d-flex">
+										<a class="btn github-link" href="https://github.com/bokkuembab" target="_blank">
+											<img class="align-center" src={% static "img/github.png" %} style="height:15px; margin-right:10px">Github</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+        	</div>
 
-                            <div class="col-md-7 bg-white" style="width: auto;">
-                                <div class="p-4">
-                                    <div class="mb-3">
-                                        <h4>위예진</h4>
-                                        <span>Frontend, AI</span>
-                                    </div>
-                                    <p>안녕하세요 위예진입니다</p>
-                                    
-                                    <div class="d-flex">
-                                        <a class="btn github-link" href="https://github.com/bokkuembab" target="_blank">
-                                            <img class="align-center" src={% static "img/github.png" %} style="height:15px; margin-right:10px">Github</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+			<div class="row gy-4" data-aos="fade-left" style='padding: 20px 0px'>
+				<div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="400">
+					<div class="box">
+						<div class="row no-gutters">
+							<div class="col-md-5" style="text-align : center;">
+								<img class="img-fluid align-center" src={% static "img/lyw.png" %} alt="이용우">
+							</div>
 
-            <div class="row">
-                <!-- column 4 -->
-                <div class="col-lg-4">
-                    <div class="card card-shadow border-2 mb-4">
-                        <div class="row no-gutters">
-                            <div class="col-md-5" style="text-align : center;">
-                                <img class="img-fluid align-center" src={% static "img/lyw.png" %} alt="이용우">
-                            </div>
+							<div class="col-md-7 bg-white" style="width: auto;">
+								<div class="p-4">
+									<div class="mb-3">
+										<h4>이용우</h4>
+										<span>AI, Frontend</span>
+									</div>
+									<p>안녕하세요 이용우입니다</p>
 
-                            <div class="col-md-7 bg-white" style="width: auto;">
-                                <div class="p-4">
-                                    <div class="mb-3">
-                                        <h4>이용우</h4>
-                                        <span>AI, Frontend</span>
-                                    </div>
-                                    <p>안녕하세요 이용우입니다</p>
+									<div class="d-flex">
+										<a class="btn github-link" href="https://github.com/Yongtato" target="_blank">
+											<img class="align-center" src={% static "img/github.png" %} style="height:15px; margin-right:10px">Github</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
-                                    <div class="d-flex">
-                                        <a class="btn github-link" href="https://github.com/Yongtato" target="_blank">
-                                            <img class="align-center" src={% static "img/github.png" %} style="height:15px; margin-right:10px">Github</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+				<div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="400">
+					<div class="box">
+						<div class="row no-gutters">
+							<div class="col-md-5" style="text-align : center;">
+								<img class="img-fluid align-center" src={% static "img/lwy.png" %} alt="이원영">
+							</div>
 
-                <!-- column 5 -->
-                <div class="col-lg-4">
-                    <div class="card card-shadow border-2 mb-4">
-                        <!-- Row -->
-                        <div class="row no-gutters">
-                            <div class="col-md-5" style="text-align : center;">
-                                <img class="img-fluid align-center" src={% static "img/lwy.png" %} alt="이원영">
-                            </div>
+							<div class="col-md-7 bg-white" style="width: auto;">
+								<div class="p-4">
+									<div class="mb-3">
+										<h4>이원영</h4>
+										<span>Backend</span>
+									</div>
+									<p>안녕하세요 이원영입니다</p>
+									
+									<div class="d-flex">
+										<a class="btn github-link" href="https://github.com/lwy210" target="_blank">
+											<img class="align-center" src={% static "img/github.png" %} style="height:15px; margin-right:10px">Github</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
-                            <div class="col-md-7 bg-white" style="width: auto;">
-                                <div class="p-4">
-                                    <div class="mb-3">
-                                        <h4>이원영</h4>
-                                        <span>Backend</span>
-                                    </div>
-                                    <p>안녕하세요 이원영입니다</p>
-                                    
-                                    <div class="d-flex">
-                                        <a class="btn github-link" href="https://github.com/lwy210" target="_blank">
-                                            <img class="align-center" src={% static "img/github.png" %} style="height:15px; margin-right:10px">Github</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+				<div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="400">
+					<div class="box">
+						<div class="row no-gutters">
+							<div class="col-md-5" style="text-align : center;">
+								<img class="img-fluid align-center" src={% static "img/jec.png" %} alt="정은찬">
+							</div>
 
-                <!-- column 6 -->
-                <div class="col-lg-4">
-                    <div class="card card-shadow border-2 mb-4">
-                        <!-- Row -->
-                        <div class="row no-gutters">
-                            <div class="col-md-5" style="text-align : center;">
-                                <img class="img-fluid align-center" src={% static "img/jec.png" %} alt="정은찬">
-                            </div>
+							<div class="col-md-7 bg-white" style="width: auto;">
+								<div class="p-4">
+									<div class="mb-3">
+										<h4>정은찬</h4>
+										<span>AI, Frontend</span>
+									</div>
+									<p>안녕하세요 정은찬입니다</p>
+									
+									<div class="d-flex">
+										<a class="btn github-link" href="https://github.com/EunchanJeong" target="_blank">
+											<img class="align-center" src={% static "img/github.png" %} style="height:15px; margin-right:10px">Github</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+    	</div>
+	</section>
+	<!-- End Pricing Section -->
 
-                            <div class="col-md-7 bg-white" style="width: auto;">
-                                <div class="p-4">
-                                    <div class="mb-3">
-                                        <h4>정은찬</h4>
-                                        <span>AI, Frontend</span>
-                                    </div>
-                                    <p>안녕하세요 정은찬입니다</p>
-                                    
-                                    <div class="d-flex">
-                                        <a class="btn github-link" href="https://github.com/EunchanJeong" target="_blank">
-                                            <img class="align-center" src={% static "img/github.png" %} style="height:15px; margin-right:10px">Github</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Team End -->
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+	    <div class="container" data-aos="fade-up">
+			<header class="section-header">
+				<h2 style="color: #444444;">Contact Us</h2>
+				<p style="color: #198754;">문의할 내용이나 궁금한 점이 있다면 작성해주세요</p>
+			</header>
 
-
-
-    <!-- Contact Us Start -->
-    <section class="page-section" id="contact">
-        <div class="container">
-            <div class="text-center">
-                <h2 class="section-heading my-2">Contact Us</h2>
-                <h3 class="section-subheading text-muted mt-0 mb-3">문의할 내용이나 궁금한 점이 있다면 작성해주세요</h3>
-            </div>
-
-            <form id="contactForm" method="post" action="https://script.google.com/macros/s/AKfycbyBZguGDHslfZEwiGX_A-kRNVdhleCBSAIkxur7Xp6-ULDnrH-ycBdnbkQ-_XrIpHFc2A/exec" class="mt-5 form-contact slideanim">
-                <div class="row">
-                    <div class="form-group col-sm-6">
-                        <label for="name" class="blind">이름</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="이름">
-                    </div>
-                    
-                    <div class="form-group col-sm-6">
-                        <label for="email" class="blind">답변 받을 이메일</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="sample@email.com">
-                    </div>
-                </div>
-                
-                <div class="form-group mb-5">
-                    <label for="comment" class="blind" id="comment">문의 내용</label>
-                    <textarea class="form-control" rows="8" id="message" name="message" rows="10" placeholder="문의하실 내용을 작성해주세요."></textarea>
-                    <div class="my-3">
-                        <button type="submit" class="btn btn-ask"  style="float: right;">문의하기</button></div>
-                </div>
-                
-                <div class="thankyou_message" style="display:none;">
-                    <h2>Thanks for contacting us!
-                    We will get back to you soon!</h2>
-                </div>
-                
+        <div class="row gy-4" data-aos="fade-left">
+            <form id="contactForm" method="post" action="https://script.google.com/macros/s/AKfycbwwTNT8cz732d_pBV8IzGn35LgwbJ7kqo3WKxMb0UjTGbulso9EUcXE2XOqJcKfddb7/exec" class="gform mt-5 form-contact slideanim php-email-form">
+              	<div class="row">
+					<div class="form-group col-sm-6">
+						<label for="name" class="blind">이름</label>
+						<input type="text" class="form-control" id="name" name="name" placeholder="이름">
+					</div>
+					
+					<div class="form-group col-sm-6">
+						<label for="email" class="blind">답변 받을 이메일</label>
+						<input type="email" class="form-control" id="email" name="email" placeholder="sample@email.com">
+					</div>
+				</div>
+				
+				<div class="form-group mb-5">
+					<label for="comment" class="blind" id="comment">문의 내용</label>
+					<textarea class="form-control" rows="8" id="message" name="message" rows="10" placeholder="문의하실 내용을 작성해주세요."></textarea>
+					
+					<div class="my-3">
+						<button type="submit" class="btn btn-ask" style="float: right; background-color: #198754;">문의하기</button>
+					</div>
+				</div>
+            
+				<div class="thankyou_message text-center" style="display:none;">
+					<h2>문의하신 내용이 정상적으로 접수되었습니다.</h2>
+					<h4>문의에 대한 답변은 작성해주신 메일로 전달될 예정입니다.<br>
+					이용해주셔서 감사합니다.</h4>
+				</div>
             </form>
         </div>
     </section>
-    <!-- Contact Us End -->
-</div>
-{% endblock %}
-{% block script %}
-{% endblock %}
+	<!-- End Contact Section -->
+
+</main>
+<!-- End #main -->
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script src={% static "assets/vendor/purecounter/purecounter_vanilla.js" %}></script>
+<script src={% static "assets/vendor/aos/aos.js" %}></script>
+<script src={% static "assets/vendor/bootstrap/js/bootstrap.bundle.min.js" %}></script>
+<script src={% static "assets/vendor/isotope-layout/isotope.pkgd.min.js" %}></script>
+<script src={% static "assets/vendor/swiper/swiper-bundle.min.js" %}></script>
+<script src={% static "assets/vendor/php-email-form/validate.js" %}></script>
+
+
+<!-- Template Main JS File -->
+<script src={% static "assets/js/main.js" %}></script>
+<script data-cfasync="false" src={% static "form-submission-handler.js" %}></script>
+<script>
+AOS.init();
+</script>
+
+</body>
+{% include "footer.html" %}
+</html>

@@ -33,24 +33,14 @@
             <div class="my-4">
                 
                 <h5 for="image" class="form-label">썸네일 이미지</h5>
-                    <!-- 비디오 업로드 -->
-                    <div class="my-3">
-                        <div class="my-4">
-                            {% comment %} <h5 for="imgfile">비디오 업로드 </h5>
-                            <input type="file" class="form-control" name="video" id="video" value="{{ video }}"> {% endcomment %}
-                            <video width="320" height="240" controls>
-                                <source src="{{ video }}" type="video/mp4">
-                                Your browser does not support the video tag.
-                              </video>
-                        </div>
-                        <div class="my-4">
-                            <img src="{{ thumbnail }}" alt="thumbnail" style="height: 400px; width: auto;">
-                        </div>
-                    </div>
-                {% comment %} <div class="my-4">
-                    생성된 썸네일 이미지 올리기
+                <div class="my-4">
+                    {% if thumbnail %}
+                        <img src="{{ thumbnail }}" alt="Diary Thumbnail" class="img-fluid">
+                    {% else %}
+                        <img src={% static "img/no posts.jpg" %} alt="Diary Thumbnail" class="img-fluid">
+                    {% endif %}
                 </div>
-                <input type="file" class="form-control" name="image" id="image"> {% endcomment %}
+                <input type="file" class="form-control" name="image" id="image">
             </div>
         </div>   <!-- 썸네일 End -->
 
@@ -76,7 +66,7 @@
                     <input type="text" class="form-control" id="day" name="day" value="{{ form.day.value }}" readonly>
                 </div>
 
-                <div class="mb-3" id="keyword-fields">
+                <div class="mb-2" id="keyword-fields">
                     <h5 class="form-label"><i class="bi bi-tags"></i> 추출 키워드</h5>
                     {% for keyword in keywords %}
                     <div class="mx-4">
@@ -85,7 +75,7 @@
                     </div>
                     {% endfor %}
                 </div>
-                <button type="button" id="add-keyword-button" class="btn-yellow-register btn-sm">키워드 추가</button>
+                <button type="button" id="add-keyword-button" class="btn-yellow-register btn-sm mx-4">키워드 추가</button>
 
                 </div>
                 <hr>

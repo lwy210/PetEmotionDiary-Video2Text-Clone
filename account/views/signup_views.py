@@ -14,7 +14,7 @@ def signup(request):
             raw_password = form.cleaned_data.get("password1")
             account = authenticate(email=email, password=raw_password)
             login(request, account)
-            return redirect("account:login")
+            return redirect("main")
     else:
         form = UserCreationForm()
 
@@ -23,3 +23,6 @@ def signup(request):
 
 def logout_test(request):
     return render(request, "account/logout.html")
+
+def terms_of_service(request):
+    return render(request, "account/personal_info.html")
