@@ -32,7 +32,8 @@ def index(request):
     pet_list = Pet.objects.filter(user_id=request.user.id).order_by("birth_day")
 
     if not pet_list.exists():
-        return redirect("pet:pet_create")
+        # return redirect("pet:pet_create")
+        return render(request, "diary/nopet_warning.html")
 
     paginator = Paginator(diary_list, 5)  # 페이지당 5개씩 보여주기
     page_obj = paginator.get_page(page)

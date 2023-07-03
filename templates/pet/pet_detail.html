@@ -105,9 +105,16 @@
                             </div>
 
                             {% for personality in pet.personality_set.all %}
-                                <div class="d-flex my-4">
-                                    <h4 class="px-2">DBTI (Dog Behavior Type Indicator) </h4> 
-                                    <h5 class="mx-3">{{personality.activity}}{{personality.relationship}}{{personality.proto_dog}}{{personality.dependence}}</h5>
+                                <div class="d-flex  align-items-center my-2">
+                                    <h4 class="px-2">PBTI (Pet Behavior Type Indicator) </h4> 
+                                    <h5 class="mx-3">{{personality.proto_dog}}{{personality.dependence}}{{personality.relationship}}{{personality.activity}}</h5>
+                                    <div class="pb-3">
+                                        <a data-bs-toggle="modal" href="#portfolioModal" data-gallery="portfolioGallery"
+                                            class="dbti-tooltip tooltip-link-16"
+                                            data-tooltip="클릭하시면 내 반려동물의 PBTI에 대한 자세한 설명을 확인할 수 있습니다.">
+                                            <p><i class='bi bi-question-circle'></i></p>
+                                        </a>
+                                    </div>
                                 </div>
                                 {% endfor %}
                             
@@ -120,6 +127,127 @@
         </div>
         
     </div>
+
+    <!-- 반려동물 성격유형 설명 Modal창 Start -->
+    <div class="portfolio-modal modal fade my-5" id="portfolioModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="close-modal" data-bs-dismiss="modal">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-10">
+                                <div class="modal-body py-4">
+
+                                    <!-- Project details-->
+                                    <div class="item-intro mt-5 mb-4">
+                                        <h2 class="text-danger text-center">
+                                            <i class="bi bi-hearts"></i> 
+                                            내 반려동물의 PBTI는?
+                                            <i class="bi bi-hearts"></i> 
+                                        </h2>
+                                        <br>
+                                    </div>
+
+                                    <div class="my-dbti-16">
+
+                                        <h4 class="type text-uppercase content-bold">1. WTIL (Wild Trusting Introverted Laid-back)</h4>
+                                        <div class="detail">
+                                            주인과의 근접과 안정을 중요시합니다. 새로운 환경이나 변화에 대해서는 조심스럽게 대처하는 경향이 있습니다. 
+                                            상황을 천천히 파악하고 안전한 곳에서 편안함을 찾는 경향이 있습니다.
+                                        </div>
+                                        <h4 class="type text-uppercase content-bold">2. WTIA (Wild Trusting Introverted Adventurous)</h4>
+                                        <div class="detail">
+                                            주인을 신뢰하며 새로운 경험을 추구합니다. 
+                                            주변 환경에 조금 더 적극적으로 호기심을 갖고 탐험을 즐깁니다. 새로운 도전에도 열린 마음으로 다가갈 준비가 되어 있습니다.
+                                        </div>
+                                        <h4 class="type text-uppercase content-bold">3. WNIA (Wild Needy Introverted Adventurous)</h4>
+                                        <div class="detail">
+                                            주인의 관심과 새로운 경험을 필요로 합니다. 
+                                            주변 환경에 대해 호기심을 갖고 새로운 도전을 추구하며, 주인에게 의지하면서도 독립성을 유지합니다. 
+                                            다양한 경험을 통해 성장하고 발전할 수 있는 잠재력이 있습니다.
+                                        </div>
+                                        <h4 class="type text-uppercase content-bold">4. WNIL (Wild Needy Introverted Laid-back)</h4>
+                                        <div class="detail">
+                                            주인과의 근접과 안정을 중요시합니다. 주인에게 의지하면서도 주변 환경에서의 적절한 휴식과 편안함을 추구합니다. 
+                                            조용한 환경에서 주인과의 근접을 즐깁니다.
+                                        </div>
+                                        <h4 class="type text-uppercase content-bold">5. WTEL (Wild Trusting Extroverted Laid-back)</h4>
+                                        <div class="detail">
+                                            주변 환경을 조심스럽게 관찰하면서 사회적 상호작용을 즐깁니다. 주인과의 근접을 중요시하며 안정된 환경에서 즐거움을 찾습니다. 
+                                            사회적인 인터랙션을 통해 에너지를 얻을 수 있습니다.
+                                        </div>
+                                        <h4 class="type text-uppercase content-bold">6. WTEA (Wild Trusting Extroverted Adventurous)</h4>
+                                        <div class="detail">
+                                            주변 환경을 조심스럽게 관찰하면서 새로운 사람이나 동물과의 상호작용을 즐깁니다. 
+                                            새로운 경험과 도전을 통해 자신을 발전시키고 성장하는 것을 선호합니다. 주인과 함께 모험을 즐기며 끊임없이 새로운 경험을 찾습니다.
+                                        </div>
+                                        <h4 class="type text-uppercase content-bold">7. WNEA (Wild Needy Extroverted Adventurous)</h4>
+                                        <div class="detail">
+                                            주인의 관심과 새로운 경험을 추구하면서 사회적 상호작용을 중요시합니다. 
+                                            활동적이며 다양한 환경에서 자신의 소셜 네트워크를 형성하고 소통하는 것을 즐깁니다. 다른 사람이나 동물과 함께 활동하는 것을 좋아합니다.
+                                        </div>
+                                        <h4 class="type text-uppercase content-bold">8. WNEL (Wild Needy Extroverted Laid-back)</h4>
+                                        <div class="detail">
+                                            주인과의 근접과 안정을 중요시하며 사회적 상호작용을 즐깁니다. 
+                                            활발한 환경에서도 편안함과 안정을 유지하며, 다른 사람이나 동물과의 교류를 통해 에너지를 얻습니다.
+                                        </div>
+                                        <h4 class="type text-uppercase content-bold">9. CTEL (Cautious Trusting Extroverted Laid-back)</h4>
+                                        <div class="detail">
+                                            외향적이며 다른 사람이나 동물과의 사회적 상호작용을 즐깁니다. 
+                                            새로운 환경이나 변화에 조심스럽게 적응하며 안정을 추구합니다. 다른 사람과의 관계에서 신뢰와 안전을 중요시합니다.
+                                        </div>
+                                        <h4 class="type text-uppercase content-bold">10. CTEA (Cautious Trusting Extroverted Adventurous)</h4>
+                                        <div class="detail">
+                                            외향적이며 새로운 사람이나 동물과의 상호작용을 추구합니다. 
+                                            새로운 경험과 도전을 조심스럽게 받아들이지만, 주인과의 관계에서 신뢰를 바탕으로 모험을 즐깁니다.
+                                        </div>
+                                        <h4 class="type text-uppercase content-bold">11. CNEA (Cautious Needy Extroverted Adventurous)</h4>
+                                        <div class="detail">
+                                            외향적이며 주인의 관심과 새로운 경험을 추구하면서 사회적 상호작용을 중요시합니다. 
+                                            조심스럽게 다가가지만, 새로운 도전을 통해 성장하고 발전할 수 있는 잠재력이 있습니다.
+                                        </div>
+                                        <h4 class="type text-uppercase content-bold">12. CNEL (Cautious Needy Extroverted Laid-back)</h4>
+                                        <div class="detail">
+                                            외향적이며 다른 사람이나 동물과의 사회적 상호작용을 즐깁니다. 
+                                            적절한 휴식과 안정을 추구하면서도 주변 환경에서의 관계를 중요시합니다. 안전한 환경에서도 편안함을 유지합니다.
+                                        </div>
+                                        <h4 class="type text-uppercase content-bold">13. CTIA (Cautious Trusting Introverted Adventurous)</h4>
+                                        <div class="detail">
+                                            내향적이며 새로운 경험을 조심스럽게 받아들이지만, 주인과의 관계에서는 신뢰를 바탕으로 모험을 즐깁니다. 
+                                            안정된 환경에서도 모험을 추구하고 발전할 수 있습니다.
+                                        </div>
+                                        <h4 class="type text-uppercase content-bold">14. CTIL (Cautious Trusting Introverted Laid-back)</h4>
+                                        <div class="detail">
+                                            내향적이며 주인과의 근접과 안정을 중요시합니다. 주변 환경에서 조심스럽게 행동하면서도 안정과 평온을 추구합니다.
+                                        </div>
+                                        <h4 class="type text-uppercase content-bold">15. CNIA (Cautious Needy Introverted Adventurous)</h4>
+                                        <div class="detail">
+                                            내향적이며 주인의 관심과 새로운 경험을 필요로 합니다. 조심스럽게 도전하면서도 주인에게 의지하고 독립성을 유지합니다. 
+                                            다양한 경험을 통해 성장하고 발전할 수 있는 잠재력이 있습니다.
+                                        </div>
+                                        <h4 class="type text-uppercase content-bold">16. CNIL (Cautious Needy Introverted Laid-back)</h4>
+                                        <div class="detail">
+                                            내향적이며 주인과의 근접과 안정을 중요시합니다. 주인에게 의지하면서도 적절한 휴식과 편안함을 추구합니다. 
+                                            조용한 환경에서 주인과의 근접을 즐깁니다.
+                                        </div>
+                                        
+                                    </div>
+
+                                    <div class="d-md-flex justify-content-md-end">
+                                        <button class="btn btn-info btn-xl text-uppercase d-grid col-3 " data-bs-dismiss="modal" type="button">
+                                            닫기
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>     <!-- 반려동물 성격유형 설명 Modal창 End-->
+
 </section>
 {% endblock %}
 
