@@ -201,7 +201,7 @@ def diary_create(request):
             diary.save()
             diary.keywords.set(keywords_list)
 
-            return redirect("diary:index")
+            return redirect("diary:detail", diary_id=diary.id)
     else:
         form = DiaryForm(request.user)
     context = {"form": form}
