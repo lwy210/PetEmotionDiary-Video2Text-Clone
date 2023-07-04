@@ -119,26 +119,26 @@
         {% for comment in post.comment_set.all %}
         <a id="comment_{{ comment.id }}"></a>
 
-        <div class="card comment-list my-5">
-            <div class="row g-0 px-2">
-                <div class="col-lg-1">
-                    <img src="{% static "img/pp.jpg"%}" class="img-fluid rounded-start">
+        <div class="card comment-list my-5" style="border-radius: 10px; box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .15);">
+            <div class="row g-0 px-2" style="padding: 20px; margin: 0px 15px">
+                <div class="col-lg-1 d-flex align-items-center" style="width: 70px;">
+                    <div class="comment_logo" style="margin: 5px">
+                    <img src="{% static "img/logo.png"%}" class="img-fluid rounded-start">
+                    </div>
                 </div>
                 <div class="col-lg-9">
                     <div class="card-body">
-                        <h5 class="card-title">{{ comment.user.nick_name }}</h5>
-                        <h6 class="card-subtitle text-muted">
+                        <h5 class="card-title" style="margin-bottom: 0rem; font-size: 1.1rem;"><span style="background: linear-gradient(to top, #D7E9B9 40%, transparent 40%);">{{ comment.user.nick_name }}</span></h5>
+                        <h6 class="card-subtitle text-muted" style="font-size: 0.8rem;">
                             {{ comment.registered_time }}
                             {% if comment.updated_time != comment.registered_time %}
                                 <label class="mx-3 text-muted mt-2">&bull; 업데이트: {{ comment.updated_time }}</label>
                             {% endif %}
                         </h6>
                         <p class="card-text mt-1">{{ comment.content }}</p>
-
-                        
-
                     </div>
                 </div>
+                
                 <div class="col-lg-2 d-flex align-items-end flex-column">
                     <div class="d-flex justify-content-between">
                         <div>
