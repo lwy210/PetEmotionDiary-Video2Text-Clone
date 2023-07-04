@@ -2,36 +2,41 @@
 {% load static %}
 {% block content %}
 
-
 <div class="mypage">
-	<div class="text-center my-5">
-		<h2 class="text-black">My page</h2>
-	</div>
-
-	<div class="card info-card">
-		<div>
-			<h3 class="text-black text-center my-4">{{user.user_name}}님, 반갑다개</h3>
-		</div>
+	<div class="register-form card shadow info-card mt-5">
+		<h2 class="text-black text-center my-4"><img class="" src={% static "img/my_cat.png" %} style="height:40px; margin-right:10px">{{user.user_name}}님, 반갑다개<img class="" src={% static "img/my_dog.png" %} style="height:40px; margin-left:10px"></h2>
+		<hr>
 
 		<div class="info-text mb-3">
-			<h4 class="text-black text-center mb-4">내 정보 미리보기</h4>
-			<p style="margin-left:200px;
-			"><strong>이메일 : </strong><span>{{user.email}}</span></p>
-			<p style="margin-left:200px;
-			"><strong>생일 : </strong><span>{{user.birth_day}}</span></p>
-			<p style="margin-left:200px;
-			"><strong>닉네임 : </strong><span>{{user.nick_name}}</span></p>
-		</div>
-		
-		<div class="info-mod">
-			<p style="text-align: right; margin-right:20px;
-		">마지막 수정 시간 : {{user.update_time}}</p>
-		</div>
-	</div>
+			<h3 class="text-black text-center my-4">내 정보</h3>
+			<table class="info-table" align = "center">
+				<tbody>
+					<tr>
+						<td style="font-size:20px">이메일</td>
+						<td class="table-td">{{user.email}}</td>
+					</tr>
+					
+					<tr>
+						<td style="font-size:20px">생일</td>
+						<td class="table-td">{{user.birth_day}}</td>
+					</tr>
 
-	<div class="info-btn my-3">
-		<button type="submit" class="info-mod-btn my-3" onclick = "location.href = '{% url 'account:check_password' %}'">회원정보 수정</button>
-		<button type="submit" class="info-mod-btn my-3" onclick = "location.href = '{% url 'account:update_password' %}'">비밀번호 변경</button>
+					<tr>
+						<td style="font-size:20px">닉네임</td>
+						<td class="table-td">{{user.nick_name}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="info-btn my-3">
+			<button type="submit" class="info-mod-btn my-3" onclick = "location.href = '{% url 'account:check_password' %}'">회원정보 수정</button>
+			<button type="submit" class="info-mod-btn my-3" onclick = "location.href = '{% url 'account:update_password' %}'">비밀번호 변경</button>
+		</div>	
+		
+		<div class="info-mod mt-2">
+			<p style="text-align: right; margin-right:20px;">마지막 수정 시간 : {{user.update_time}}</p>
+		</div>
 	</div>
 </div>
 {% endblock %}

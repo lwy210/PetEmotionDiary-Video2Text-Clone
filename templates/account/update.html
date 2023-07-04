@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 
-<div class="update-container mb-4">
+<div class="register-form card shadow update-container mt-4">
     <div class="my-3" style="height:100px; padding-top:30px">
         <h2 class="card-title my-3 text-center"><img src={% static 'img/black_paw.png' %} height="30px"> 회원정보 수정</h2>
     </div>
@@ -16,7 +16,7 @@
     </div>
     {% endif %}
 
-    <form method="POST">
+    <form method="POST" style="width: 70%">
     {% csrf_token %}
     {% include "form_errors.html" %}
         <div class="mb-3">
@@ -44,11 +44,9 @@
                 value={{user.nick_name}}>
         </div>
         
-        <div class="update-btn my-3">
+        <div class="update-btn my-4">
             <button type="submit" class="info-del-btn my-3" formaction={% url 'account:delete' %} onclick ="CheckUpdate(withdrawal)" style="margin-right: auto;" >회원 탈퇴</button>
-            <button type="submit" class="info-update-btn my-3" onclick ="location.href = '{% url 'account:update' %}'" >회원정보 수정</button>
-            
-            
+            <button type="submit" class="info-update-btn my-3" onclick ="location.href = '{% url 'account:update' %}'" >회원정보 수정</button> 
         </div>
     </form>
 </div>    
