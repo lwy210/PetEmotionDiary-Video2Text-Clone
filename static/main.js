@@ -195,13 +195,23 @@ function show_events(month, day, diarys) {
                     }
                     
                     // 키워드
-                    var keywords_container = $("<div class='d-flex align-items-center'>");
+                    var keywords_container = $("<div class='d-flex flex-wrap align-items-center'></div>");
                     var keywords_div = "<i class='bi bi-tags' style='color: #198754'></i>";
                     var keywords = response["keywords"];
                     // bookmark = response["bookmark"];
+                    var keyword_counter = 0;  // For counting how many keywords has been added
+
                     for(var j = 0; j < keywords.length; j++) {
+                        // Add new row after every 8th keyword
+                        if(keyword_counter == 7) {
+                            keywords_container.append("<br/>");
+                            keyword_counter = 0;
+                        }
+
                         keywords_div += "<div class='mx-2' style='font-size: 0.9rem'>#" + keywords[j] + "</div>";
+                        keyword_counter++;
                     }
+
                     keywords_container.append(keywords_div);
                     // 제목 + 북마크 합치기
                     var diary_title_div = $("<div class='d-flex align-items-center'></div>");

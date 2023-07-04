@@ -136,13 +136,15 @@
                                         </ul>
                                     </div>
 
-                                    <div class="d-flex align-items-center">
+                                    <div class="d-flex align-items-center flex-wrap">
                                         <i class="bi bi-tags" style="color: #198754"></i>
                                         {% for keyword in diary.keywords.all %}
+                                            {% if forloop.counter|divisibleby:7 and not forloop.first %}
+                                                <br/>
+                                            {% endif %}
                                             <div class="mx-2" style="font-size: 0.9rem">#{{ keyword }}</div>
                                         {% endfor %}
                                     </div>
-        
                                     
 
                                     <div class="d-flex justify-content-end mt-4">

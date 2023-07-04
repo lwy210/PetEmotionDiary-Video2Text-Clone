@@ -169,6 +169,8 @@ def diary_create_before(request):
 #         form = DiaryForm(request.user)
 #     context = {"form": form}
 #     return render(request, "diary/diary_form.html", context)
+
+
 # ========================= local end =======================
 
 
