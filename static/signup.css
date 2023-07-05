@@ -79,7 +79,7 @@
   
 /* 계정 생성시 필요한 정보 입력 */
 .small-notice {
-  font-size : xx-small;
+  font-size : small;
   color : red;
 }
 
@@ -180,6 +180,6 @@
 
 /* 회원가입 페이지 배경 설정 */
 .signup-card{
-  background-image: url("img/background.jpg");
+  /* background-image: url("img/Dog_face_pattern_and_bones.jpg"); */
   background-size: cover;
 }
