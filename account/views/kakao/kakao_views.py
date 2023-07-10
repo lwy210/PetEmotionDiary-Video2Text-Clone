@@ -43,7 +43,7 @@ def KaKaoSignInCallBackView(request):
         },
     )
 
-    profile = kakao_account.get("profile")
+    profile = kakao_account.get("profile", {"nickname": "임시이름"})
     nickname = profile.get("nickname")
     email = kakao_account.get("email", "임시이메일@naver.com")
     birthday = kakao_account.get("birthday", "0101")
