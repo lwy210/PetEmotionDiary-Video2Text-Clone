@@ -66,11 +66,12 @@
                     <div class="diary-day">날짜 : {{ diary.day }}</div>
 
                     <div class="diary-thumbnail">
-                        {% if diary.thumbnail %}
+                        {% comment %} {% if diary.thumbnail %}
                             <img src="{{ diary.thumbnail }}" alt="Diary Thumbnail" class="d-block rounded">
                         {% else %}
                             <img src={% static "img/no posts.jpg" %} alt="Diary Thumbnail" class="d-block rounded">
-                        {% endif %}
+                        {% endif %} {% endcomment %}
+                            <video src="{{ diary.video }}" controls  class="d-block rounded"></video>
                     </div>
 
                     <div class="diary-title">제목 : {{ diary.title }}</div>

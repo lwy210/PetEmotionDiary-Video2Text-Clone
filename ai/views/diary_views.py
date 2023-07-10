@@ -283,16 +283,30 @@ def chatGPT(input_data, emotion, action, detected_objs):
     relationship = {"E": "외향", "I": "내향"}
     proto_dog = {"C": "교감", "W": "본능"}
     dependence = {"T": "신뢰", "N": "필요"}
-
+    for obj in detected_objs:
+        obj.replace("'", "")
     prompt = ""
 
     if input_data["pet"].kind == "Dog":
-        prompt = f"""강아지 이름: {input_data['pet'].name}
+        prompt = f"""아래 사항에 기반해 강아지가 쓴 일기처럼 강아지 시점에서 일기를 써주세요. 창작은 삼가고 아래 사항에 기반해서 작성해주세요. 
+
+일기를 토대로 제목도 작성해주세요 
+일기를 토대로 키워드도 작성해주세요
+
+일기 형식 : "title: 제목
+
+diary_content: 일기 내용이다멍! 
+
+keywords: 키워드1, 키워드2, ..." 
+
+모든 결과 분량 제한: 300자
+
+강아지 이름: "{input_data['pet'].name}"
 강아지 성별 : {input_data['pet'].gender}
 강아지 감정: {emotion}
 강아지 행동: {action}
 강아지 성격: {activity[input_data['personality'].activity]}, {relationship[input_data['personality'].relationship]}, {proto_dog[input_data['personality'].proto_dog]}, {dependence[input_data['personality'].dependence]}
-강아지가 보이는 것: {detected_objs}
+강아지가 보이는 것: {detected_objs} (영어는 한국어로 번역해서 반영해주세요. ''와 같은 따옴표는 일기에 작성하지 말아주세요.)
 
 주인 이름: {input_data['pet'].owner_name}
 
@@ -300,27 +314,30 @@ def chatGPT(input_data, emotion, action, detected_objs):
 
 참고사항: 주인 - 주인 이름, 나 - 강아지 이름
 
-위 사항을 기반해 강아지가 쓴 일기처럼 강아지 시점에서 일기를 써주세요.
+일기 내용을 작성 시 문장 끝마다 무조건 강아지처럼 멍!을 붙여주세요.
+    """
+
+    elif input_data["pet"].kind == "Cat":
+        prompt = f"""아래 사항에 기반해 고양이가 쓴 일기처럼 고양이 시점에서 일기를 써주세요. 창작은 삼가고 아래 사항에 기반해서 작성해주세요. 
 
 일기를 토대로 제목도 작성해주세요 
 일기를 토대로 키워드도 작성해주세요
 
-일기 형식 : "title: 편안한 하루
+일기 형식 : "title: 제목
 
-diary_content: 오늘은 정말 편안한 하루였어멍. 집사가 나에게 소중한 이름 냐옹이라고 부르면서 마주쳐줬어멍.
+diary_content: 일기 내용이다냥! 
 
-keywords: 편안, 안정, 누워있기" 
+keywords: 키워드1, 키워드2, ..." 
 
-위 모든 결과 분량 제한: 900자
-    """
-
-    elif input_data["pet"].kind == "Cat":
-        prompt = f"""고양이 이름: {input_data['pet'].name}
+모든 결과 분량 제한: 300자
+        
+        
+고양이 이름: {input_data['pet'].name}
 고양이 성별 : {input_data['pet'].gender}
 고양이 감정: {emotion}
 고양이 행동: {action}
 고양이 성격: {activity[input_data['personality'].activity]}, {relationship[input_data['personality'].relationship]}, {proto_dog[input_data['personality'].proto_dog]}, {dependence[input_data['personality'].dependence]}
-고양이가 보이는 것: {detected_objs}
+고양이가 보이는 것: {detected_objs} (영어는 한국어로 번역해서 반영해주세요. ''와 같은 따옴표는 일기에 작성하지 말아주세요.)
 
 주인 이름: {input_data['pet'].owner_name}
 
@@ -328,18 +345,7 @@ keywords: 편안, 안정, 누워있기"
 
 참고사항: 주인 - 주인 이름, 나 - 고양이 이름
 
-위 사항을 기반해 고양이가 쓴 일기처럼 고양이 시점에서 일기를 써주세요.
-
-일기를 토대로 제목도 작성해주세요 
-일기를 토대로 키워드도 작성해주세요
-
-일기 형식 : "title: 편안한 하루
-
-diary_content: 오늘은 정말 편안한 하루였어냥. 집사가 나에게 소중한 이름 냐옹이라고 부르면서 마주쳐줬어냥.
-
-keywords: 편안, 안정, 누워있기"
-
-위 모든 결과 분량 제한: 900자
+일기 내용을 작성 시 문장 끝마다 무조건 고양이처럼 냥!을 붙여주세요.
     """
 
     completion = openai.ChatCompletion.create(
@@ -353,23 +359,27 @@ keywords: 편안, 안정, 누워있기"
 #####################################################################################################
 def parse_result(result_string):
     result = {}
+    current_key = None
 
     # Split by new lines
     lines = result_string.split("\n")
 
     for line in lines:
-        # Split by colon
-        key_value = line.split(": ")
+        # Split by colon only once
+        key_value = line.split(":", 1)
 
         if len(key_value) == 2:
-            key = key_value[0]
-            value = key_value[1]
+            current_key = key_value[0].strip()
+            value = key_value[1].strip()
 
-            # If the key is "키워드", split the value by comma
-            if key == "keywords":
+            # If the key is "keywords", split the value by comma
+            if current_key == "keywords":
                 value = [v.strip() for v in value.split(",")]
 
-            result[key] = value
+            result[current_key] = value
+        elif current_key:
+            # If a line doesn't have a colon, append it to the last key's value
+            result[current_key] += " " + line.strip()
 
     return result
 
@@ -405,6 +415,7 @@ def create_diary(context):
         context, pet_emotion, pet_action, detected_objs
     )  # chatGPI 일기 쓰기 요청
 
+    print(result)
     result_dict = parse_result(result)
 
     return result_dict

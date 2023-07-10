@@ -3,11 +3,11 @@
 {% block content %}
 
 <body class="signup-card">
-    <div class="signup-container my-3 px-3">
-        <form name="register" method="post">
+    <div class="signup-container my-3 px-3" style="max-width: 100%; width: 35%;">
+        <form name="register" method="post"style="width: 100%;">
             {% csrf_token %}
             {% include "form_errors.html" %}
-            <article class="card-body mx-auto" style="max-width: 500px;">
+            <article class="card-body mx-auto" style="max-width: 100%; background-color: white; padding: auto 50px auto 50px; border-radius: 15px; box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .15); margin-top: 50px; padding: 50px 80px ">
                 <div class="mb-3">
                     <h2 class="card-title mt-3 text-center">회원가입하개 <img src={% static 'img/black_paw.png' %} height="30px"></h2>
                     <p class="text-center">아래 항목들을 모두 입력해주시개</p>

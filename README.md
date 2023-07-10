@@ -12,7 +12,7 @@
 <br>
 
 ## 프로젝트 구조
-
+### <a href="https://www.notion.so/251e96bd8af04a0e8b1f87fb08a5dd28"> 구축 과정 정리 </a>
 <div align="center"><img src=https://github.com/AIVLE-School-Third-Big-Project/PetEmotionDiary-Video2Text/assets/86940335/07fa66aa-fa46-4f1e-85ad-bfc4c2cc0a89/></div>
 
 - Django의 내장 서버는 배포에 알맞지 않아, Gunicorn과 Nginx로 서버를 구축하였습니다.
@@ -57,7 +57,7 @@
 <br>
 
 ## ERD
-<img src="https://github.com/AIVLE-School-Third-Big-Project/PetEmotionDiary-Video2Text/assets/86940335/c7c675f0-6cdb-424b-b726-3ce0034458cc">
+<img src="https://github.com/AIVLE-School-Third-Big-Project/PetEmotionDiary-Video2Text/assets/86940335/30634fa1-7420-4609-a6f1-0b92fed9a54f">
 
 <br>
 <br>

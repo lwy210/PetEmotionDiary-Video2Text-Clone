@@ -65,33 +65,42 @@ def diary_create_before(request):
             diary.registered_time = timezone.now()
             diary.updated_time = timezone.now()
             diary.user_id = user_id
-            diary.save()
+            diary_count = request.user.user_diary.count() + 1
+            video_url = request.FILES.get("video")
+            video_filename = (
+                f"static/media/temp_videos/video{user_id}_{diary_count}.mp4"
+            )
+
+            with open(video_filename, "wb") as video_file:
+                for chunk in video_url.chunks():
+                    video_file.write(chunk)
 
             input = {
                 "pet": pet,
                 "personality": personality,
                 "add_content": content_list,
-                "video": diary.video.url,
+                "video": video_filename,
                 "diary_id": diary.id,
             }
 
             result = diary_views.create_diary(input)
 
             local_file_path = f"static/media/split_imgs/{diary.id}frame_0.jpg"
-            s3_bucket = settings.AWS_STORAGE_BUCKET_NAME
-            s3_key = f"media/diary_images/{diary.id}frame_0.jpg"
-            upload_file_to_s3(local_file_path, s3_bucket, s3_key)
-            diary.thumbnail = f"{settings.MEDIA_URL}diary_images/{diary.id}frame_0.jpg"
-            diary.save()
 
-            content_list = request.POST.getlist("content[]")
+            # S3에 올리기 (썸네일)
+            s3_bucket = settings.AWS_STORAGE_BUCKET_NAME
+            s3_key = f"media/diary_images/thumbnail{user_id}_{diary_count}.jpg"
+            upload_file_to_s3(local_file_path, s3_bucket, s3_key)
+            thumbnail_url = (
+                f"{settings.MEDIA_URL}diary_images/thumbnail{user_id}_{diary_count}.jpg"
+            )
 
             context = {
                 "form": form,
                 "content": result["diary_content"],
                 "title": result["title"],
-                "video": diary.video.url,
-                "thumbnail": diary.thumbnail,
+                "video": video_filename,
+                "thumbnail": thumbnail_url,
                 "keywords": result["keywords"],
                 "diary_id": diary.id,
             }
@@ -185,9 +194,9 @@ def diary_create(request):
             diary.updated_time = timezone.now()
             diary.content = request.POST.get("content")
             diary.title = request.POST.get("title")
-            diary.id = request.POST.get("diary_id")
-            diary.video = request.POST.get("video")
-            diary.thumbnail = request.POST.get("thumbnail")
+            diary_count = request.user.user_diary.count() + 1
+            user_id = request.user.id
+            video_url = request.POST.get("video")
 
             checked_list_str = request.POST["keyword_list"]
             checked_list = json.loads(checked_list_str)
@@ -198,10 +207,22 @@ def diary_create(request):
                     keyword_obj, created = Keyword.objects.get_or_create(word=keyword)
                     keywords_list.append(keyword_obj)
 
+            # S3에 올리기 (비디오)
+            s3_bucket = settings.AWS_STORAGE_BUCKET_NAME
+            s3_key = f"media/diary_videos/video{user_id}_{diary_count}.mp4"
+            upload_file_to_s3(video_url, s3_bucket, s3_key)
+            diary.video = (
+                f"{settings.MEDIA_URL}diary_videos/video{user_id}_{diary_count}.mp4"
+            )
+
+            diary.thumbnail = (
+                f"{settings.MEDIA_URL}diary_images/thumbnail{user_id}_{diary_count}.jpg"
+            )
+
             diary.save()
             diary.keywords.set(keywords_list)
 
-            return redirect("diary:index")
+            return redirect("diary:detail", diary_id=diary.id)
     else:
         form = DiaryForm(request.user)
     context = {"form": form}
