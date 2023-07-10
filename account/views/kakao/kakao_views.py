@@ -34,10 +34,17 @@ def KaKaoSignInCallBackView(request):
     )
 
     profile_json = user_info_response.json()
-    kakao_account = profile_json.get("kakao_account")
+    kakao_account = profile_json.get(
+        "kakao_account",
+        {
+            "profile": {"nickname": "임시이름"},
+            "email": "임시이메일@gmail.com",
+            "birthday": "0101",
+        },
+    )
 
-    profile = kakao_account.get("profile", "")
-    nickname = profile.get("nickname", "임시이름")
+    profile = kakao_account.get("profile")
+    nickname = profile.get("nickname")
     email = kakao_account.get("email", "임시이메일@naver.com")
     birthday = kakao_account.get("birthday", "0101")
 
