@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.auth import login
 import requests
 from account.models import User
+import random
 
 
 def KakaoSignInView(request):
@@ -37,7 +38,7 @@ def KaKaoSignInCallBackView(request):
     kakao_account = profile_json.get(
         "kakao_account",
         {
-            "profile": {"nickname": "임시이름"},
+            "profile": {"nickname": "임시이름" + random.randrange(1, 999999)},
             "email": "임시이메일@gmail.com",
             "birthday": "0101",
         },
